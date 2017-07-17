@@ -18,13 +18,13 @@ import retrofit2.Response;
 public class DefaultWeChatPayService implements WeChatPayService
 {
     private final WeChatPayProperties weChatPayProperties;
-    private final WeChatPayClient     weChatPayApiService;
+    private final WeChatPayClient     weChatPayClient;
     
     public DefaultWeChatPayService(final WeChatPayProperties weChatPayProperties,
-        final WeChatPayClient weChatPayApiService)
+        final WeChatPayClient weChatPayClient)
     {
         this.weChatPayProperties = weChatPayProperties;
-        this.weChatPayApiService = weChatPayApiService;
+        this.weChatPayClient = weChatPayClient;
     }
     
     @Override
@@ -44,7 +44,7 @@ public class DefaultWeChatPayService implements WeChatPayService
             .build();
         request.setSign(SignUtil.sign(request, this.weChatPayProperties.getMchKey()));
         
-        final Call<WeChatPayUnifiedOrderResponse> responseCall = this.weChatPayApiService.unifiedOrder(request);
+        final Call<WeChatPayUnifiedOrderResponse> responseCall = this.weChatPayClient.unifiedOrder(request);
         final Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
         checkResponse(response);
         final WeChatPayUnifiedOrderResponse successfulBody = response.body();
