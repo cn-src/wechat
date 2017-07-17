@@ -13,14 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayNotifyResult
+public class WeChatPayNotifyResult extends AbstractWeChatPayResponse
 {
-    @XmlElement(name = "return_code")
-    private String returnCode;
-    
-    @XmlElement(name = "return_msg")
-    private String returnMsg;
-    
     @XmlElement(name = "appid")
     private String appId;
     
@@ -30,23 +24,8 @@ public class WeChatPayNotifyResult
     @XmlElement(name = "device_info")
     private String deviceInfo;
     
-    @XmlElement(name = "nonce_str")
-    private String nonceStr;
-    
-    @XmlElement(name = "sign")
-    private String sign;
-    
     @XmlElement(name = "sign_type")
     private String signType;
-    
-    @XmlElement(name = "result_code")
-    private String resultCode;
-    
-    @XmlElement(name = "err_code")
-    private String errCode;
-    
-    @XmlElement(name = "err_code_des")
-    private String errCodeDes;
     
     @XmlElement(name = "openid")
     private String openId;
