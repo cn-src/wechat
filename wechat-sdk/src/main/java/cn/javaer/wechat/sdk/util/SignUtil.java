@@ -1,4 +1,4 @@
-package cn.javaer.wechat.pay.spring.boot.autoconfigure.sdk;
+package cn.javaer.wechat.sdk.util;
 
 import jodd.util.StringUtil;
 import org.apache.commons.codec.digest.DigestUtils;

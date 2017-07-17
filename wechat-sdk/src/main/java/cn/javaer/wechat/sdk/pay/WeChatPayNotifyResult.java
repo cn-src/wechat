@@ -1,4 +1,4 @@
-package cn.javaer.wechat.pay.spring.boot.autoconfigure.sdk;
+package cn.javaer.wechat.sdk.pay;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayApiNotifyResult
+public class WeChatPayNotifyResult
 {
     @XmlElement(name = "return_code")
     private String returnCode;

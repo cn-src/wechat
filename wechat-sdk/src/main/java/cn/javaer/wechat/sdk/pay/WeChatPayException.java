@@ -1,9 +1,11 @@
-package cn.javaer.wechat.pay.spring.boot.autoconfigure;
+package cn.javaer.wechat.sdk.pay;
+
+import cn.javaer.wechat.sdk.WeChatException;
 
 /**
  * @author zhangpeng
  */
-public class WeChatPayException extends RuntimeException
+public class WeChatPayException extends WeChatException
 {
     public WeChatPayException(final String message)
     {

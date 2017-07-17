@@ -11,10 +11,6 @@
     <artifactId>wechat-spring-boot-autoconfigure</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <retrofit2.version>2.3.0</retrofit2.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -24,14 +20,17 @@
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit-mock</artifactId>
-            <version>${retrofit2.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
-            <version>3.7.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.javaer.wechat</groupId>
+            <artifactId>wechat-sdk</artifactId>
         </dependency>
 
         <dependency>
@@ -44,11 +43,7 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.github.kenglxn.qrgen</groupId>
-            <artifactId>javase</artifactId>
-            <version>2.2.0</version>
-        </dependency>
+
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
@@ -56,21 +51,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jodd</groupId>
-            <artifactId>jodd-bean</artifactId>
-            <version>3.8.5</version>
-        </dependency>
+      
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>
-            <version>${retrofit2.version}</version>
         </dependency>
-        <dependency>
-            <groupId>cn.javaer</groupId>
-            <artifactId>retrofit2-converter-jaxb</artifactId>
-        </dependency>
+
     </dependencies>
 </project>

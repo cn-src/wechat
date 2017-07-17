@@ -1,6 +1,8 @@
-package cn.javaer.wechat.pay.spring.boot.autoconfigure.sdk;
+package cn.javaer.wechat.sdk.pay;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,17 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @author zhangpeng
  */
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayApiUnifiedOrderResponse
+public class WeChatPayUnifiedOrderResponse extends AbstractWeChatPayResponse
 {
-    @XmlElement(name = "return_code")
-    private String returnCode;
-    
-    @XmlElement(name = "return_msg")
-    private String returnMsg;
-    
     @XmlElement(name = "appid")
     private String appId;
     
@@ -29,21 +27,6 @@ public class WeChatPayApiUnifiedOrderResponse
     
     @XmlElement(name = "device_info")
     private String deviceInfo;
-    
-    @XmlElement(name = "nonce_str")
-    private String nonceStr;
-    
-    @XmlElement(name = "sign")
-    private String sign;
-    
-    @XmlElement(name = "result_code")
-    private String resultCode;
-    
-    @XmlElement(name = "err_code")
-    private String errCode;
-    
-    @XmlElement(name = "err_code_des")
-    private String errCodeDes;
     
     @XmlElement(name = "trade_type")
     private String tradeType;

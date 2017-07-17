@@ -1,4 +1,4 @@
-package cn.javaer.wechat.pay.spring.boot.autoconfigure.sdk;
+package cn.javaer.wechat.sdk.pay;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayApiUnifiedOrderRequest
+public class WeChatPayUnifiedOrderRequest
 {
     @XmlElement(name = "appid")
     private String appId;

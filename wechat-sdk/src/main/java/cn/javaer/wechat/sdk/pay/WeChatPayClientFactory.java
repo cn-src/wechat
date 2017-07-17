@@ -1,4 +1,4 @@
-package cn.javaer.wechat.pay.spring.boot.autoconfigure.sdk;
+package cn.javaer.wechat.sdk.pay;
 
 import cn.javaer.retrofit2.converter.jaxb.JaxbConverterFactory;
 import retrofit2.Retrofit;
@@ -6,14 +6,14 @@ import retrofit2.Retrofit;
 /**
  * @author zhangpeng
  */
-public class WeChatPayApiServiceFactory
+public class WeChatPayClientFactory
 {
-    public WeChatPayApiService create()
+    public WeChatPayClient create()
     {
         final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(WeChatPayApiService.baseUrl)
+            .baseUrl(WeChatPayClient.baseUrl)
             .addConverterFactory(JaxbConverterFactory.create())
             .build();
-        return retrofit.create(WeChatPayApiService.class);
+        return retrofit.create(WeChatPayClient.class);
     }
 }
