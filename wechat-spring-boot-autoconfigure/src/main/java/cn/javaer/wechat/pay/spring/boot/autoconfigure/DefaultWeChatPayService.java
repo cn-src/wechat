@@ -1,5 +1,6 @@
 package cn.javaer.wechat.pay.spring.boot.autoconfigure;
 
+import cn.javaer.wechat.sdk.pay.AbstractWeChatPayResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
 import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
@@ -101,23 +102,23 @@ public class DefaultWeChatPayService implements WeChatPayService
         }
     }
     
-    private void checkResponseBody(final WeChatPayUnifiedOrderResponse response)
+    private void checkResponseBody(final AbstractWeChatPayResponse response)
     {
         if (null == response)
         {
-            throw new WeChatPayException("WeChatPayUnifiedOrderResponse is null");
+            throw new WeChatPayException("WeChat pay response is null");
         }
         if (!response.getSign().equals(SignUtil.sign(response, this.weChatPayProperties.getMchKey())))
         {
-            throw new WeChatPayException("WeChatPayUnifiedOrderResponse 'sign' error");
+            throw new WeChatPayException("WeChat pay response 'sign' error");
         }
         if (!"SUCCESS".equals(response.getReturnCode()))
         {
-            throw new WeChatPayException("WeChatPayUnifiedOrderResponse error, response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
         }
         if (!"SUCCESS".equals(response.getResultCode()))
         {
-            throw new WeChatPayException("WeChatPayUnifiedOrderResponse error, response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
         }
     }
 }
