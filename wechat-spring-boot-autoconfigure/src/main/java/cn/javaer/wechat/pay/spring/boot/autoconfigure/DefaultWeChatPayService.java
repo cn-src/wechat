@@ -45,7 +45,7 @@ public class DefaultWeChatPayService implements WeChatPayService
         request.setSign(SignUtil.sign(request, this.weChatPayProperties.getMchKey()));
         
         final Call<WeChatPayUnifiedOrderResponse> responseCall = this.weChatPayApiService.unifiedOrder(request);
-        Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
+        final Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
         checkResponse(response);
         final WeChatPayUnifiedOrderResponse successfulBody = response.body();
         checkResponseBody(successfulBody);
@@ -60,41 +60,13 @@ public class DefaultWeChatPayService implements WeChatPayService
     @Override
     public NotifyResult notifyResult(final WeChatPayNotifyResult apiNotifyResult)
     {
+        checkResponseBody(apiNotifyResult);
         final NotifyResult notifyResult = new NotifyResult();
-        notifyResult.setHasSuccessful(false);
-        
-        if (null == apiNotifyResult)
-        {
-            notifyResult.setMessage("NOTIFY_RESULT_EMPTY");
-            return notifyResult;
-        }
-        
-        final String sign = SignUtil.sign(apiNotifyResult, weChatPayProperties.getMchKey());
-        if (!sign.equals(apiNotifyResult.getSign()))
-        {
-            notifyResult.setMessage("SIGN_ERROR");
-            return notifyResult;
-        }
-        
         BeanCopy.beans(apiNotifyResult, notifyResult).copy();
-        
-        if ("SUCCESS".equals(apiNotifyResult.getReturnCode()))
-        {
-            if ("SUCCESS".equals(apiNotifyResult.getReturnCode()))
-            {
-                notifyResult.setHasSuccessful(true);
-            } else
-            {
-                // noting
-            }
-        } else
-        {
-            notifyResult.setMessage(apiNotifyResult.getReturnMsg());
-        }
         return notifyResult;
     }
     
-    private void checkResponse(Response response)
+    private void checkResponse(final Response response)
     {
         if (!response.isSuccessful())
         {

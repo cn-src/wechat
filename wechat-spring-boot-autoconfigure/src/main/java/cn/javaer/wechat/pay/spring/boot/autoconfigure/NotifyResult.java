@@ -8,15 +8,6 @@ import lombok.Data;
 @Data
 public class NotifyResult
 {
-    private Boolean hasSuccessful;
-    private String  message;
-    //
-    private String  nonceStr;
-    
-    private String errCode;
-    
-    private String errCodeDes;
-    
     private String openId;
     
     private String isSubscribe;
