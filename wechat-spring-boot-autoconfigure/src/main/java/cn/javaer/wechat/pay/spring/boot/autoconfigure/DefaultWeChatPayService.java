@@ -70,7 +70,7 @@ public class DefaultWeChatPayService implements WeChatPayService
     {
         if (!response.isSuccessful())
         {
-            throw new WeChatPayException("Response error, response:" + response.toString());
+            throw new WeChatPayException("Http response error, response:" + response.toString());
         }
     }
     
