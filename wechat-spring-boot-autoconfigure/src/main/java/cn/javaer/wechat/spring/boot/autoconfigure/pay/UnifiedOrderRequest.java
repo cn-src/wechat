@@ -30,8 +30,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UnifiedOrderRequest
 {
-    private String  goodsName;
-    private String  orderId;
+    private String  body;
+    private String  outTradeNo;
     private Integer totalFee;
     private String  productId;
+    
+    public enum PayMode
+    {
+        SCAN_QR_CODE_MODE_TWO
+    }
 }

@@ -44,12 +44,13 @@ public class DefaultWeChatPayService implements WeChatPayService
     }
     
     @Override
-    public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest unifiedOrderRequest)
+    public ScanQrCodePayModelTwoUnifiedOrderResponse unifiedOrder(
+        final UnifiedOrderRequest unifiedOrderRequest)
     {
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
-            .body(unifiedOrderRequest.getGoodsName())
+            .body(unifiedOrderRequest.getBody())
             .nonceStr(SignUtil.uuid())
-            .outTradeNo(unifiedOrderRequest.getOrderId())
+            .outTradeNo(unifiedOrderRequest.getOutTradeNo())
             .productId(unifiedOrderRequest.getProductId())
             .totalFee(unifiedOrderRequest.getTotalFee())
             .appId(this.weChatPayProperties.getAppId())
@@ -65,12 +66,12 @@ public class DefaultWeChatPayService implements WeChatPayService
         checkResponse(response);
         final WeChatPayUnifiedOrderResponse successfulBody = response.body();
         checkResponseBody(successfulBody);
-        
-        final UnifiedOrderResponse unifiedOrderResponse = new UnifiedOrderResponse();
-        unifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
-        unifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
-        unifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
-        return unifiedOrderResponse;
+    
+        final ScanQrCodePayModelTwoUnifiedOrderResponse scanQrCodePayModelTwoUnifiedOrderResponse = new ScanQrCodePayModelTwoUnifiedOrderResponse();
+        scanQrCodePayModelTwoUnifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
+        scanQrCodePayModelTwoUnifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
+        scanQrCodePayModelTwoUnifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
+        return scanQrCodePayModelTwoUnifiedOrderResponse;
     }
     
     @Override
