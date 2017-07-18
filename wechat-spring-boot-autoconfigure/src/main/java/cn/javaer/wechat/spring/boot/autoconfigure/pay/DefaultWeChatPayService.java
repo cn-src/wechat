@@ -26,6 +26,7 @@ import cn.javaer.wechat.sdk.util.SignUtil;
 import io.vavr.control.Try;
 import jodd.bean.BeanCopy;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.util.Assert;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -60,7 +61,7 @@ public class DefaultWeChatPayService implements WeChatPayService
             .spbillCreateIp(this.weChatPayProperties.getClientIp())
             .tradeType("NATIVE")
             .build();
-        request.setSign(SignUtil.sign(request, this.weChatPayProperties.getMchKey()));
+        checkAndSignRequest(request);
         
         final Call<WeChatPayUnifiedOrderResponse> responseCall = this.weChatPayClient.unifiedOrder(request);
         final Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
@@ -82,6 +83,15 @@ public class DefaultWeChatPayService implements WeChatPayService
         final NotifyResult notifyResult = new NotifyResult();
         BeanCopy.beans(apiNotifyResult, notifyResult).copy();
         return notifyResult;
+    }
+    
+    private void checkAndSignRequest(final WeChatPayUnifiedOrderRequest request)
+    {
+        if ("NATIVE".equals(request.getTradeType()))
+        {
+            Assert.hasText(request.getProductId(), "When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
+        }
+        request.setSign(SignUtil.sign(request, this.weChatPayProperties.getMchKey()));
     }
     
     private void checkResponse(final Response response)
