@@ -16,7 +16,6 @@
 
 package cn.javaer.wechat.sdk.util;
 
-import jodd.util.StringUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.lang.reflect.Field;
@@ -45,8 +44,8 @@ public class SignUtil
                 field.setAccessible(true);
                 final Object objVal;
                 objVal = field.get(data);
-                
-                if (null != objVal && StringUtil.isNotEmpty(objVal.toString()))
+    
+                if (null != objVal && !objVal.toString().isEmpty())
                 {
                     final String dataKey = Optional.ofNullable(field.getAnnotation(XmlElement.class))
                         .map(XmlElement::name)
