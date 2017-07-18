@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.pay.spring.boot.autoconfigure;
+package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.AbstractWeChatPayResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
