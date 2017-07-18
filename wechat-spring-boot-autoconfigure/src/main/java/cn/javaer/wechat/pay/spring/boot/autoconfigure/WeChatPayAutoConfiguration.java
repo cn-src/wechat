@@ -1,7 +1,7 @@
 package cn.javaer.wechat.pay.spring.boot.autoconfigure;
 
-import cn.javaer.wechat.pay.spring.boot.autoconfigure.sdk.WeChatPayApiService;
-import cn.javaer.wechat.pay.spring.boot.autoconfigure.sdk.WeChatPayApiServiceFactory;
+import cn.javaer.wechat.sdk.pay.WeChatPayClient;
+import cn.javaer.wechat.sdk.pay.WeChatPayClientFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -23,16 +23,15 @@ public class WeChatPayAutoConfiguration
     
     @Bean
     @ConditionalOnMissingBean
-    
-    public WeChatPayApiService wxpayApiService()
+    public WeChatPayClient weChatPayClient()
     {
-        return new WeChatPayApiServiceFactory().create();
+        return new WeChatPayClientFactory().create();
     }
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayService wxpayService(final WeChatPayApiService weChatPayApiService)
+    public WeChatPayService weChatPayService(final WeChatPayClient weChatPayClient)
     {
-        return new DefaultWeChatPayService(this.weChatPayProperties, weChatPayApiService);
+        return new DefaultWeChatPayService(this.weChatPayProperties, weChatPayClient);
     }
 }

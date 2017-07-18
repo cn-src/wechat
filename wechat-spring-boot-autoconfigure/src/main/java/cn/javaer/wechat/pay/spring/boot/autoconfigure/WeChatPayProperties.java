@@ -1,12 +1,14 @@
 package cn.javaer.wechat.pay.spring.boot.autoconfigure;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author zhangpeng
  */
-@Data
+@Setter
+@Getter
 @ConfigurationProperties(prefix = "wechat.pay")
 public class WeChatPayProperties
 {
