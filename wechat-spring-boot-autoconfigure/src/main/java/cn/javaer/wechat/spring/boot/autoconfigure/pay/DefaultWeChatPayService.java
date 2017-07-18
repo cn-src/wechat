@@ -47,14 +47,15 @@ public class DefaultWeChatPayService implements WeChatPayService
     }
     
     @Override
-    public UnifiedOrderResponse unifiedOrder(@NotNull final UnifiedOrderRequest unifiedOrderRequest)
+    public ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
+        @NotNull final ScanQrCodePayTwoUnifiedOrderRequest scanQrCodePayTwoUnifiedOrderRequest)
     {
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
-            .body(unifiedOrderRequest.getBody())
+            .body(scanQrCodePayTwoUnifiedOrderRequest.getBody())
             .nonceStr(SignUtil.uuid())
-            .outTradeNo(unifiedOrderRequest.getOutTradeNo())
-            .productId(unifiedOrderRequest.getProductId())
-            .totalFee(unifiedOrderRequest.getTotalFee())
+            .outTradeNo(scanQrCodePayTwoUnifiedOrderRequest.getOutTradeNo())
+            .productId(scanQrCodePayTwoUnifiedOrderRequest.getProductId())
+            .totalFee(scanQrCodePayTwoUnifiedOrderRequest.getTotalFee())
             .appId(this.weChatPayProperties.getAppId())
             .mchId(this.weChatPayProperties.getMchId())
             .notifyUrl(this.weChatPayProperties.getNotifyUrl())
@@ -69,11 +70,11 @@ public class DefaultWeChatPayService implements WeChatPayService
         final WeChatPayUnifiedOrderResponse successfulBody = response.body();
         checkResponseBody(successfulBody);
         
-        final UnifiedOrderResponse unifiedOrderResponse = new UnifiedOrderResponse();
-        unifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
-        unifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
-        unifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
-        return unifiedOrderResponse;
+        final ScanQrCodePayTwoUnifiedOrderResponse scanQrCodePayTwoUnifiedOrderResponse = new ScanQrCodePayTwoUnifiedOrderResponse();
+        scanQrCodePayTwoUnifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
+        scanQrCodePayTwoUnifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
+        scanQrCodePayTwoUnifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
+        return scanQrCodePayTwoUnifiedOrderResponse;
     }
     
     @Override

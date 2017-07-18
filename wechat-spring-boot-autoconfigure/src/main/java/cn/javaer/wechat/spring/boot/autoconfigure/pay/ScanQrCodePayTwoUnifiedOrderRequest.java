@@ -29,17 +29,10 @@ import lombok.NonNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UnifiedOrderRequest
+public class ScanQrCodePayTwoUnifiedOrderRequest
 {
     @NonNull private String  body;
     @NonNull private String  outTradeNo;
     @NonNull private Integer totalFee;
-    private          String  productId;
-    
-    @NonNull private PayMode payMode;
-    
-    public enum PayMode
-    {
-        SCAN_QR_CODE_MODE_TWO
-    }
+    @NonNull private String  productId;
 }

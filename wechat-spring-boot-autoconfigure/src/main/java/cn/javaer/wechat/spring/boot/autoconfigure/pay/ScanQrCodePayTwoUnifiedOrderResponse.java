@@ -22,7 +22,7 @@ import lombok.Data;
  * @author zhangpeng
  */
 @Data
-public class UnifiedOrderResponse
+public class ScanQrCodePayTwoUnifiedOrderResponse
 {
     private String nonceStr;
     private String prepayId;
