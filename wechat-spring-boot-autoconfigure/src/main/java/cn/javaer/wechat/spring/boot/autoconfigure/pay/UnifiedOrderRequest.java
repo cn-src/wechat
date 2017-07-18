@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 /**
  * @author zhangpeng
@@ -30,10 +31,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UnifiedOrderRequest
 {
-    private String  body;
-    private String  outTradeNo;
-    private Integer totalFee;
-    private String  productId;
+    @NonNull private String  body;
+    @NonNull private String  outTradeNo;
+    @NonNull private Integer totalFee;
+    private          String  productId;
+    
+    @NonNull private PayMode payMode;
     
     public enum PayMode
     {
