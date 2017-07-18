@@ -25,6 +25,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.util.SignUtil;
 import io.vavr.control.Try;
 import jodd.bean.BeanCopy;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -36,16 +37,16 @@ public class DefaultWeChatPayService implements WeChatPayService
     private final WeChatPayProperties weChatPayProperties;
     private final WeChatPayClient     weChatPayClient;
     
-    public DefaultWeChatPayService(final WeChatPayProperties weChatPayProperties,
-        final WeChatPayClient weChatPayClient)
+    public DefaultWeChatPayService(
+        @NotNull final WeChatPayProperties weChatPayProperties,
+        @NotNull final WeChatPayClient weChatPayClient)
     {
         this.weChatPayProperties = weChatPayProperties;
         this.weChatPayClient = weChatPayClient;
     }
     
     @Override
-    public ScanQrCodePayModelTwoUnifiedOrderResponse unifiedOrder(
-        final UnifiedOrderRequest unifiedOrderRequest)
+    public UnifiedOrderResponse unifiedOrder(@NotNull final UnifiedOrderRequest unifiedOrderRequest)
     {
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
             .body(unifiedOrderRequest.getBody())
@@ -66,16 +67,16 @@ public class DefaultWeChatPayService implements WeChatPayService
         checkResponse(response);
         final WeChatPayUnifiedOrderResponse successfulBody = response.body();
         checkResponseBody(successfulBody);
-    
-        final ScanQrCodePayModelTwoUnifiedOrderResponse scanQrCodePayModelTwoUnifiedOrderResponse = new ScanQrCodePayModelTwoUnifiedOrderResponse();
-        scanQrCodePayModelTwoUnifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
-        scanQrCodePayModelTwoUnifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
-        scanQrCodePayModelTwoUnifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
-        return scanQrCodePayModelTwoUnifiedOrderResponse;
+        
+        final UnifiedOrderResponse unifiedOrderResponse = new UnifiedOrderResponse();
+        unifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
+        unifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
+        unifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
+        return unifiedOrderResponse;
     }
     
     @Override
-    public NotifyResult notifyResult(final WeChatPayNotifyResult apiNotifyResult)
+    public NotifyResult notifyResult(@NotNull final WeChatPayNotifyResult apiNotifyResult)
     {
         checkResponseBody(apiNotifyResult);
         final NotifyResult notifyResult = new NotifyResult();

@@ -23,7 +23,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
  */
 public interface WeChatPayService
 {
-    ScanQrCodePayModelTwoUnifiedOrderResponse unifiedOrder(
+    UnifiedOrderResponse unifiedOrder(
         UnifiedOrderRequest unifiedOrderRequest);
     
     NotifyResult notifyResult(WeChatPayNotifyResult apiNotifyResult);
