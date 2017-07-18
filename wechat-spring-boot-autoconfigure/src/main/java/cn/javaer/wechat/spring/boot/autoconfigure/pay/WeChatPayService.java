@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayException;
 import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 
 /**
@@ -24,7 +25,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 public interface WeChatPayService
 {
     ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
-        ScanQrCodePayTwoUnifiedOrderRequest scanQrCodePayTwoUnifiedOrderRequest);
+        ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest)throws WeChatPayException;
     
-    NotifyResult notifyResult(WeChatPayNotifyResult apiNotifyResult);
+    NotifyResult notifyResult(WeChatPayNotifyResult apiNotifyResult)throws WeChatPayException;
 }

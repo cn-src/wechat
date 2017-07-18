@@ -48,14 +48,14 @@ public class DefaultWeChatPayService implements WeChatPayService
     
     @Override
     public ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
-        @NotNull final ScanQrCodePayTwoUnifiedOrderRequest scanQrCodePayTwoUnifiedOrderRequest)
+        @NotNull final ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException
     {
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
-            .body(scanQrCodePayTwoUnifiedOrderRequest.getBody())
+            .body(unifiedOrderRequest.getBody())
             .nonceStr(SignUtil.uuid())
-            .outTradeNo(scanQrCodePayTwoUnifiedOrderRequest.getOutTradeNo())
-            .productId(scanQrCodePayTwoUnifiedOrderRequest.getProductId())
-            .totalFee(scanQrCodePayTwoUnifiedOrderRequest.getTotalFee())
+            .outTradeNo(unifiedOrderRequest.getOutTradeNo())
+            .productId(unifiedOrderRequest.getProductId())
+            .totalFee(unifiedOrderRequest.getTotalFee())
             .appId(this.weChatPayProperties.getAppId())
             .mchId(this.weChatPayProperties.getMchId())
             .notifyUrl(this.weChatPayProperties.getNotifyUrl())
@@ -78,7 +78,7 @@ public class DefaultWeChatPayService implements WeChatPayService
     }
     
     @Override
-    public NotifyResult notifyResult(@NotNull final WeChatPayNotifyResult apiNotifyResult)
+    public NotifyResult notifyResult(@NotNull final WeChatPayNotifyResult apiNotifyResult) throws WeChatPayException
     {
         checkResponseBody(apiNotifyResult);
         final NotifyResult notifyResult = new NotifyResult();
