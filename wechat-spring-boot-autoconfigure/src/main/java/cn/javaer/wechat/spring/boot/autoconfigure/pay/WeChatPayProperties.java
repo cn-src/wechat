@@ -17,6 +17,7 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -28,9 +29,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "wechat.pay")
 public class WeChatPayProperties
 {
-    private String appId;
-    private String mchId;
-    private String mchKey;
-    private String notifyUrl;
-    private String clientIp;
+    @NonNull private String appId;
+    @NonNull private String mchId;
+    @NonNull private String mchKey;
+    @NonNull private String notifyUrl;
+    @NonNull private String clientIp;
 }
