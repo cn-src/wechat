@@ -20,6 +20,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayClientFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -49,5 +50,12 @@ public class WeChatPayAutoConfiguration
     public WeChatPayService weChatPayService(final WeChatPayClient weChatPayClient)
     {
         return new DefaultWeChatPayService(this.weChatPayProperties, weChatPayClient);
+    }
+    
+    @Bean
+    @ConditionalOnMissingBean
+    public WeChatPayController weChatPayController(final ApplicationEventPublisher publisher)
+    {
+        return new WeChatPayController(publisher, this.weChatPayProperties);
     }
 }
