@@ -17,6 +17,8 @@
 package cn.javaer.wechat.sdk.pay;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import retrofit2.Response;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -29,6 +31,15 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class WeChatPayUtils
 {
+    public static void checkAndSignRequest(final WeChatPayUnifiedOrderRequest request, final String mchKey)
+    {
+        if ("NATIVE".equals(request.getTradeType()) && (request.getProductId() == null || request.getProductId().isEmpty()))
+        {
+            throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
+        }
+        request.setSign(WeChatPayUtils.sign(request, mchKey));
+    }
+    
     public static String sign(final Object data, final String key)
     {
         
@@ -68,4 +79,33 @@ public class WeChatPayUtils
         sb.append("key").append('=').append(key);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
+    
+    public static void checkResponse(final Response response)
+    {
+        if (!response.isSuccessful())
+        {
+            throw new WeChatPayException("Http response error, response:" + response.toString());
+        }
+    }
+    
+    public static void checkResponseBody(final AbstractWeChatPayResponse response, final String mchKey)
+    {
+        if (null == response)
+        {
+            throw new WeChatPayException("WeChat pay response is null");
+        }
+        if (!response.getSign().equals(WeChatPayUtils.sign(response, mchKey)))
+        {
+            throw new WeChatPayException("WeChat pay response 'sign' error");
+        }
+        if (!"SUCCESS".equals(response.getReturnCode()))
+        {
+            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
+        }
+        if (!"SUCCESS".equals(response.getResultCode()))
+        {
+            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
+        }
+    }
+    
 }

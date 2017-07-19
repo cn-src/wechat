@@ -16,18 +16,14 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import cn.javaer.wechat.sdk.pay.AbstractWeChatPayResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
-import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import io.vavr.control.Try;
-import jodd.bean.BeanCopy;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.util.Assert;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -63,64 +59,18 @@ public class DefaultWeChatPayService implements WeChatPayService
             .spbillCreateIp(this.weChatPayProperties.getClientIp())
             .tradeType("NATIVE")
             .build();
-        checkAndSignRequest(request);
+        WeChatPayUtils.checkAndSignRequest(request, this.weChatPayProperties.getMchKey());
         
         final Call<WeChatPayUnifiedOrderResponse> responseCall = this.weChatPayClient.unifiedOrder(request);
         final Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
-        checkResponse(response);
+        WeChatPayUtils.checkResponse(response);
         final WeChatPayUnifiedOrderResponse successfulBody = response.body();
-        checkResponseBody(successfulBody);
+        WeChatPayUtils.checkResponseBody(successfulBody, this.weChatPayProperties.getMchKey());
         
         final ScanQrCodePayTwoUnifiedOrderResponse scanQrCodePayTwoUnifiedOrderResponse = new ScanQrCodePayTwoUnifiedOrderResponse();
         scanQrCodePayTwoUnifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
         scanQrCodePayTwoUnifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
         scanQrCodePayTwoUnifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
         return scanQrCodePayTwoUnifiedOrderResponse;
-    }
-    
-    @Override
-    public NotifyResult notifyResult(@NotNull final WeChatPayNotifyResult apiNotifyResult) throws WeChatPayException
-    {
-        checkResponseBody(apiNotifyResult);
-        final NotifyResult notifyResult = new NotifyResult();
-        BeanCopy.beans(apiNotifyResult, notifyResult).copy();
-        return notifyResult;
-    }
-    
-    private void checkAndSignRequest(final WeChatPayUnifiedOrderRequest request)
-    {
-        if ("NATIVE".equals(request.getTradeType()))
-        {
-            Assert.hasText(request.getProductId(), "When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
-        }
-        request.setSign(WeChatPayUtils.sign(request, this.weChatPayProperties.getMchKey()));
-    }
-    
-    private void checkResponse(final Response response)
-    {
-        if (!response.isSuccessful())
-        {
-            throw new WeChatPayException("Http response error, response:" + response.toString());
-        }
-    }
-    
-    private void checkResponseBody(final AbstractWeChatPayResponse response)
-    {
-        if (null == response)
-        {
-            throw new WeChatPayException("WeChat pay response is null");
-        }
-        if (!response.getSign().equals(WeChatPayUtils.sign(response, this.weChatPayProperties.getMchKey())))
-        {
-            throw new WeChatPayException("WeChat pay response 'sign' error");
-        }
-        if (!"SUCCESS".equals(response.getReturnCode()))
-        {
-            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
-        }
-        if (!"SUCCESS".equals(response.getResultCode()))
-        {
-            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
-        }
     }
 }
