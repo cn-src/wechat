@@ -22,7 +22,8 @@ import cn.javaer.wechat.sdk.pay.WeChatPayException;
 import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
-import cn.javaer.wechat.sdk.util.SignUtil;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
 import io.vavr.control.Try;
 import jodd.bean.BeanCopy;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +53,7 @@ public class DefaultWeChatPayService implements WeChatPayService
     {
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
             .body(unifiedOrderRequest.getBody())
-            .nonceStr(SignUtil.uuid())
+            .nonceStr(WeChatUtils.uuid())
             .outTradeNo(unifiedOrderRequest.getOutTradeNo())
             .productId(unifiedOrderRequest.getProductId())
             .totalFee(unifiedOrderRequest.getTotalFee())
@@ -92,7 +93,7 @@ public class DefaultWeChatPayService implements WeChatPayService
         {
             Assert.hasText(request.getProductId(), "When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
         }
-        request.setSign(SignUtil.sign(request, this.weChatPayProperties.getMchKey()));
+        request.setSign(WeChatPayUtils.sign(request, this.weChatPayProperties.getMchKey()));
     }
     
     private void checkResponse(final Response response)
@@ -109,7 +110,7 @@ public class DefaultWeChatPayService implements WeChatPayService
         {
             throw new WeChatPayException("WeChat pay response is null");
         }
-        if (!response.getSign().equals(SignUtil.sign(response, this.weChatPayProperties.getMchKey())))
+        if (!response.getSign().equals(WeChatPayUtils.sign(response, this.weChatPayProperties.getMchKey())))
         {
             throw new WeChatPayException("WeChat pay response 'sign' error");
         }
