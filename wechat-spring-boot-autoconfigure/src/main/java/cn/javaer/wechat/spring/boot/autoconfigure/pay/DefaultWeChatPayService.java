@@ -35,6 +35,7 @@ public class DefaultWeChatPayService implements WeChatPayService
     private final WeChatPayProperties weChatPayProperties;
     private final WeChatPayClient     weChatPayClient;
     
+    @SuppressWarnings("WeakerAccess")
     public DefaultWeChatPayService(
         @NotNull final WeChatPayProperties weChatPayProperties,
         @NotNull final WeChatPayClient weChatPayClient)
