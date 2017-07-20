@@ -44,6 +44,9 @@ public class WeChatPayController
         this.weChatPayProperties = weChatPayProperties;
     }
     
+    /**
+     * 接收支付结果通知，将其发布为事件。
+     */
     @RequestMapping(path = "${wechat.pay.notify-result-path:/api/wechat/pay/notify_result}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResultReturn notifyResult(@RequestBody final WeChatPayNotifyResult weChatPayNotifyResult)
     {
