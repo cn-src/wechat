@@ -51,7 +51,7 @@ public class DefaultWeChatPayService implements WeChatPayService
     public ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
         @NotNull final ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException
     {
-        final String notifyUrl = this.weChatPayProperties.getNotifyAddress() + this.weChatPayProperties.getNotifyResultPath();
+        final String notifyUrl = WeChatUtils.joinPath(this.weChatPayProperties.getNotifyAddress(), this.weChatPayProperties.getNotifyResultPath());
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
             .body(unifiedOrderRequest.getBody())
             .nonceStr(WeChatUtils.uuid())

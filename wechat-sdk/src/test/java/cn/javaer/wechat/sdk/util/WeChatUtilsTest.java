@@ -26,6 +26,21 @@ import static org.junit.Assert.assertEquals;
 public class WeChatUtilsTest
 {
     @Test
+    public void uuid() throws Exception
+    {
+        assertEquals(32, WeChatUtils.uuid().length());
+    }
+    
+    @Test
+    public void joinPath() throws Exception
+    {
+        assertEquals("http://demo.com/path/demo", WeChatUtils.joinPath("http://demo.com", "path/demo"));
+        assertEquals("http://demo.com/path/demo", WeChatUtils.joinPath("http://demo.com/", "path/demo"));
+        assertEquals("http://demo.com/path/demo", WeChatUtils.joinPath("http://demo.com", "path/demo/"));
+        assertEquals("http://demo.com/path/demo", WeChatUtils.joinPath("http://demo.com/", "path/demo/"));
+    }
+    
+    @Test
     public void toHtmlImgBase64() throws Exception
     {
         assertEquals("data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQAAAABRBrPYAAABGklEQVR42u3aQc6DIBCG4XHlMTyqHtUjdMkKfoUBibX+XXQgbV4XJOjDagIfECW88zwEBoPBYLCvYk70mbbOMrkhLPpigLVjqaciNfUHWCO27IXROo1xwF47WBdWurCOzOlyBevC8sJVMuR+fYMZsBLiJT7usx5mwI4nl+2ffS/MgG3Fmtc9umN+x4UrNSOsHQtReJl1gE+jwvo0ZWB2bP942FQ2uQhxmCVLqa3FkimnyXxRU5gd89vL8dRczCyYKTuFuK82VbBWrNrQ6kQ5rjxgzdhQrV7V4W6FtWX5uqlkyO3VK8yUObWaIQLrwfKuVvSUAWvKqku/WKJ4wjtfdMBMWX3pF7dS8Zwtr7Me9nnG7xAwGAwG+xn2B7MFEZLdn68SAAAAAElFTkSuQmCC", WeChatUtils.toHtmlImgBase64("demo"));
