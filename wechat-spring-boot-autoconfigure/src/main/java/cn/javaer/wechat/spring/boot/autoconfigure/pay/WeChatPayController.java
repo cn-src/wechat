@@ -29,12 +29,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhangpeng
  */
 @RestController
-@RequestMapping("api/wechat/pay")   //TODO 可配置
 public class WeChatPayController
 {
     private final ApplicationEventPublisher publisher;
     private final WeChatPayProperties       weChatPayProperties;
     
+    @SuppressWarnings("WeakerAccess")
     public WeChatPayController(final ApplicationEventPublisher publisher,
         final WeChatPayProperties weChatPayProperties)
     {
@@ -42,8 +42,7 @@ public class WeChatPayController
         this.weChatPayProperties = weChatPayProperties;
     }
     
-    //TODO 可配置
-    @RequestMapping(path = "notify_result", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
+    @RequestMapping(path = "${wechat.pay.notify-result-path:/api/wechat/pay/notify_result}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResultReturn notifyResult(@RequestBody final WeChatPayNotifyResult weChatPayNotifyResult)
     {
         // TODO 不抛出异常
