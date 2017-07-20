@@ -23,6 +23,13 @@ import cn.javaer.wechat.sdk.pay.WeChatPayException;
  */
 public interface WeChatPayService
 {
+    /**
+     * 微信支付-扫码支付-模式二
+     *
+     * @param unifiedOrderRequest 扫码支付-模式二 请求，在官方原始api上尽可能最少化
+     * @return 响应结果已处理掉官方的return和result的异常流程
+     * @throws WeChatPayException 支付接口调用失败
+     */
     ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
         ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException;
 }
