@@ -19,6 +19,7 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import jodd.bean.BeanCopy;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,8 +36,9 @@ public class WeChatPayController
     private final WeChatPayProperties       weChatPayProperties;
     
     @SuppressWarnings("WeakerAccess")
-    public WeChatPayController(final ApplicationEventPublisher publisher,
-        final WeChatPayProperties weChatPayProperties)
+    public WeChatPayController(
+        @NotNull final ApplicationEventPublisher publisher,
+        @NotNull final WeChatPayProperties weChatPayProperties)
     {
         this.publisher = publisher;
         this.weChatPayProperties = weChatPayProperties;
