@@ -22,16 +22,25 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * 微信支付-配置项
+ *
  * @author zhangpeng
  */
+@SuppressWarnings("WeakerAccess")
 @Setter
 @Getter
 @ConfigurationProperties(prefix = "wechat.pay")
 public class WeChatPayProperties
 {
+    /** 公众号的唯一标识 */
     @NonNull private String appId;
+    
+    /** 商户号 */
     @NonNull private String mchId;
+    
+    /** 商户的key，需要去微信支付平台设置 */
     @NonNull private String mchKey;
-    @NonNull private String notifyUrl;
+    
+    /** 服务器的公网ip */
     @NonNull private String clientIp;
 }
