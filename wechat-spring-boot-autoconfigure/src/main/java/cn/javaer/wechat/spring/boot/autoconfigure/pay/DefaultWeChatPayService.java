@@ -44,6 +44,9 @@ public class DefaultWeChatPayService implements WeChatPayService
         this.weChatPayClient = weChatPayClient;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
         @NotNull final ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException

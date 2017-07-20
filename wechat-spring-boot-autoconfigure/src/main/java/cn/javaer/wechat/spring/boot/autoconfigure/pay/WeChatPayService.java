@@ -19,12 +19,14 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
 
 /**
+ * 微信支付服务
+ *
  * @author zhangpeng
  */
 public interface WeChatPayService
 {
     /**
-     * 微信支付-扫码支付-模式二
+     * 微信支付-扫码支付-模式二, 统一下单
      *
      * @param unifiedOrderRequest 扫码支付-模式二 请求，在官方原始api上尽可能最少化
      * @return 响应结果已处理掉官方的return和result的异常流程
