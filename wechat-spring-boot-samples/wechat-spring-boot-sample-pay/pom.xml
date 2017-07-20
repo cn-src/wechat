@@ -27,5 +27,10 @@
 
     <artifactId>wechat-spring-boot-sample-pay</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>cn.javaer.wechat</groupId>
+            <artifactId>wechat-spring-boot-starter-pay</artifactId>
+        </dependency>
+    </dependencies>
 </project>
