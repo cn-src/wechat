@@ -18,7 +18,6 @@ package cn.javaer.wechat.sdk.pay;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import retrofit2.Response;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.lang.reflect.Field;
 import java.util.Map;
