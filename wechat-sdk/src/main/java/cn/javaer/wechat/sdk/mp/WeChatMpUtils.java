@@ -56,11 +56,11 @@ public class WeChatMpUtils
      * @see #generateAuthorizeUrl(String, String, AuthorizeScope, String)
      */
     public static String generateAuthorizeUrl(
-        @NotNull final String appid,
+        @NotNull final String appId,
         @NotNull final String redirectUri,
         @NotNull final AuthorizeScope scope)
     {
-        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid
+        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                + "&redirect_uri=" + URLEncoder.encode(redirectUri)
                + "&response_type=code&scope=" + scope.getScope()
                + "#wechat_redirect";
