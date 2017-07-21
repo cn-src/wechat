@@ -23,8 +23,11 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
+ * 扫码支付模式二，请求参数
+ *
  * @author zhangpeng
  */
+@SuppressWarnings("WeakerAccess")
 @Data
 @Builder
 @NoArgsConstructor

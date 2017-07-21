@@ -19,8 +19,11 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 import lombok.Data;
 
 /**
+ * 扫码支付模式二，响应结果
+ *
  * @author zhangpeng
  */
+@SuppressWarnings("WeakerAccess")
 @Data
 public class ScanQrCodePayTwoUnifiedOrderResponse
 {
