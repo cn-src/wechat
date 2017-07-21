@@ -17,52 +17,37 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
-import org.junit.After;
-import org.junit.Before;
+import javassist.ClassPool;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * @author zhangpeng
  */
 public class WeChatPayAutoConfigurationTest
 {
-    private AnnotationConfigApplicationContext context;
-    
-    @Before
-    public void setUp() throws Exception
+    @Test
+    public void weChatPayClientMissBean() throws Exception
     {
-        this.context = new AnnotationConfigApplicationContext();
-        this.context.register(WeChatPayAutoConfiguration.class);
-    }
-    
-    @After
-    public void close()
-    {
-        if (this.context != null)
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext())
         {
-            this.context.close();
+            context.register(WeChatPayAutoConfiguration.class);
+            context.refresh();
+            assertThatThrownBy(() -> context.getBean(WeChatPayClient.class)).hasMessage("No qualifying bean of type 'cn.javaer.wechat.sdk.pay.WeChatPayClient' available");
         }
     }
-    
-    // @Test
-    // public void weChatPayClientMissBean() throws Exception
-    // {
-    //     this.context.refresh();
-    //     assertThatThrownBy(() -> this.context.getBean(WeChatPayClient.class)).hasMessage("No qualifying bean of type 'cn.javaer.wechat.sdk.pay.WeChatPayClient' available");
-    // }
-    //
+
     @Test
     public void weChatPayClient() throws Exception
     {
-        // final ClassPool pool = ClassPool.getDefault();
-        // // pool.insertClassPath(new ClassClassPath(this.getClass()));
-        // final CtClass ctClass = pool.makeClass("cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger");
-        // System.out.println(ctClass.toClass());
-        // this.getClass().getClassLoader().loadClass("cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger");
-        // this.context = new AnnotationConfigApplicationContext();
-        // this.context.register(WeChatPayAutoConfiguration.class);
-        this.context.refresh();
-        this.context.getBean(WeChatPayClient.class);
+        ClassPool.getDefault().makeClass("cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger").toClass();
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext())
+        {
+            context.register(WeChatPayAutoConfiguration.class);
+            context.refresh();
+            context.getBean(WeChatPayClient.class);
+        }
     }
 }
