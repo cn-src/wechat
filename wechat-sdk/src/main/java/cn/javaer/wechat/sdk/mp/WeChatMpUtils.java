@@ -31,7 +31,7 @@ public class WeChatMpUtils
      * <p>
      * 用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。
      *
-     * @param appid       公众号的唯一标识
+     * @param appId       公众号的唯一标识
      * @param redirectUri 授权后重定向的回调链接地址
      * @param scope       应用授权作用域，snsapi_base（不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）
      * @param state       重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
@@ -42,12 +42,12 @@ public class WeChatMpUtils
      * <br/> https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
      */
     public static String generateAuthorizeUrl(
-        @NotNull final String appid,
+        @NotNull final String appId,
         @NotNull final String redirectUri,
         @NotNull final AuthorizeScope scope,
         @NotNull final String state)
     {
-        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appid
+        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                + "&response_type=code&scope=" + scope.getScope()
                + "&state=" + state + "#wechat_redirect";
