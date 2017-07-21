@@ -17,13 +17,17 @@
 package cn.javaer.wechat.sdk.mp;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface WeChatMpClient
 {
     String baseUrl = "https://api.weixin.qq.com";
     
     @GET("/sns/oauth2/access_token")
-    Call<WeChatMpAccessTokenResponse> snsOauth2AccessToken(@Body WeChatMpAccessTokenRequest request);
+    Call<WeChatMpAccessTokenResponse> snsOauth2AccessToken(
+        @Query("appid") String appId,
+        @Query("secret") String secret,
+        @Query("code") String code,
+        @Query("grant_type") String grantType);
 }

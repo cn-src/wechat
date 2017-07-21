@@ -18,8 +18,11 @@ package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
 import cn.javaer.wechat.sdk.mp.AuthorizeScope;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -39,9 +42,22 @@ public class WeChatMpController
     /**
      * 生成授权引导url。
      */
-    @GetMapping(path = "${wechat.mp.generate-authorize-url:/public/wechat/mp/generate_authorize_url}")
+    @GetMapping(path = "${wechat.mp.generate-authorize-url-path:/public/wechat/mp/generate_authorize_url}")
     public String generateAuthorizeUrl()
     {
-        return WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), this.weChatMpProperties.getRedirectUri(), AuthorizeScope.BASE);
+        final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(),
+                                                        StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
+                                                            ? this.weChatMpProperties.getAuthorizeCodePath()
+                                                            : "/public/wechat/mp/authorize_code");
+        return WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE);
+    }
+    
+    @GetMapping(path = "${wechat.mp.authorize-code-path:/public/wechat/mp/authorize_code}")
+    public String authorizeCode(
+        @RequestParam("code") final String code,
+        @RequestParam(value = "state", required = false) final String state)
+    {
+        
+        return "";
     }
 }

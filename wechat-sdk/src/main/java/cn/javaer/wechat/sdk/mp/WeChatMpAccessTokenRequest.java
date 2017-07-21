@@ -24,4 +24,8 @@ import lombok.Data;
 @Data
 public class WeChatMpAccessTokenRequest
 {
+    private String appid;
+    private String secret;
+    private String code;
+    private String grant_type;
 }
