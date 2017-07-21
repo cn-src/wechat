@@ -29,7 +29,6 @@ import org.springframework.context.annotation.Configuration;
  * @author zhangpeng
  */
 @Configuration
-// @ConditionalOnWebApplication
 @ConditionalOnClass(name = "cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger")
 @EnableConfigurationProperties(WeChatPayProperties.class)
 public class WeChatPayAutoConfiguration
