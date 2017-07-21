@@ -77,6 +77,7 @@
         <module>wechat-sdk</module>
         <module>wechat-spring-boot-autoconfigure</module>
         <module>wechat-spring-boot-starter-pay</module>
+        <module>wechat-spring-boot-starter-mp</module>
     </modules>
 
     <build>
