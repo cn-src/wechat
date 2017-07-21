@@ -19,8 +19,7 @@ package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 import cn.javaer.wechat.sdk.mp.AuthorizeScope;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,7 +39,7 @@ public class WeChatMpController
     /**
      * 生成授权引导url。
      */
-    @RequestMapping(path = "${wechat.mp.generate-authorize-url:/public/wechat/mp/generate_authorize_url}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
+    @GetMapping(path = "${wechat.mp.generate-authorize-url:/public/wechat/mp/generate_authorize_url}")
     public String generateAuthorizeUrl()
     {
         return WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), this.weChatMpProperties.getRedirectUri(), AuthorizeScope.BASE);
