@@ -28,6 +28,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 /**
+ * 微信支付服务
+ *
  * @author zhangpeng
  */
 public class DefaultWeChatPayService implements WeChatPayService
