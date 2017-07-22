@@ -41,4 +41,6 @@ public class WeChatMpProperties
     private String authorizeCodePath;
     
     private String generateAuthorizeUrlPath;
+    
+    private String redirectView;
 }

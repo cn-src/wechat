@@ -27,6 +27,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 import retrofit2.Call;
 
 /**
@@ -64,12 +65,13 @@ public class WeChatMpController
     }
     
     @GetMapping(path = "${wechat.mp.authorize-code-path:/public/wechat/mp/authorize_code}")
-    public void authorizeCode(
+    public RedirectView authorizeCode(
         @RequestParam("code") final String code,
         @RequestParam(value = "state", required = false) final String state)
     {
         final Call<WeChatMpAccessTokenResponse> responseCall
-            = weChatMpClient.snsOauth2AccessToken(
-            weChatMpProperties.getAppId(), weChatMpProperties.getSecret(), code, "authorization_code");
+            = this.weChatMpClient.snsOauth2AccessToken(
+            this.weChatMpProperties.getAppId(), this.weChatMpProperties.getSecret(), code, "authorization_code");
+        return new RedirectView(this.weChatMpProperties.getRedirectView());
     }
 }
