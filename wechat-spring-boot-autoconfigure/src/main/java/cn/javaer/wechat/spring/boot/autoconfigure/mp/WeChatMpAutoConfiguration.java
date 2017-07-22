@@ -41,6 +41,6 @@ public class WeChatMpAutoConfiguration
     @ConditionalOnMissingBean
     public WeChatMpController weChatMpController()
     {
-        return new WeChatMpController(this.weChatMpProperties);
+        return new WeChatMpController(this.weChatMpProperties, weChatMpClient, publisher);
     }
 }

@@ -17,13 +17,17 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
 import cn.javaer.wechat.sdk.mp.AuthorizeScope;
+import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
+import cn.javaer.wechat.sdk.mp.WeChatMpClient;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import retrofit2.Call;
 
 /**
  * @author zhangpeng
@@ -31,12 +35,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WeChatMpController
 {
-    private final WeChatMpProperties weChatMpProperties;
+    private final WeChatMpProperties        weChatMpProperties;
+    private final WeChatMpClient            weChatMpClient;
+    private final ApplicationEventPublisher publisher;
     
     @SuppressWarnings("WeakerAccess")
-    public WeChatMpController(@NotNull final WeChatMpProperties weChatMpProperties)
+    public WeChatMpController(
+        @NotNull final WeChatMpProperties weChatMpProperties,
+        @NotNull final WeChatMpClient weChatMpClient,
+        @NotNull final ApplicationEventPublisher publisher)
     {
         this.weChatMpProperties = weChatMpProperties;
+        this.weChatMpClient = weChatMpClient;
+        this.publisher = publisher;
     }
     
     /**
@@ -53,11 +64,13 @@ public class WeChatMpController
     }
     
     @GetMapping(path = "${wechat.mp.authorize-code-path:/public/wechat/mp/authorize_code}")
-    public String authorizeCode(
+    public void authorizeCode(
         @RequestParam("code") final String code,
         @RequestParam(value = "state", required = false) final String state)
     {
-        
-        return "";
+        final Call<WeChatMpAccessTokenResponse> responseCall = weChatMpClient.snsOauth2AccessToken(weChatMpProperties.getAppId(),
+                                                                                                   weChatMpProperties.getSecret(),
+                                                                                                   code,
+                                                                                                   "authorization_code");
     }
 }

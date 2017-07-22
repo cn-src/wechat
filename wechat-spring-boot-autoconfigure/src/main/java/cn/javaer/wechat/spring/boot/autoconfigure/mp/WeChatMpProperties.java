@@ -33,6 +33,8 @@ public class WeChatMpProperties
     /** 公众号的唯一标识 */
     @NonNull private String appId;
     
+    @NonNull private String secret;
+    
     @NonNull private String notifyAddress;
     
     /** 授权后重定向的回调链接path */
