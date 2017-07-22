@@ -56,10 +56,10 @@ public class WeChatMpController
     @GetMapping(path = "${wechat.mp.generate-authorize-url-path:/public/wechat/mp/generate_authorize_url}")
     public String generateAuthorizeUrl()
     {
-        final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(),
-                                                        StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
-                                                            ? this.weChatMpProperties.getAuthorizeCodePath()
-                                                            : "/public/wechat/mp/authorize_code");
+        final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
+            ? this.weChatMpProperties.getAuthorizeCodePath()
+            : "/public/wechat/mp/authorize_code";
+        final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), path);
         return WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE);
     }
     
@@ -68,9 +68,8 @@ public class WeChatMpController
         @RequestParam("code") final String code,
         @RequestParam(value = "state", required = false) final String state)
     {
-        final Call<WeChatMpAccessTokenResponse> responseCall = weChatMpClient.snsOauth2AccessToken(weChatMpProperties.getAppId(),
-                                                                                                   weChatMpProperties.getSecret(),
-                                                                                                   code,
-                                                                                                   "authorization_code");
+        final Call<WeChatMpAccessTokenResponse> responseCall
+            = weChatMpClient.snsOauth2AccessToken(
+            weChatMpProperties.getAppId(), weChatMpProperties.getSecret(), code, "authorization_code");
     }
 }
