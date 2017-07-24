@@ -19,8 +19,10 @@ package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 import cn.javaer.wechat.sdk.mp.AuthorizeScope;
 import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
 import cn.javaer.wechat.sdk.mp.WeChatMpClient;
+import cn.javaer.wechat.sdk.mp.WeChatMpException;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
+import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.StringUtils;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * @author zhangpeng
@@ -72,6 +75,9 @@ public class WeChatMpController
         final Call<WeChatMpAccessTokenResponse> responseCall
             = this.weChatMpClient.snsOauth2AccessToken(
             this.weChatMpProperties.getAppId(), this.weChatMpProperties.getSecret(), code, "authorization_code");
+        final Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
+    
+        this.publisher.publishEvent(new WeChatMpAccessTokenResponseEvent(response.body()));
         return new RedirectView(this.weChatMpProperties.getRedirectView());
     }
 }
