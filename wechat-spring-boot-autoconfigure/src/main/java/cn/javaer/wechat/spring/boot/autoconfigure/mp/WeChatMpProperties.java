@@ -42,5 +42,6 @@ public class WeChatMpProperties
     
     private String generateAuthorizeUrlPath;
     
-    private String redirectView;
+    /** 授权成功后的重定向地址 */
+    @NonNull private String redirectView;
 }
