@@ -43,6 +43,12 @@
             <!--jitpack.io-->
             <groupId>cn.javaer</groupId>
             <artifactId>retrofit2-converter-jaxb</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-jackson</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
