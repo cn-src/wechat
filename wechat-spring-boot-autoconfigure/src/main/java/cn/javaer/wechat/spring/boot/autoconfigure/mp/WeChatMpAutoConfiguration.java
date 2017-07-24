@@ -16,9 +16,12 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
+import cn.javaer.wechat.sdk.mp.WeChatMpClient;
+import cn.javaer.wechat.sdk.mp.WeChatMpClientFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -39,8 +42,16 @@ public class WeChatMpAutoConfiguration
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatMpController weChatMpController()
+    public WeChatMpController weChatMpController(final WeChatMpClient weChatMpClient,
+        final ApplicationEventPublisher publisher)
     {
         return new WeChatMpController(this.weChatMpProperties, weChatMpClient, publisher);
+    }
+    
+    @Bean
+    @ConditionalOnMissingBean
+    public WeChatMpClient weChatMpClient()
+    {
+        return new WeChatMpClientFactory().create();
     }
 }
