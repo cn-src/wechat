@@ -15,13 +15,17 @@
   ~    limitations under the License.
   -->
 
-<html lang="zh">
+<html lang="zh-cmn-Hans">
 <head>
   <meta charset="UTF-8">
   <title>微信公众号获取授权信息Demo</title>
   <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<a href="">获取授权信息</a>
+<a href="" id="demo">获取授权信息</a>
+<script>
+    var accessUrl = $.get('/public/wechat/mp/generate_authorize_url')
+    $('#demo').attr('href', accessUrl)
+</script>
 </body>
 </html>
