@@ -31,9 +31,9 @@ public class SampleMpController
     private WeChatMpAccessTokenResponse tokenResponse;
     
     @GetMapping("/demo")
-    public WeChatMpAccessTokenResponse index()
+    public Object index()
     {
-        return this.tokenResponse;
+        return this.tokenResponse == null ? "No response" : this.tokenResponse;
     }
     
     @EventListener
