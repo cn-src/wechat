@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-cn.javaer.wechat.spring.boot.autoconfigure.pay.WeChatPayAutoConfiguration
+cn.javaer.wechat.spring.boot.autoconfigure.pay.WeChatPayAutoConfiguration,\
+cn.javaer.wechat.spring.boot.autoconfigure.mp.WeChatMpAutoConfiguration
