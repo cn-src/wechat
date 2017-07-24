@@ -30,7 +30,7 @@ public class SampleMpController
 {
     private WeChatMpAccessTokenResponse tokenResponse;
     
-    @GetMapping("/index")
+    @GetMapping("/demo")
     public WeChatMpAccessTokenResponse index()
     {
         return this.tokenResponse;
