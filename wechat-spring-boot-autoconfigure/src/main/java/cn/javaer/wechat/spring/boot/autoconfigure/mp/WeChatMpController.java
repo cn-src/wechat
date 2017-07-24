@@ -74,7 +74,7 @@ public class WeChatMpController
     {
         final Call<WeChatMpAccessTokenResponse> responseCall
             = this.weChatMpClient.snsOauth2AccessToken(
-            this.weChatMpProperties.getAppId(), this.weChatMpProperties.getSecret(), code, "authorization_code");
+            this.weChatMpProperties.getAppId(), this.weChatMpProperties.getAppSecret(), code, "authorization_code");
         final Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
     
         this.publisher.publishEvent(new WeChatMpAccessTokenResponseEvent(response.body()));
