@@ -26,10 +26,6 @@
             <artifactId>vavr</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
             <!--jitpack.io-->
             <groupId>com.github.kenglxn.qrgen</groupId>
             <artifactId>javase</artifactId>
