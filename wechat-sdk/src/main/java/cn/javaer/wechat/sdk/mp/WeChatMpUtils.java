@@ -16,7 +16,6 @@
 
 package cn.javaer.wechat.sdk.mp;
 
-import cn.javaer.wechat.sdk.pay.WeChatPayException;
 import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Response;
@@ -81,12 +80,12 @@ public class WeChatMpUtils
     {
         if (null == response)
         {
-            throw new WeChatPayException("WeChat mp response is null");
+            throw new WeChatMpException("WeChat mp response is null");
         }
         
         if (null != response.getErrcode() && !response.getErrcode().isEmpty())
         {
-            throw new WeChatPayException("WeChat mp response error, response:" + response.toString());
+            throw new WeChatMpException("WeChat mp response error, response:" + response.toString());
         }
     }
 }

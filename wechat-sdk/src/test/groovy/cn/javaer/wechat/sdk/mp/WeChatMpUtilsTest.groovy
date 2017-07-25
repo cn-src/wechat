@@ -16,6 +16,9 @@
 
 package cn.javaer.wechat.sdk.mp
 
+import okhttp3.MediaType
+import okhttp3.ResponseBody
+import retrofit2.Response
 import spock.lang.Specification
 
 /**
@@ -35,7 +38,7 @@ class WeChatMpUtilsTest extends Specification {
         expectedBASE == authorizeUrl
     }
 
-    def "GenerateAuthorizeUrl::没有state参数"() {
+    def "GenerateAuthorizeUrl:: no 'state' param"() {
         when:
         final String authorizeUrl = WeChatMpUtils.generateAuthorizeUrl("wx520c15f417810387",
                 "https://chong.qq.com/php/index.php?d=&c=wxAdapter&m=mobileDeal&showwxpaytitle=1&vb2ctag=4_2030_5_1194_60",
@@ -48,8 +51,26 @@ class WeChatMpUtilsTest extends Specification {
     }
 
     def "CheckResponse"() {
+        when:
+        WeChatMpUtils.checkResponse(Response.error(400, ResponseBody.create(MediaType.parse(""), "error")))
+
+        then:
+        thrown(WeChatMpException)
     }
 
     def "CheckResponseBody"() {
+        when:
+        WeChatMpUtils.checkResponseBody(new WeChatMpAccessTokenResponse(errcode: "error", errmsg: "error message"))
+
+        then:
+        thrown(WeChatMpException)
+    }
+
+    def "CheckResponseBody:: body is null"() {
+        when:
+        WeChatMpUtils.checkResponseBody(null)
+
+        then:
+        thrown(WeChatMpException)
     }
 }
