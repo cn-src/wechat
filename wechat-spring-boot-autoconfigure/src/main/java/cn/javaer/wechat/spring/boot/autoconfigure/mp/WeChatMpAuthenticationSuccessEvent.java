@@ -14,31 +14,17 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.sdk.mp;
+package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 /**
  * @author zhangpeng
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class WeChatMpAccessTokenResponse extends AbstractWeChatMpResponse
+public class WeChatMpAuthenticationSuccessEvent
 {
-    @JsonProperty("access_token")
-    private String accessToken;
-    
-    @JsonProperty("expires_in")
-    private String expiresIn;
-    
-    @JsonProperty("refresh_token")
-    private String refreshToken;
-    
-    @JsonProperty("openid")
-    private String openid;
-    
-    @JsonProperty("scope")
-    private String scope;
+    @NonNull private WeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
 }

@@ -16,8 +16,10 @@
 
 package cn.javaer.wechat.sdk.mp;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayException;
 import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
+import retrofit2.Response;
 
 import java.net.URLEncoder;
 
@@ -65,5 +67,26 @@ public class WeChatMpUtils
                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                + "&response_type=code&scope=" + scope.getScope()
                + "#wechat_redirect";
+    }
+    
+    public static void checkResponse(final Response response)
+    {
+        if (!response.isSuccessful())
+        {
+            throw new WeChatMpException("Http response error, response:" + response.toString());
+        }
+    }
+    
+    public static void checkResponseBody(final AbstractWeChatMpResponse response)
+    {
+        if (null == response)
+        {
+            throw new WeChatPayException("WeChat mp response is null");
+        }
+        
+        if (null != response.getErrcode() && !response.getErrcode().isEmpty())
+        {
+            throw new WeChatPayException("WeChat mp response error, response:" + response.toString());
+        }
     }
 }

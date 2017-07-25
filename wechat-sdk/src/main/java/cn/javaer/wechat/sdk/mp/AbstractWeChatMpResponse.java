@@ -14,17 +14,22 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.spring.boot.autoconfigure.mp;
+package cn.javaer.wechat.sdk.mp;
 
-import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
-import lombok.Data;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author zhangpeng
  */
-@Data
-public class WeChatMpAccessTokenResponseEvent
+@Getter
+@Setter
+public abstract class AbstractWeChatMpResponse
 {
-    @NonNull private WeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
+    @JsonProperty("errcode")
+    protected String errcode;
+    
+    @JsonProperty("errmsg")
+    protected String errmsg;
 }

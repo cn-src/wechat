@@ -17,7 +17,7 @@
 package sample.mp;
 
 import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
-import cn.javaer.wechat.spring.boot.autoconfigure.mp.WeChatMpAccessTokenResponseEvent;
+import cn.javaer.wechat.spring.boot.autoconfigure.mp.WeChatMpAuthenticationSuccessEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +37,7 @@ public class SampleMpController
     }
     
     @EventListener
-    public void handleEvent(final WeChatMpAccessTokenResponseEvent responseEvent)
+    public void handleEvent(final WeChatMpAuthenticationSuccessEvent responseEvent)
     {
         this.tokenResponse = responseEvent.getWeChatMpAccessTokenResponse();
     }

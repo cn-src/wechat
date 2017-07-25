@@ -75,9 +75,13 @@ public class WeChatMpController
         final Call<WeChatMpAccessTokenResponse> responseCall
             = this.weChatMpClient.snsOauth2AccessToken(
             this.weChatMpProperties.getAppId(), this.weChatMpProperties.getAppSecret(), code, "authorization_code");
-        final Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
     
-        this.publisher.publishEvent(new WeChatMpAccessTokenResponseEvent(response.body()));
+        final Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
+        WeChatMpUtils.checkResponse(response);
+        final WeChatMpAccessTokenResponse body = response.body();
+        WeChatMpUtils.checkResponseBody(body);
+    
+        this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
         return new RedirectView(this.weChatMpProperties.getRedirectView());
     }
 }
