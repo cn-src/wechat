@@ -55,7 +55,7 @@ public class WeChatPayController
         final NotifyResult notifyResult = new NotifyResult();
         BeanCopy.beans(weChatPayNotifyResult, notifyResult).copy();
         
-        this.publisher.publishEvent(new NotifyResultEvent(notifyResult));
+        this.publisher.publishEvent(new WeChatPayNotifyResultEvent(notifyResult));
         return NotifyResultReturn.SUCCESS;
     }
 }

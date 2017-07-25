@@ -10,4 +10,4 @@
 
 ## 对微信回调接口已提供相关 Controller，并采用 spring 事件机制封装
 > * WeChatMpAuthenticationSuccessEvent 微信公众号授权成功事件
-> * NotifyResultEvent 支付结果事件
+> * WeChatPayNotifyResultEvent 支付结果事件
