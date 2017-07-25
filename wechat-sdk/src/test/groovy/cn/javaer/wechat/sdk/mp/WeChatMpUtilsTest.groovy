@@ -35,7 +35,7 @@ class WeChatMpUtilsTest extends Specification {
         expectedBASE == authorizeUrl
     }
 
-    def "GenerateAuthorizeUrl::no state"() {
+    def "GenerateAuthorizeUrl::没有state参数"() {
         when:
         final String authorizeUrl = WeChatMpUtils.generateAuthorizeUrl("wx520c15f417810387",
                 "https://chong.qq.com/php/index.php?d=&c=wxAdapter&m=mobileDeal&showwxpaytitle=1&vb2ctag=4_2030_5_1194_60",
