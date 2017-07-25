@@ -28,13 +28,11 @@ import java.util.Collection;
 public class WeChatMpAuthenticationToken extends AbstractAuthenticationToken
 {
     private final Object principal;
-    private final int    keyHash;
     
-    public WeChatMpAuthenticationToken(@NotNull final String key, @NotNull final Object principal,
+    public WeChatMpAuthenticationToken(@NotNull final Object principal,
         final Collection<? extends GrantedAuthority> authorities)
     {
         super(authorities);
-        this.keyHash = key.hashCode();
         this.principal = principal;
         setAuthenticated(true);
     }
@@ -49,26 +47,5 @@ public class WeChatMpAuthenticationToken extends AbstractAuthenticationToken
     public Object getPrincipal()
     {
         return this.principal;
-    }
-    
-    public boolean equals(final Object obj)
-    {
-        if (!super.equals(obj))
-        {
-            return false;
-        }
-        
-        if (obj instanceof WeChatMpAuthenticationToken)
-        {
-            final WeChatMpAuthenticationToken test = (WeChatMpAuthenticationToken) obj;
-            return this.keyHash == test.keyHash;
-        }
-        
-        return false;
-    }
-    
-    public int getKeyHash()
-    {
-        return this.keyHash;
     }
 }
