@@ -57,20 +57,20 @@ public class WeChatMpController
     /**
      * 生成授权引导url。
      */
-    @GetMapping(path = "${wechat.mp.generate-authorize-url-path:/public/wechat/mp/generate_authorize_url}")
-    public String generateAuthorizeUrl()
+    @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
+    public RedirectView generateAuthorizeUrl(@RequestParam("redirect") final String redirect)
     {
         final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
             ? this.weChatMpProperties.getAuthorizeCodePath()
             : "/public/wechat/mp/authorize_code";
         final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), path);
-        return WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE);
+        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, redirect));
     }
     
     @GetMapping(path = "${wechat.mp.authorize-code-path:/public/wechat/mp/authorize_code}")
     public RedirectView authorizeCode(
         @RequestParam("code") final String code,
-        @RequestParam(value = "state", required = false) final String state)
+        @RequestParam(value = "state") final String state)
     {
         final Call<WeChatMpAccessTokenResponse> responseCall
             = this.weChatMpClient.snsOauth2AccessToken(
@@ -82,6 +82,6 @@ public class WeChatMpController
         WeChatMpUtils.checkResponseBody(body);
     
         this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
-        return new RedirectView(this.weChatMpProperties.getRedirectView());
+        return new RedirectView(state);
     }
 }
