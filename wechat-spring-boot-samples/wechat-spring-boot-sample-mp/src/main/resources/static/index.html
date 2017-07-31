@@ -25,7 +25,7 @@
 <a href="" id="demo">获取授权信息</a>
 <script>
     $.get('/public/wechat/mp/generate_authorize_url', function (data) {
-        $('#demo').attr('href', data)
+        window.location.href = data
     })
 </script>
 </body>
