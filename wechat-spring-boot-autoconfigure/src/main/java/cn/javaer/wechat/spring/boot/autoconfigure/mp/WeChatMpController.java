@@ -71,7 +71,7 @@ public class WeChatMpController
     }
     
     /**
-     * 微信回调地址
+     * 微信回调接口，提供给微信在授权之后的重定向
      *
      * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
      */
