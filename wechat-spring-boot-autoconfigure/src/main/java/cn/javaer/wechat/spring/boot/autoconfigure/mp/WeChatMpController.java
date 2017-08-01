@@ -70,6 +70,11 @@ public class WeChatMpController
         return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, redirect));
     }
     
+    /**
+     * 微信回调地址
+     *
+     * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
+     */
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + "}")
     public RedirectView authorizeCode(
         @RequestParam("code") final String code,
