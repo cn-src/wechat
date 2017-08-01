@@ -55,10 +55,12 @@ public class WeChatMpController
     }
     
     /**
-     * 生成授权引导url。
+     * 重定向到微信授权地址。
+     *
+     * @param redirect 回调地址
      */
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
-    public RedirectView generateAuthorizeUrl(@RequestParam("redirect") final String redirect)
+    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect)
     {
         final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
             ? this.weChatMpProperties.getAuthorizeCodePath()
@@ -75,12 +77,12 @@ public class WeChatMpController
         final Call<WeChatMpAccessTokenResponse> responseCall
             = this.weChatMpClient.snsOauth2AccessToken(
             this.weChatMpProperties.getAppId(), this.weChatMpProperties.getAppSecret(), code, "authorization_code");
-    
+        
         final Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
         WeChatMpUtils.checkResponse(response);
         final WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
-    
+        
         this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
         return new RedirectView(state);
     }
