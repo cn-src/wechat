@@ -42,6 +42,7 @@ public class WeChatMpController
     private final WeChatMpProperties        weChatMpProperties;
     private final WeChatMpClient            weChatMpClient;
     private final ApplicationEventPublisher publisher;
+    private final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
     
     @SuppressWarnings("WeakerAccess")
     public WeChatMpController(
@@ -64,12 +65,12 @@ public class WeChatMpController
     {
         final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
             ? this.weChatMpProperties.getAuthorizeCodePath()
-            : "/public/wechat/mp/authorize_code";
+            : AUTHORIZE_CODE_PATH;
         final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), path);
         return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, redirect));
     }
     
-    @GetMapping(path = "${wechat.mp.authorize-code-path:/public/wechat/mp/authorize_code}")
+    @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + "}")
     public RedirectView authorizeCode(
         @RequestParam("code") final String code,
         @RequestParam(value = "state") final String state)
