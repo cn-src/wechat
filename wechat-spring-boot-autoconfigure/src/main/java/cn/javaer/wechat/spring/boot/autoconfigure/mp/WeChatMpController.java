@@ -39,10 +39,10 @@ import retrofit2.Response;
 @RestController
 public class WeChatMpController
 {
+    private static final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
     private final WeChatMpProperties        weChatMpProperties;
     private final WeChatMpClient            weChatMpClient;
     private final ApplicationEventPublisher publisher;
-    private final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
     
     @SuppressWarnings("WeakerAccess")
     public WeChatMpController(
