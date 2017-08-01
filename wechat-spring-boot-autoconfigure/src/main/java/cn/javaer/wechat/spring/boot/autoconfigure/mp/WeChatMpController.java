@@ -58,7 +58,7 @@ public class WeChatMpController
     /**
      * 重定向到微信授权地址。
      *
-     * @param redirect 回调地址
+     * @param redirect 应用自身回调地址
      */
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
     public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect)
