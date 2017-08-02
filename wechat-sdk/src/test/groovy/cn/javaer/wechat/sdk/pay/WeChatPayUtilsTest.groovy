@@ -41,6 +41,7 @@ class WeChatPayUtilsTest extends Specification {
                 .sign("") // 不参与签名算法
                 .signType("MD5") // 参与签名算法
                 .build()
+        request.setSign(WeChatPayUtils.sign(request, "key"))
         println genXml(request)
 
         then:
