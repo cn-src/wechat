@@ -49,12 +49,12 @@ class WeChatPayUtilsTest extends Specification {
         "EFAF8A5CD089B3749AF9EAEE6C6B4156" == WeChatPayUtils.sign(request, "key")
     }
 
-    private String genXml(object) {
+    private static String genXml(object) {
         JAXBContext context = JAXBContext.newInstance(object.getClass())
         Marshaller marshaller = context.createMarshaller()
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8")
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true)
-        final StringWriter sw = new StringWriter();
+        final StringWriter sw = new StringWriter()
         marshaller.marshal(object, sw)
         return sw.toString()
     }
