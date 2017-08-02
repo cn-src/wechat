@@ -31,6 +31,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -80,7 +81,7 @@ public class WeChatMpController
      * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
      */
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + "}")
-    public RedirectView authorizeCode(
+    public ModelAndView authorizeCode(
         @RequestParam("code") final String code,
         @RequestParam(value = "state") final String state)
     {
@@ -96,6 +97,7 @@ public class WeChatMpController
         final ObjectMapper mapper = new ObjectMapper();
         final JsonNode jsonNode = Try.of(() -> mapper.readTree(stateParam)).get();
         this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
-        return new RedirectView(jsonNode.get("redirect").getTextValue());
+        
+        return new ModelAndView(new RedirectView(jsonNode.get("redirect").getTextValue()), "state", state);
     }
 }
