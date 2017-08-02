@@ -23,20 +23,15 @@ import cn.javaer.wechat.sdk.mp.WeChatMpException;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import io.vavr.control.Try;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import retrofit2.Call;
 import retrofit2.Response;
-
-import java.net.URLDecoder;
 
 /**
  * @author zhangpeng
@@ -66,13 +61,13 @@ public class WeChatMpController
      * @param redirect 应用自身回调地址
      */
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
-    public RedirectView accessAuthorize(@RequestParam("state") final String state)
+    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect)
     {
         final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
             ? this.weChatMpProperties.getAuthorizeCodePath()
             : AUTHORIZE_CODE_PATH;
         final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), path);
-        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, state));
+        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, redirect));
     }
     
     /**
@@ -81,7 +76,7 @@ public class WeChatMpController
      * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
      */
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + "}")
-    public ModelAndView authorizeCode(
+    public RedirectView authorizeCode(
         @RequestParam("code") final String code,
         @RequestParam(value = "state") final String state)
     {
@@ -93,11 +88,8 @@ public class WeChatMpController
         WeChatMpUtils.checkResponse(response);
         final WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
-        final String stateParam = Try.of(() -> URLDecoder.decode(state, "UTF-8")).get();
-        final ObjectMapper mapper = new ObjectMapper();
-        final JsonNode jsonNode = Try.of(() -> mapper.readTree(stateParam)).get();
-        this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
         
-        return new ModelAndView(new RedirectView(jsonNode.get("redirect").getTextValue()), "state", state);
+        this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
+        return new RedirectView(state);
     }
 }
