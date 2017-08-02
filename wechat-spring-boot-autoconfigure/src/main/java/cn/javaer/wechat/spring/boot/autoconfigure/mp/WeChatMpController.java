@@ -23,6 +23,8 @@ import cn.javaer.wechat.sdk.mp.WeChatMpException;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import io.vavr.control.Try;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.StringUtils;
@@ -32,6 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import java.net.URLDecoder;
 
 /**
  * @author zhangpeng
@@ -61,13 +65,13 @@ public class WeChatMpController
      * @param redirect 应用自身回调地址
      */
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
-    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect)
+    public RedirectView accessAuthorize(@RequestParam("state") final String state)
     {
         final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
             ? this.weChatMpProperties.getAuthorizeCodePath()
             : AUTHORIZE_CODE_PATH;
         final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), path);
-        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, redirect));
+        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, state));
     }
     
     /**
@@ -88,8 +92,10 @@ public class WeChatMpController
         WeChatMpUtils.checkResponse(response);
         final WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
-        
+        final String stateParam = Try.of(() -> URLDecoder.decode(state, "UTF-8")).get();
+        final ObjectMapper mapper = new ObjectMapper();
+        final JsonNode jsonNode = Try.of(() -> mapper.readTree(stateParam)).get();
         this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
-        return new RedirectView(state);
+        return new RedirectView(jsonNode.get("redirect").getTextValue());
     }
 }
