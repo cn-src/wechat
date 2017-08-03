@@ -75,7 +75,7 @@ public class WeChatMpController
      *
      * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
      */
-    @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + "}")
+    @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
     public RedirectView authorizeCode(
         @RequestParam("code") final String code,
         @RequestParam(value = "state") final String state)
