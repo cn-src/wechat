@@ -27,4 +27,5 @@ import lombok.NonNull;
 public class WeChatMpAuthenticationSuccessEvent
 {
     @NonNull private WeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
+    private          String                      redirect;
 }

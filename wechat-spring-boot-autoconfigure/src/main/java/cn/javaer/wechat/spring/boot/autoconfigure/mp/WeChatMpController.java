@@ -89,7 +89,9 @@ public class WeChatMpController
         final WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
         
-        this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(body));
+        final WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
+        successEvent.setRedirect(state);
+        this.publisher.publishEvent(successEvent);
         return new RedirectView(state);
     }
 }
