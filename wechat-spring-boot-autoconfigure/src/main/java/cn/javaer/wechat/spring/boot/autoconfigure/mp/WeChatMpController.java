@@ -25,10 +25,10 @@ import cn.javaer.wechat.sdk.util.WeChatUtils;
 import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -36,7 +36,7 @@ import retrofit2.Response;
 /**
  * @author zhangpeng
  */
-@RestController
+@Controller
 public class WeChatMpController
 {
     private static final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
@@ -76,7 +76,7 @@ public class WeChatMpController
      * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
      */
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
-    public RedirectView authorizeCode(
+    public String authorizeCode(
         @RequestParam("code") final String code,
         @RequestParam(value = "state") final String state)
     {
@@ -92,6 +92,7 @@ public class WeChatMpController
         final WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
         successEvent.setRedirect(state);
         this.publisher.publishEvent(successEvent);
-        return new RedirectView(state);
+    
+        return state;
     }
 }
