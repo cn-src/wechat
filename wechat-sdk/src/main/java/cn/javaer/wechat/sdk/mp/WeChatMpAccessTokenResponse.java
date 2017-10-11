@@ -41,4 +41,10 @@ public class WeChatMpAccessTokenResponse extends AbstractWeChatMpResponse
     
     @JsonProperty("scope")
     private String scope;
+    
+    private String unionid;
+    
+    private String errcode;
+    
+    private String errmsg;
 }
