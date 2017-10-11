@@ -87,7 +87,7 @@ public class WeChatMpController
         WeChatMpUtils.checkResponse(response);
         final WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
-        
+    
         final WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
         successEvent.setRedirect(redirect);
         this.publisher.publishEvent(successEvent);
