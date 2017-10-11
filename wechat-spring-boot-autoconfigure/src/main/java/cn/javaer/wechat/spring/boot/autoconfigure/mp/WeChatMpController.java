@@ -25,7 +25,6 @@ import cn.javaer.wechat.sdk.util.WeChatUtils;
 import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,11 +62,11 @@ public class WeChatMpController
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
     public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect)
     {
-        final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
-            ? this.weChatMpProperties.getAuthorizeCodePath()
-            : AUTHORIZE_CODE_PATH;
-        final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), path);
-        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE, redirect));
+        // final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
+        //     ? this.weChatMpProperties.getAuthorizeCodePath()
+        //     : AUTHORIZE_CODE_PATH;
+        final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), redirect);
+        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
     }
     
     /**
@@ -78,7 +77,7 @@ public class WeChatMpController
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
     public RedirectView authorizeCode(
         @RequestParam("code") final String code,
-        @RequestParam(value = "state") final String state)
+        @RequestParam("redirect") final String redirect)
     {
         final Call<WeChatMpAccessTokenResponse> responseCall
             = this.weChatMpClient.snsOauth2AccessToken(
@@ -88,10 +87,10 @@ public class WeChatMpController
         WeChatMpUtils.checkResponse(response);
         final WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
-    
+        
         final WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
-        successEvent.setRedirect(state);
+        successEvent.setRedirect(redirect);
         this.publisher.publishEvent(successEvent);
-        return new RedirectView(state);
+        return new RedirectView(redirect);
     }
 }
