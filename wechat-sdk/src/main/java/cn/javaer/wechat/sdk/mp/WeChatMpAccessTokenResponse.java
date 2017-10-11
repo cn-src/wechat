@@ -43,8 +43,4 @@ public class WeChatMpAccessTokenResponse extends AbstractWeChatMpResponse
     private String scope;
     
     private String unionid;
-    
-    private String errcode;
-    
-    private String errmsg;
 }
