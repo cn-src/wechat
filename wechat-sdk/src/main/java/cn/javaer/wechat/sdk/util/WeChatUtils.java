@@ -19,8 +19,9 @@ package cn.javaer.wechat.sdk.util;
 import net.glxn.qrgen.javase.QRCode;
 import org.apache.commons.codec.binary.Base64;
 
-import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author zhangpeng
@@ -45,18 +46,16 @@ public class WeChatUtils {
         if (null == pathItems || pathItems.length <= 0) {
             throw new IllegalArgumentException("'pathItems' must not be empty");
         }
-        StringJoiner sj = new StringJoiner("/");
-        for (String item : pathItems) {
-            String fixItem = item;
-            if (fixItem.endsWith("/")) {
-                fixItem = fixItem.substring(0, fixItem.length() - 1);
+    
+        return Stream.of(pathItems).map(pathItem -> {
+            if (pathItem.endsWith("/")) {
+                return pathItem.substring(0, pathItem.length() - 1);
+            } else if (pathItem.startsWith("/")) {
+                return pathItem.substring(1);
+            } else {
+                return pathItem;
             }
-            if (fixItem.startsWith("/")) {
-                fixItem = fixItem.substring(1);
-            }
-            sj.add(fixItem);
-        }
-        return sj.toString();
+        }).collect(Collectors.joining("/"));
     }
     
 }
