@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -42,11 +42,10 @@ public class WeChatMpController {
     private final WeChatMpClient            weChatMpClient;
     private final ApplicationEventPublisher publisher;
     
-    @SuppressWarnings("WeakerAccess")
     public WeChatMpController(
-        @NotNull final WeChatMpProperties weChatMpProperties,
-        @NotNull final WeChatMpClient weChatMpClient,
-        @NotNull final ApplicationEventPublisher publisher) {
+        @NotNull WeChatMpProperties weChatMpProperties,
+        @NotNull WeChatMpClient weChatMpClient,
+        @NotNull ApplicationEventPublisher publisher) {
         this.weChatMpProperties = weChatMpProperties;
         this.weChatMpClient = weChatMpClient;
         this.publisher = publisher;
@@ -58,12 +57,12 @@ public class WeChatMpController {
      * @param redirect 应用自身回调地址
      */
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
-    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect) {
+    public RedirectView accessAuthorize(@RequestParam("redirect") String redirect) {
         // final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
         //     ? this.weChatMpProperties.getAuthorizeCodePath()
         //     : AUTHORIZE_CODE_PATH;
-        final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), redirect);
-        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(this.weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
+        String redirectUri = WeChatUtils.joinPath(weChatMpProperties.getNotifyAddress(), redirect);
+        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
     }
     
     /**
@@ -73,20 +72,20 @@ public class WeChatMpController {
      */
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
     public RedirectView authorizeCode(
-        @RequestParam("code") final String code,
-        @RequestParam("redirect") final String redirect) {
-        final Call<WeChatMpAccessTokenResponse> responseCall
-            = this.weChatMpClient.snsOauth2AccessToken(
-            this.weChatMpProperties.getAppId(), this.weChatMpProperties.getAppSecret(), code, "authorization_code");
-        
-        final Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
+        @RequestParam("code") String code,
+        @RequestParam("redirect") String redirect) {
+        Call<WeChatMpAccessTokenResponse> responseCall
+            = weChatMpClient.snsOauth2AccessToken(
+            weChatMpProperties.getAppId(), weChatMpProperties.getAppSecret(), code, "authorization_code");
+    
+        Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
         WeChatMpUtils.checkResponse(response);
-        final WeChatMpAccessTokenResponse body = response.body();
+        WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
-        
-        final WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
+    
+        WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
         successEvent.setRedirect(redirect);
-        this.publisher.publishEvent(successEvent);
+        publisher.publishEvent(successEvent);
         return new RedirectView(redirect);
     }
 }

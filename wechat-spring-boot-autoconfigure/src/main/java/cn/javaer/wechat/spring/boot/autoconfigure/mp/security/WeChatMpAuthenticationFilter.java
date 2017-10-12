@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -36,10 +36,10 @@ public class WeChatMpAuthenticationFilter extends GenericFilterBean implements A
     private ApplicationEventPublisher eventPublisher;
     
     @Override
-    public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse,
-        final FilterChain chain) throws IOException, ServletException {
-        final HttpServletRequest request = (HttpServletRequest) servletRequest;
-        final HttpServletResponse response = (HttpServletResponse) servletResponse;
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+        FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             // SecurityContextHolder.getContext().setAuthentication(new WeChatMpAuthenticationToken(""));
         } else {
@@ -48,7 +48,7 @@ public class WeChatMpAuthenticationFilter extends GenericFilterBean implements A
     }
     
     @Override
-    public void setApplicationEventPublisher(final ApplicationEventPublisher eventPublisher) {
+    public void setApplicationEventPublisher(ApplicationEventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
     }
 }

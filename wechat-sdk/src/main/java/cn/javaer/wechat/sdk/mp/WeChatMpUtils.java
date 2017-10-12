@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -42,10 +42,10 @@ public class WeChatMpUtils {
      * <br/> https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
      */
     public static String generateAuthorizeUrl(
-        @NotNull final String appId,
-        @NotNull final String redirectUri,
-        @NotNull final AuthorizeScope scope,
-        @NotNull final String state) {
+        @NotNull String appId,
+        @NotNull String redirectUri,
+        @NotNull AuthorizeScope scope,
+        @NotNull String state) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                + "&response_type=code&scope=" + scope.getScope()
@@ -56,22 +56,22 @@ public class WeChatMpUtils {
      * @see #generateAuthorizeUrl(String, String, AuthorizeScope, String)
      */
     public static String generateAuthorizeUrl(
-        @NotNull final String appId,
-        @NotNull final String redirectUri,
-        @NotNull final AuthorizeScope scope) {
+        @NotNull String appId,
+        @NotNull String redirectUri,
+        @NotNull AuthorizeScope scope) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                + "&response_type=code&scope=" + scope.getScope()
                + "#wechat_redirect";
     }
     
-    public static void checkResponse(final Response response) {
+    public static void checkResponse(Response response) {
         if (!response.isSuccessful()) {
             throw new WeChatMpException("Http response error, response:" + response.toString());
         }
     }
     
-    public static void checkResponseBody(final AbstractWeChatMpResponse response) {
+    public static void checkResponseBody(AbstractWeChatMpResponse response) {
         if (null == response) {
             throw new WeChatMpException("WeChat mp response is null");
         }

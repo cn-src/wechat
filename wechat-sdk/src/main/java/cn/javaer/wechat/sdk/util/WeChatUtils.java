@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,16 +25,15 @@ import java.util.UUID;
 /**
  * @author zhangpeng
  */
-@SuppressWarnings("WeakerAccess")
 public class WeChatUtils {
     private WeChatUtils() {}
     
-    public static String toHtmlImgBase64(final String str) {
+    public static String toHtmlImgBase64(String str) {
         return "data:image/jpg;base64," + Base64.encodeBase64String(QRCode.from(str).withSize(300, 300).stream().toByteArray());
     }
     
     public static String uuid() {
-        final StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
+        StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
         sb.deleteCharAt(8);
         sb.deleteCharAt(12);
         sb.deleteCharAt(16);
@@ -42,12 +41,12 @@ public class WeChatUtils {
         return sb.toString();
     }
     
-    public static String joinPath(final String... pathItems) {
+    public static String joinPath(String... pathItems) {
         if (null == pathItems || pathItems.length <= 0) {
             throw new IllegalArgumentException("'pathItems' must not be empty");
         }
-        final StringJoiner sj = new StringJoiner("/");
-        for (final String item : pathItems) {
+        StringJoiner sj = new StringJoiner("/");
+        for (String item : pathItems) {
             String fixItem = item;
             if (fixItem.endsWith("/")) {
                 fixItem = fixItem.substring(0, fixItem.length() - 1);

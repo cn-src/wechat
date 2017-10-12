@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -34,15 +34,15 @@ import org.springframework.context.annotation.Configuration;
 public class WeChatMpAutoConfiguration {
     private final WeChatMpProperties weChatMpProperties;
     
-    public WeChatMpAutoConfiguration(final WeChatMpProperties weChatMpProperties) {
+    public WeChatMpAutoConfiguration(WeChatMpProperties weChatMpProperties) {
         this.weChatMpProperties = weChatMpProperties;
     }
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatMpController weChatMpController(final WeChatMpClient weChatMpClient,
-        final ApplicationEventPublisher publisher) {
-        return new WeChatMpController(this.weChatMpProperties, weChatMpClient, publisher);
+    public WeChatMpController weChatMpController(WeChatMpClient weChatMpClient,
+        ApplicationEventPublisher publisher) {
+        return new WeChatMpController(weChatMpProperties, weChatMpClient, publisher);
     }
     
     @Bean

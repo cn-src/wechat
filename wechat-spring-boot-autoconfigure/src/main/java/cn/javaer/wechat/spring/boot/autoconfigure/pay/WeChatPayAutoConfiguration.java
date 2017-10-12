@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 public class WeChatPayAutoConfiguration {
     private final WeChatPayProperties weChatPayProperties;
     
-    public WeChatPayAutoConfiguration(final WeChatPayProperties weChatPayProperties) {
+    public WeChatPayAutoConfiguration(WeChatPayProperties weChatPayProperties) {
         this.weChatPayProperties = weChatPayProperties;
     }
     
@@ -46,13 +46,13 @@ public class WeChatPayAutoConfiguration {
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayService weChatPayService(final WeChatPayClient weChatPayClient) {
-        return new DefaultWeChatPayService(this.weChatPayProperties, weChatPayClient);
+    public WeChatPayService weChatPayService(WeChatPayClient weChatPayClient) {
+        return new DefaultWeChatPayService(weChatPayProperties, weChatPayClient);
     }
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayController weChatPayController(final ApplicationEventPublisher publisher) {
-        return new WeChatPayController(publisher, this.weChatPayProperties);
+    public WeChatPayController weChatPayController(ApplicationEventPublisher publisher) {
+        return new WeChatPayController(publisher, weChatPayProperties);
     }
 }

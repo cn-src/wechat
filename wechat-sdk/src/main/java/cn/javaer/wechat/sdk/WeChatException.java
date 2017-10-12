@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@ package cn.javaer.wechat.sdk;
  * @author zhangpeng
  */
 public class WeChatException extends RuntimeException {
-    public WeChatException(final String message) {
+    public WeChatException(String message) {
         super(message);
     }
     
-    public WeChatException(final Throwable cause) {
+    public WeChatException(Throwable cause) {
         super(cause);
     }
 }

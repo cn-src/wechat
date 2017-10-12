@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -23,11 +23,11 @@ public enum AuthorizeScope {
     BASE("snsapi_base"), USERINFO("snsapi_userinfo");
     private final String scope;
     
-    AuthorizeScope(final String scope) {
+    AuthorizeScope(String scope) {
         this.scope = scope;
     }
     
     public String getScope() {
-        return this.scope;
+        return scope;
     }
 }

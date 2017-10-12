@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -34,10 +34,9 @@ public class WeChatPayController {
     private final ApplicationEventPublisher publisher;
     private final WeChatPayProperties       weChatPayProperties;
     
-    @SuppressWarnings("WeakerAccess")
     public WeChatPayController(
-        @NotNull final ApplicationEventPublisher publisher,
-        @NotNull final WeChatPayProperties weChatPayProperties) {
+        @NotNull ApplicationEventPublisher publisher,
+        @NotNull WeChatPayProperties weChatPayProperties) {
         this.publisher = publisher;
         this.weChatPayProperties = weChatPayProperties;
     }
@@ -46,13 +45,13 @@ public class WeChatPayController {
      * 接收支付结果通知，将其发布为事件。
      */
     @RequestMapping(path = "${wechat.pay.notify-result-path:/public/wechat/pay/notify_result}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-    public NotifyResultReturn notifyResult(@RequestBody final WeChatPayNotifyResult weChatPayNotifyResult) {
+    public NotifyResultReturn notifyResult(@RequestBody WeChatPayNotifyResult weChatPayNotifyResult) {
         // TODO 不抛出异常
-        WeChatPayUtils.checkResponseBody(weChatPayNotifyResult, this.weChatPayProperties.getMchKey());
-        final NotifyResult notifyResult = new NotifyResult();
+        WeChatPayUtils.checkResponseBody(weChatPayNotifyResult, weChatPayProperties.getMchKey());
+        NotifyResult notifyResult = new NotifyResult();
         BeanCopy.beans(weChatPayNotifyResult, notifyResult).copy();
-        
-        this.publisher.publishEvent(new WeChatPayNotifyResultEvent(notifyResult));
+    
+        publisher.publishEvent(new WeChatPayNotifyResultEvent(notifyResult));
         return NotifyResultReturn.SUCCESS;
     }
 }

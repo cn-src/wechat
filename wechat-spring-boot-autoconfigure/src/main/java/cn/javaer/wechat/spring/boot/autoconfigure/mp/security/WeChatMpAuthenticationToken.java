@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import java.util.Collection;
 public class WeChatMpAuthenticationToken extends AbstractAuthenticationToken {
     private final Object principal;
     
-    public WeChatMpAuthenticationToken(@NotNull final Object principal,
-        final Collection<? extends GrantedAuthority> authorities) {
+    public WeChatMpAuthenticationToken(@NotNull Object principal,
+        Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         setAuthenticated(true);
@@ -42,6 +42,6 @@ public class WeChatMpAuthenticationToken extends AbstractAuthenticationToken {
     
     @Override
     public Object getPrincipal() {
-        return this.principal;
+        return principal;
     }
 }

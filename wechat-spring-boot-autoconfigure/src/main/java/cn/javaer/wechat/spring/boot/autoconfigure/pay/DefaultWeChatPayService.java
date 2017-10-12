@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -36,10 +36,9 @@ public class DefaultWeChatPayService implements WeChatPayService {
     private final WeChatPayProperties weChatPayProperties;
     private final WeChatPayClient     weChatPayClient;
     
-    @SuppressWarnings("WeakerAccess")
     public DefaultWeChatPayService(
-        @NotNull final WeChatPayProperties weChatPayProperties,
-        @NotNull final WeChatPayClient weChatPayClient) {
+        @NotNull WeChatPayProperties weChatPayProperties,
+        @NotNull WeChatPayClient weChatPayClient) {
         this.weChatPayProperties = weChatPayProperties;
         this.weChatPayClient = weChatPayClient;
     }
@@ -49,29 +48,29 @@ public class DefaultWeChatPayService implements WeChatPayService {
      */
     @Override
     public ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
-        @NotNull final ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException {
-        final String notifyUrl = WeChatUtils.joinPath(this.weChatPayProperties.getNotifyAddress(), this.weChatPayProperties.getNotifyResultPath());
-        final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
+        @NotNull ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException {
+        String notifyUrl = WeChatUtils.joinPath(weChatPayProperties.getNotifyAddress(), weChatPayProperties.getNotifyResultPath());
+        WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
             .body(unifiedOrderRequest.getBody())
             .nonceStr(WeChatUtils.uuid())
             .outTradeNo(unifiedOrderRequest.getOutTradeNo())
             .productId(unifiedOrderRequest.getProductId())
             .totalFee(unifiedOrderRequest.getTotalFee())
-            .appId(this.weChatPayProperties.getAppId())
-            .mchId(this.weChatPayProperties.getMchId())
+            .appId(weChatPayProperties.getAppId())
+            .mchId(weChatPayProperties.getMchId())
             .notifyUrl(notifyUrl)
-            .spbillCreateIp(this.weChatPayProperties.getClientIp())
+            .spbillCreateIp(weChatPayProperties.getClientIp())
             .tradeType("NATIVE")
             .build();
-        WeChatPayUtils.checkAndSignRequest(request, this.weChatPayProperties.getMchKey());
-        
-        final Call<WeChatPayUnifiedOrderResponse> responseCall = this.weChatPayClient.unifiedOrder(request);
-        final Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
+        WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
+    
+        Call<WeChatPayUnifiedOrderResponse> responseCall = weChatPayClient.unifiedOrder(request);
+        Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
         WeChatPayUtils.checkResponse(response);
-        final WeChatPayUnifiedOrderResponse successfulBody = response.body();
-        WeChatPayUtils.checkResponseBody(successfulBody, this.weChatPayProperties.getMchKey());
-        
-        final ScanQrCodePayTwoUnifiedOrderResponse scanQrCodePayTwoUnifiedOrderResponse = new ScanQrCodePayTwoUnifiedOrderResponse();
+        WeChatPayUnifiedOrderResponse successfulBody = response.body();
+        WeChatPayUtils.checkResponseBody(successfulBody, weChatPayProperties.getMchKey());
+    
+        ScanQrCodePayTwoUnifiedOrderResponse scanQrCodePayTwoUnifiedOrderResponse = new ScanQrCodePayTwoUnifiedOrderResponse();
         scanQrCodePayTwoUnifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
         scanQrCodePayTwoUnifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
         scanQrCodePayTwoUnifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -33,11 +33,11 @@ import java.util.Map;
  * @author zhangpeng
  */
 public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationCodeAccessTokenProvider {
-    public WeChatMpAuthorizationCodeAccessTokenProvider(final List<HttpMessageConverter<?>> messageConverters) {
-        this.setMessageConverters(messageConverters);
-        this.setTokenRequestEnhancer((request, resource, form, headers) -> {
-            final String clientId = form.getFirst("client_id");
-            final String clientSecret = form.getFirst("client_secret");
+    public WeChatMpAuthorizationCodeAccessTokenProvider(List<HttpMessageConverter<?>> messageConverters) {
+        setMessageConverters(messageConverters);
+        setTokenRequestEnhancer((request, resource, form, headers) -> {
+            String clientId = form.getFirst("client_id");
+            String clientSecret = form.getFirst("client_secret");
             form.set("appid", clientId);
             form.set("secret", clientSecret);
             form.remove("client_id");
@@ -46,14 +46,14 @@ public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationC
     }
     
     @Override
-    public OAuth2AccessToken obtainAccessToken(final OAuth2ProtectedResourceDetails details,
-        final AccessTokenRequest request) throws UserRedirectRequiredException, UserApprovalRequiredException,
+    public OAuth2AccessToken obtainAccessToken(OAuth2ProtectedResourceDetails details,
+        AccessTokenRequest request) throws UserRedirectRequiredException, UserApprovalRequiredException,
         AccessDeniedException, OAuth2AccessDeniedException {
         try {
             return super.obtainAccessToken(details, request);
-        } catch (final UserRedirectRequiredException e) {
-            final Map<String, String> params = e.getRequestParams();
-            final String clientId = params.get("client_id");
+        } catch (UserRedirectRequiredException e) {
+            Map<String, String> params = e.getRequestParams();
+            String clientId = params.get("client_id");
             params.put("appid", clientId);
             params.remove("client_id");
             throw e;

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2017 zhangpeng
+ *    Copyright 2017 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -29,27 +29,27 @@ import javax.xml.bind.annotation.XmlElement;
  * @author zhangpeng
  */
 public class WeChatPayUtils {
-    public static void checkAndSignRequest(final WeChatPayUnifiedOrderRequest request, final String mchKey) {
+    public static void checkAndSignRequest(WeChatPayUnifiedOrderRequest request, String mchKey) {
         if ("NATIVE".equals(request.getTradeType()) && (request.getProductId() == null || request.getProductId().isEmpty())) {
             throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
         }
         request.setSign(WeChatPayUtils.sign(request, mchKey));
     }
     
-    public static String sign(final Object data, final String key) {
+    public static String sign(Object data, String key) {
         
-        final Class<?> clazz = data.getClass();
-        final Field[] fields = clazz.getDeclaredFields();
-        final Map<String, String> dataMap = new TreeMap<>();
+        Class<?> clazz = data.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        Map<String, String> dataMap = new TreeMap<>();
         
         try {
-            for (final Field field : fields) {
+            for (Field field : fields) {
                 field.setAccessible(true);
-                final Object objVal;
+                Object objVal;
                 objVal = field.get(data);
                 
                 if (null != objVal && !objVal.toString().isEmpty()) {
-                    final String dataKey = Optional.ofNullable(field.getAnnotation(XmlElement.class))
+                    String dataKey = Optional.ofNullable(field.getAnnotation(XmlElement.class))
                         .map(XmlElement::name)
                         .orElse(field.getName());
                     if (!"sign".equals(dataKey)) {
@@ -57,25 +57,25 @@ public class WeChatPayUtils {
                     }
                 }
             }
-        } catch (final IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        final StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         
-        for (final Map.Entry<String, String> entry : dataMap.entrySet()) {
+        for (Map.Entry<String, String> entry : dataMap.entrySet()) {
             sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
         }
         sb.append("key").append('=').append(key);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
     
-    public static void checkResponse(final Response response) {
+    public static void checkResponse(Response response) {
         if (!response.isSuccessful()) {
             throw new WeChatPayException("Http response error, response:" + response.toString());
         }
     }
     
-    public static void checkResponseBody(final AbstractWeChatPayResponse response, final String mchKey) {
+    public static void checkResponseBody(AbstractWeChatPayResponse response, String mchKey) {
         if (null == response) {
             throw new WeChatPayException("WeChat pay response is null");
         }
