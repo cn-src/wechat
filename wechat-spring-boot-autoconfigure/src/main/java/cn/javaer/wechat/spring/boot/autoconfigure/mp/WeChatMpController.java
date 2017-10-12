@@ -36,8 +36,7 @@ import retrofit2.Response;
  * @author zhangpeng
  */
 @RestController
-public class WeChatMpController
-{
+public class WeChatMpController {
     private static final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
     private final WeChatMpProperties        weChatMpProperties;
     private final WeChatMpClient            weChatMpClient;
@@ -47,8 +46,7 @@ public class WeChatMpController
     public WeChatMpController(
         @NotNull final WeChatMpProperties weChatMpProperties,
         @NotNull final WeChatMpClient weChatMpClient,
-        @NotNull final ApplicationEventPublisher publisher)
-    {
+        @NotNull final ApplicationEventPublisher publisher) {
         this.weChatMpProperties = weChatMpProperties;
         this.weChatMpClient = weChatMpClient;
         this.publisher = publisher;
@@ -60,8 +58,7 @@ public class WeChatMpController
      * @param redirect 应用自身回调地址
      */
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
-    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect)
-    {
+    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect) {
         // final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
         //     ? this.weChatMpProperties.getAuthorizeCodePath()
         //     : AUTHORIZE_CODE_PATH;
@@ -77,8 +74,7 @@ public class WeChatMpController
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
     public RedirectView authorizeCode(
         @RequestParam("code") final String code,
-        @RequestParam("redirect") final String redirect)
-    {
+        @RequestParam("redirect") final String redirect) {
         final Call<WeChatMpAccessTokenResponse> responseCall
             = this.weChatMpClient.snsOauth2AccessToken(
             this.weChatMpProperties.getAppId(), this.weChatMpProperties.getAppSecret(), code, "authorization_code");
@@ -87,7 +83,7 @@ public class WeChatMpController
         WeChatMpUtils.checkResponse(response);
         final WeChatMpAccessTokenResponse body = response.body();
         WeChatMpUtils.checkResponseBody(body);
-    
+        
         final WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
         successEvent.setRedirect(redirect);
         this.publisher.publishEvent(successEvent);

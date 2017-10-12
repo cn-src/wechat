@@ -26,25 +26,20 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * @author zhangpeng
  */
-public class WeChatPayAutoConfigurationTest
-{
+public class WeChatPayAutoConfigurationTest {
     @Test
-    public void weChatPayClientMissBean() throws Exception
-    {
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext())
-        {
+    public void weChatPayClientMissBean() throws Exception {
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
             context.register(WeChatPayAutoConfiguration.class);
             context.refresh();
             assertThatThrownBy(() -> context.getBean(WeChatPayClient.class)).hasMessage("No qualifying bean of type 'cn.javaer.wechat.sdk.pay.WeChatPayClient' available");
         }
     }
-
+    
     @Test
-    public void weChatPayClient() throws Exception
-    {
+    public void weChatPayClient() throws Exception {
         ClassPool.getDefault().makeClass("cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger").toClass();
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext())
-        {
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
             context.register(WeChatPayAutoConfiguration.class);
             context.refresh();
             context.getBean(WeChatPayClient.class);

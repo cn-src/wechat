@@ -20,8 +20,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface WeChatPayClient
-{
+public interface WeChatPayClient {
     String baseUrl = "https://api.mch.weixin.qq.com";
     
     @POST("/pay/unifiedorder")

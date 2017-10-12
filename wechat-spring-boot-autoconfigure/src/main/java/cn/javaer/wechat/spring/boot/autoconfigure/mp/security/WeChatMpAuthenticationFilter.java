@@ -32,28 +32,23 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author zhangpeng
  */
-public class WeChatMpAuthenticationFilter extends GenericFilterBean implements ApplicationEventPublisherAware
-{
+public class WeChatMpAuthenticationFilter extends GenericFilterBean implements ApplicationEventPublisherAware {
     private ApplicationEventPublisher eventPublisher;
     
     @Override
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse,
-        final FilterChain chain) throws IOException, ServletException
-    {
+        final FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
-        if (SecurityContextHolder.getContext().getAuthentication() == null)
-        {
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
             // SecurityContextHolder.getContext().setAuthentication(new WeChatMpAuthenticationToken(""));
-        } else
-        {
+        } else {
             chain.doFilter(request, response);
         }
     }
     
     @Override
-    public void setApplicationEventPublisher(final ApplicationEventPublisher eventPublisher)
-    {
+    public void setApplicationEventPublisher(final ApplicationEventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
     }
 }

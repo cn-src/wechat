@@ -32,10 +32,8 @@ import java.util.Map;
 /**
  * @author zhangpeng
  */
-public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationCodeAccessTokenProvider
-{
-    public WeChatMpAuthorizationCodeAccessTokenProvider(final List<HttpMessageConverter<?>> messageConverters)
-    {
+public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationCodeAccessTokenProvider {
+    public WeChatMpAuthorizationCodeAccessTokenProvider(final List<HttpMessageConverter<?>> messageConverters) {
         this.setMessageConverters(messageConverters);
         this.setTokenRequestEnhancer((request, resource, form, headers) -> {
             final String clientId = form.getFirst("client_id");
@@ -50,13 +48,10 @@ public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationC
     @Override
     public OAuth2AccessToken obtainAccessToken(final OAuth2ProtectedResourceDetails details,
         final AccessTokenRequest request) throws UserRedirectRequiredException, UserApprovalRequiredException,
-        AccessDeniedException, OAuth2AccessDeniedException
-    {
-        try
-        {
+        AccessDeniedException, OAuth2AccessDeniedException {
+        try {
             return super.obtainAccessToken(details, request);
-        } catch (final UserRedirectRequiredException e)
-        {
+        } catch (final UserRedirectRequiredException e) {
             final Map<String, String> params = e.getRequestParams();
             final String clientId = params.get("client_id");
             params.put("appid", clientId);

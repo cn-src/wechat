@@ -28,8 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @Getter
 @ConfigurationProperties(prefix = "wechat.mp")
-public class WeChatMpProperties
-{
+public class WeChatMpProperties {
     /** 公众号的唯一标识 */
     @NonNull private String appId;
     

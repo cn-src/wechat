@@ -30,8 +30,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @Getter
 @ConfigurationProperties(prefix = "wechat.pay")
-public class WeChatPayProperties
-{
+public class WeChatPayProperties {
     /** 公众号的唯一标识 */
     @NonNull private String appId;
     

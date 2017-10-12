@@ -25,8 +25,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class WeChatMpAccessTokenResponse extends AbstractWeChatMpResponse
-{
+public class WeChatMpAccessTokenResponse extends AbstractWeChatMpResponse {
     @JsonProperty("access_token")
     private String accessToken;
     

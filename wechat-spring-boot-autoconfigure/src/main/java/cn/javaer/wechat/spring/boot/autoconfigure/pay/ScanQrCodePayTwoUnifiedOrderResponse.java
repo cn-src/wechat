@@ -25,8 +25,7 @@ import lombok.Data;
  */
 @SuppressWarnings("WeakerAccess")
 @Data
-public class ScanQrCodePayTwoUnifiedOrderResponse
-{
+public class ScanQrCodePayTwoUnifiedOrderResponse {
     private String nonceStr;
     private String prepayId;
     private String codeUrl;

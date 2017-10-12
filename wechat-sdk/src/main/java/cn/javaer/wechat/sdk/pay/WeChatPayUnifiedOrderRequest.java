@@ -37,8 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayUnifiedOrderRequest
-{
+public class WeChatPayUnifiedOrderRequest {
     @XmlElement(name = "appid")
     private String appId;
     

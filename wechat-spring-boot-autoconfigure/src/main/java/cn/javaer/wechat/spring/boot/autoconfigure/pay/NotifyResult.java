@@ -22,8 +22,7 @@ import lombok.Data;
  * @author zhangpeng
  */
 @Data
-public class NotifyResult
-{
+public class NotifyResult {
     private String openId;
     
     private String isSubscribe;

@@ -26,8 +26,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @Getter
 @Setter
-public abstract class AbstractWeChatPayResponse
-{
+public abstract class AbstractWeChatPayResponse {
     @XmlElement(name = "return_code")
     protected String returnCode;
     

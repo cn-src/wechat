@@ -30,16 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhangpeng
  */
 @RestController
-public class WeChatPayController
-{
+public class WeChatPayController {
     private final ApplicationEventPublisher publisher;
     private final WeChatPayProperties       weChatPayProperties;
     
     @SuppressWarnings("WeakerAccess")
     public WeChatPayController(
         @NotNull final ApplicationEventPublisher publisher,
-        @NotNull final WeChatPayProperties weChatPayProperties)
-    {
+        @NotNull final WeChatPayProperties weChatPayProperties) {
         this.publisher = publisher;
         this.weChatPayProperties = weChatPayProperties;
     }
@@ -48,8 +46,7 @@ public class WeChatPayController
      * 接收支付结果通知，将其发布为事件。
      */
     @RequestMapping(path = "${wechat.pay.notify-result-path:/public/wechat/pay/notify_result}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-    public NotifyResultReturn notifyResult(@RequestBody final WeChatPayNotifyResult weChatPayNotifyResult)
-    {
+    public NotifyResultReturn notifyResult(@RequestBody final WeChatPayNotifyResult weChatPayNotifyResult) {
         // TODO 不抛出异常
         WeChatPayUtils.checkResponseBody(weChatPayNotifyResult, this.weChatPayProperties.getMchKey());
         final NotifyResult notifyResult = new NotifyResult();

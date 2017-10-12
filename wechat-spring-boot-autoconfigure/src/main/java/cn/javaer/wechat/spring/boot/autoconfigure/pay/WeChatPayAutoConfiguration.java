@@ -31,33 +31,28 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass(name = "cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger")
 @EnableConfigurationProperties(WeChatPayProperties.class)
-public class WeChatPayAutoConfiguration
-{
+public class WeChatPayAutoConfiguration {
     private final WeChatPayProperties weChatPayProperties;
     
-    public WeChatPayAutoConfiguration(final WeChatPayProperties weChatPayProperties)
-    {
+    public WeChatPayAutoConfiguration(final WeChatPayProperties weChatPayProperties) {
         this.weChatPayProperties = weChatPayProperties;
     }
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayClient weChatPayClient()
-    {
+    public WeChatPayClient weChatPayClient() {
         return new WeChatPayClientFactory().create();
     }
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayService weChatPayService(final WeChatPayClient weChatPayClient)
-    {
+    public WeChatPayService weChatPayService(final WeChatPayClient weChatPayClient) {
         return new DefaultWeChatPayService(this.weChatPayProperties, weChatPayClient);
     }
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayController weChatPayController(final ApplicationEventPublisher publisher)
-    {
+    public WeChatPayController weChatPayController(final ApplicationEventPublisher publisher) {
         return new WeChatPayController(publisher, this.weChatPayProperties);
     }
 }

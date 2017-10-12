@@ -25,13 +25,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * @author zhangpeng
  */
-public class WeChatMpAutoConfigurationTest
-{
+public class WeChatMpAutoConfigurationTest {
     @Test
-    public void weChatMpControllerMissBean() throws Exception
-    {
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext())
-        {
+    public void weChatMpControllerMissBean() throws Exception {
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
             context.register(WeChatMpAutoConfiguration.class);
             context.refresh();
             assertThatThrownBy(() -> context.getBean(WeChatMpController.class)).hasMessageStartingWith("No qualifying bean of type");
@@ -39,11 +36,9 @@ public class WeChatMpAutoConfigurationTest
     }
     
     @Test
-    public void weChatMpController() throws Exception
-    {
+    public void weChatMpController() throws Exception {
         ClassPool.getDefault().makeClass("cn.javaer.wechat.spring.boot.starter.mp.ConditionalOnClassTrigger").toClass();
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext())
-        {
+        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
             context.register(WeChatMpAutoConfiguration.class);
             context.refresh();
             context.getBean(WeChatMpController.class);

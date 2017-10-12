@@ -23,7 +23,6 @@ import lombok.NonNull;
  * @author zhangpeng
  */
 @Data
-public class WeChatPayNotifyResultEvent
-{
+public class WeChatPayNotifyResultEvent {
     @NonNull private NotifyResult notifyResult;
 }

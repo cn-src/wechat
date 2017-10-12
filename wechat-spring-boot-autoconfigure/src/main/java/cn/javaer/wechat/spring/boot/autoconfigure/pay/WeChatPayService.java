@@ -23,8 +23,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayException;
  *
  * @author zhangpeng
  */
-public interface WeChatPayService
-{
+public interface WeChatPayService {
     /**
      * 微信支付-扫码支付-模式二, 统一下单
      *

@@ -19,18 +19,15 @@ package cn.javaer.wechat.sdk.mp;
 /**
  * @author zhangpeng
  */
-public enum AuthorizeScope
-{
+public enum AuthorizeScope {
     BASE("snsapi_base"), USERINFO("snsapi_userinfo");
     private final String scope;
     
-    AuthorizeScope(final String scope)
-    {
+    AuthorizeScope(final String scope) {
         this.scope = scope;
     }
     
-    public String getScope()
-    {
+    public String getScope() {
         return this.scope;
     }
 }

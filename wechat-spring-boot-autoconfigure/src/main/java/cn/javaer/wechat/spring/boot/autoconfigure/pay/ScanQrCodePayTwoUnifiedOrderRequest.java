@@ -32,8 +32,7 @@ import lombok.NonNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScanQrCodePayTwoUnifiedOrderRequest
-{
+public class ScanQrCodePayTwoUnifiedOrderRequest {
     @NonNull private String  body;
     @NonNull private String  outTradeNo;
     @NonNull private Integer totalFee;

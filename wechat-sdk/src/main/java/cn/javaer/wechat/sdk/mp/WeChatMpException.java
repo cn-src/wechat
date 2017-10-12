@@ -19,15 +19,12 @@ package cn.javaer.wechat.sdk.mp;
 /**
  * @author zhangpeng
  */
-public class WeChatMpException extends RuntimeException
-{
-    public WeChatMpException(final String message)
-    {
+public class WeChatMpException extends RuntimeException {
+    public WeChatMpException(final String message) {
         super(message);
     }
     
-    public WeChatMpException(final Throwable cause)
-    {
+    public WeChatMpException(final Throwable cause) {
         super(cause);
     }
 }

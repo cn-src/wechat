@@ -26,17 +26,14 @@ import java.util.UUID;
  * @author zhangpeng
  */
 @SuppressWarnings("WeakerAccess")
-public class WeChatUtils
-{
+public class WeChatUtils {
     private WeChatUtils() {}
     
-    public static String toHtmlImgBase64(final String str)
-    {
+    public static String toHtmlImgBase64(final String str) {
         return "data:image/jpg;base64," + Base64.encodeBase64String(QRCode.from(str).withSize(300, 300).stream().toByteArray());
     }
     
-    public static String uuid()
-    {
+    public static String uuid() {
         final StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
         sb.deleteCharAt(8);
         sb.deleteCharAt(12);
@@ -45,22 +42,17 @@ public class WeChatUtils
         return sb.toString();
     }
     
-    public static String joinPath(final String... pathItems)
-    {
-        if (null == pathItems || pathItems.length <= 0)
-        {
+    public static String joinPath(final String... pathItems) {
+        if (null == pathItems || pathItems.length <= 0) {
             throw new IllegalArgumentException("'pathItems' must not be empty");
         }
         final StringJoiner sj = new StringJoiner("/");
-        for (final String item : pathItems)
-        {
+        for (final String item : pathItems) {
             String fixItem = item;
-            if (fixItem.endsWith("/"))
-            {
+            if (fixItem.endsWith("/")) {
                 fixItem = fixItem.substring(0, fixItem.length() - 1);
             }
-            if (fixItem.startsWith("/"))
-            {
+            if (fixItem.startsWith("/")) {
                 fixItem = fixItem.substring(1);
             }
             sj.add(fixItem);

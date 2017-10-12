@@ -25,27 +25,23 @@ import java.util.Collection;
 /**
  * @author zhangpeng
  */
-public class WeChatMpAuthenticationToken extends AbstractAuthenticationToken
-{
+public class WeChatMpAuthenticationToken extends AbstractAuthenticationToken {
     private final Object principal;
     
     public WeChatMpAuthenticationToken(@NotNull final Object principal,
-        final Collection<? extends GrantedAuthority> authorities)
-    {
+        final Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         setAuthenticated(true);
     }
     
     @Override
-    public Object getCredentials()
-    {
+    public Object getCredentials() {
         return "";
     }
     
     @Override
-    public Object getPrincipal()
-    {
+    public Object getPrincipal() {
         return this.principal;
     }
 }

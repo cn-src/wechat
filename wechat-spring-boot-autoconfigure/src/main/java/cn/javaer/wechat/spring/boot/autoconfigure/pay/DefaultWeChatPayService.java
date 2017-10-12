@@ -32,16 +32,14 @@ import retrofit2.Response;
  *
  * @author zhangpeng
  */
-public class DefaultWeChatPayService implements WeChatPayService
-{
+public class DefaultWeChatPayService implements WeChatPayService {
     private final WeChatPayProperties weChatPayProperties;
     private final WeChatPayClient     weChatPayClient;
     
     @SuppressWarnings("WeakerAccess")
     public DefaultWeChatPayService(
         @NotNull final WeChatPayProperties weChatPayProperties,
-        @NotNull final WeChatPayClient weChatPayClient)
-    {
+        @NotNull final WeChatPayClient weChatPayClient) {
         this.weChatPayProperties = weChatPayProperties;
         this.weChatPayClient = weChatPayClient;
     }
@@ -51,8 +49,7 @@ public class DefaultWeChatPayService implements WeChatPayService
      */
     @Override
     public ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
-        @NotNull final ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException
-    {
+        @NotNull final ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException {
         final String notifyUrl = WeChatUtils.joinPath(this.weChatPayProperties.getNotifyAddress(), this.weChatPayProperties.getNotifyResultPath());
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
             .body(unifiedOrderRequest.getBody())

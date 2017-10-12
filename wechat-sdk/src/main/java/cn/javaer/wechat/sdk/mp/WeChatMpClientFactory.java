@@ -22,10 +22,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * @author zhangpeng
  */
-public class WeChatMpClientFactory
-{
-    public WeChatMpClient create()
-    {
+public class WeChatMpClientFactory {
+    public WeChatMpClient create() {
         final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(WeChatMpClient.baseUrl)
             .addConverterFactory(JacksonConverterFactory.create())

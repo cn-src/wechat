@@ -25,8 +25,7 @@ import java.net.URLEncoder;
 /**
  * @author zhangpeng
  */
-public class WeChatMpUtils
-{
+public class WeChatMpUtils {
     /**
      * 微信网页授权，生成授权url。<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842">官方文档<a/>
      * <p>
@@ -46,8 +45,7 @@ public class WeChatMpUtils
         @NotNull final String appId,
         @NotNull final String redirectUri,
         @NotNull final AuthorizeScope scope,
-        @NotNull final String state)
-    {
+        @NotNull final String state) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                + "&response_type=code&scope=" + scope.getScope()
@@ -60,31 +58,25 @@ public class WeChatMpUtils
     public static String generateAuthorizeUrl(
         @NotNull final String appId,
         @NotNull final String redirectUri,
-        @NotNull final AuthorizeScope scope)
-    {
+        @NotNull final AuthorizeScope scope) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                + "&response_type=code&scope=" + scope.getScope()
                + "#wechat_redirect";
     }
     
-    public static void checkResponse(final Response response)
-    {
-        if (!response.isSuccessful())
-        {
+    public static void checkResponse(final Response response) {
+        if (!response.isSuccessful()) {
             throw new WeChatMpException("Http response error, response:" + response.toString());
         }
     }
     
-    public static void checkResponseBody(final AbstractWeChatMpResponse response)
-    {
-        if (null == response)
-        {
+    public static void checkResponseBody(final AbstractWeChatMpResponse response) {
+        if (null == response) {
             throw new WeChatMpException("WeChat mp response is null");
         }
         
-        if (null != response.getErrcode() && !response.getErrcode().isEmpty())
-        {
+        if (null != response.getErrcode() && !response.getErrcode().isEmpty()) {
             throw new WeChatMpException("WeChat mp response error, response:" + response.toString());
         }
     }

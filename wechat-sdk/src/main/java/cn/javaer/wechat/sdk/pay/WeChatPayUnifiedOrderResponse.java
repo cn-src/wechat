@@ -33,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayUnifiedOrderResponse extends AbstractWeChatPayResponse
-{
+public class WeChatPayUnifiedOrderResponse extends AbstractWeChatPayResponse {
     @XmlElement(name = "appid")
     private String appId;
     

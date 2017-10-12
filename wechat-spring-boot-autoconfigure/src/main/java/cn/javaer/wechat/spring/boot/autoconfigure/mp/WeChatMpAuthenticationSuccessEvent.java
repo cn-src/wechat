@@ -24,8 +24,7 @@ import lombok.NonNull;
  * @author zhangpeng
  */
 @Data
-public class WeChatMpAuthenticationSuccessEvent
-{
+public class WeChatMpAuthenticationSuccessEvent {
     @NonNull private WeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
     private          String                      redirect;
 }

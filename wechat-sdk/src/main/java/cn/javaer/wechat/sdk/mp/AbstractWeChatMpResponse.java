@@ -25,8 +25,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public abstract class AbstractWeChatMpResponse
-{
+public abstract class AbstractWeChatMpResponse {
     @JsonProperty("errcode")
     protected String errcode;
     

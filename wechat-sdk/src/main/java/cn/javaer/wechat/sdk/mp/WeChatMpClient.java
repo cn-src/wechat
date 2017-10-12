@@ -20,8 +20,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface WeChatMpClient
-{
+public interface WeChatMpClient {
     String baseUrl = "https://api.weixin.qq.com";
     
     @GET("/sns/oauth2/access_token")

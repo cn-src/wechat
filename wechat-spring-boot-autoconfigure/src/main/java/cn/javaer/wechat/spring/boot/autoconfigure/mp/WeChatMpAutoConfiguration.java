@@ -31,27 +31,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass(name = "cn.javaer.wechat.spring.boot.starter.mp.ConditionalOnClassTrigger")
 @EnableConfigurationProperties(WeChatMpProperties.class)
-public class WeChatMpAutoConfiguration
-{
+public class WeChatMpAutoConfiguration {
     private final WeChatMpProperties weChatMpProperties;
     
-    public WeChatMpAutoConfiguration(final WeChatMpProperties weChatMpProperties)
-    {
+    public WeChatMpAutoConfiguration(final WeChatMpProperties weChatMpProperties) {
         this.weChatMpProperties = weChatMpProperties;
     }
     
     @Bean
     @ConditionalOnMissingBean
     public WeChatMpController weChatMpController(final WeChatMpClient weChatMpClient,
-        final ApplicationEventPublisher publisher)
-    {
+        final ApplicationEventPublisher publisher) {
         return new WeChatMpController(this.weChatMpProperties, weChatMpClient, publisher);
     }
     
     @Bean
     @ConditionalOnMissingBean
-    public WeChatMpClient weChatMpClient()
-    {
+    public WeChatMpClient weChatMpClient() {
         return new WeChatMpClientFactory().create();
     }
 }
