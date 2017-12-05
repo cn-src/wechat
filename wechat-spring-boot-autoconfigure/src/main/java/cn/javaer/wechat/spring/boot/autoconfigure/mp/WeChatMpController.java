@@ -17,20 +17,15 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
 import cn.javaer.wechat.sdk.mp.AuthorizeScope;
-import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
 import cn.javaer.wechat.sdk.mp.WeChatMpClient;
-import cn.javaer.wechat.sdk.mp.WeChatMpException;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
-import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * @author zhangpeng
@@ -74,18 +69,19 @@ public class WeChatMpController {
     public RedirectView authorizeCode(
         @RequestParam("code") String code,
         @RequestParam("redirect") String redirect) {
-        Call<WeChatMpAccessTokenResponse> responseCall
-            = weChatMpClient.snsOauth2AccessToken(
-            weChatMpProperties.getAppId(), weChatMpProperties.getAppSecret(), code, "authorization_code");
-    
-        Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
-        WeChatMpUtils.checkResponse(response);
-        WeChatMpAccessTokenResponse body = response.body();
-        WeChatMpUtils.checkResponseBody(body);
-    
-        WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
-        successEvent.setRedirect(redirect);
-        publisher.publishEvent(successEvent);
+        //TODO
+//        Call<WeChatMpAccessTokenResponse> responseCall
+//            = weChatMpClient.snsOauth2AccessToken(
+//            weChatMpProperties.getAppId(), weChatMpProperties.getAppSecret(), code, "authorization_code");
+//
+//        Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
+//        WeChatMpUtils.checkResponse(response);
+//        WeChatMpAccessTokenResponse body = response.body();
+//        WeChatMpUtils.checkResponseBody(body);
+//
+//        WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
+//        successEvent.setRedirect(redirect);
+//        publisher.publishEvent(successEvent);
         return new RedirectView(redirect);
     }
 }
