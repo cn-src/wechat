@@ -19,7 +19,7 @@
 //     {
 //         // Create a very simple Retrofit adapter which points the GitHub API.
 //         final Retrofit retrofit = new Retrofit.Builder()
-//             .baseUrl("https://mock.com")
+//             .BASE_URL("https://mock.com")
 //             .build();
 //
 //         // Create a MockRetrofit object with a NetworkBehavior which manages the fake behavior of calls.
