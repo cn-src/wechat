@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -24,5 +25,6 @@ import lombok.NonNull;
  */
 @Data
 public class WeChatPayNotifyResultEvent {
-    @NonNull private NotifyResult notifyResult;
+    @NonNull
+    private WeChatPayNotifyResult notifyResult;
 }

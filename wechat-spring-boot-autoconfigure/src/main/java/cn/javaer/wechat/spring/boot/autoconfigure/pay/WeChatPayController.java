@@ -18,7 +18,6 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
-import jodd.bean.BeanCopy;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
@@ -32,26 +31,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WeChatPayController {
     private final ApplicationEventPublisher publisher;
-    private final WeChatPayProperties       weChatPayProperties;
-    
+    private final WeChatPayProperties weChatPayProperties;
+
     public WeChatPayController(
-        @NotNull ApplicationEventPublisher publisher,
-        @NotNull WeChatPayProperties weChatPayProperties) {
+            @NotNull ApplicationEventPublisher publisher,
+            @NotNull WeChatPayProperties weChatPayProperties) {
         this.publisher = publisher;
         this.weChatPayProperties = weChatPayProperties;
     }
-    
+
     /**
      * 接收支付结果通知，将其发布为事件。
      */
     @RequestMapping(path = "${wechat.pay.notify-result-path}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResultReturn notifyResult(@RequestBody WeChatPayNotifyResult weChatPayNotifyResult) {
-        // TODO 不抛出异常
         WeChatPayUtils.checkResponseBody(weChatPayNotifyResult, weChatPayProperties.getMchKey());
-        NotifyResult notifyResult = new NotifyResult();
-        BeanCopy.beans(weChatPayNotifyResult, notifyResult).copy();
-
-        publisher.publishEvent(new WeChatPayNotifyResultEvent(notifyResult));
+        publisher.publishEvent(new WeChatPayNotifyResultEvent(weChatPayNotifyResult));
         return NotifyResultReturn.SUCCESS;
     }
 }
