@@ -44,9 +44,9 @@ public class WeChatPayController {
      * 接收支付结果通知，将其发布为事件。
      */
     @RequestMapping(path = "${wechat.pay.notify-result-path}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-    public NotifyResultReturn notifyResult(@RequestBody WeChatPayNotifyResult weChatPayNotifyResult) {
+    public NotifyResultResponse notifyResult(@RequestBody WeChatPayNotifyResult weChatPayNotifyResult) {
         WeChatPayUtils.checkResponseBody(weChatPayNotifyResult, weChatPayProperties.getMchKey());
         publisher.publishEvent(new WeChatPayNotifyResultEvent(weChatPayNotifyResult));
-        return NotifyResultReturn.SUCCESS;
+        return NotifyResultResponse.SUCCESS;
     }
 }

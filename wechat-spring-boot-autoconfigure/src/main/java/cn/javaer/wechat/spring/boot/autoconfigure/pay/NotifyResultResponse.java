@@ -16,40 +16,31 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * 微信支付接收通知结果后返回给微信服务的响应。
+ *
  * @author zhangpeng
  */
 @Data
-public class NotifyResult {
-    private String openId;
-    
-    private String isSubscribe;
-    
-    private String tradeType;
-    
-    private String bankType;
-    
-    private String settlementTotalFee;
-    
-    private String feeType;
-    
-    private String totalFee;
-    
-    private String cashFee;
-    
-    private String cashFeeType;
-    
-    private String couponFee;
-    
-    private String couponCount;
-    
-    private String transactionId;
-    
-    private String outTradeNo;
-    
-    private String attach;
-    
-    private String timeEnd;
+@NoArgsConstructor
+@AllArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "xml")
+public class NotifyResultResponse {
+    public static final NotifyResultResponse SUCCESS = new NotifyResultResponse("SUCCESS", "OK");
+
+    @XmlElement(name = "return_code")
+    private String returnCode;
+
+    @XmlElement(name = "return_msg")
+    private String returnMsg;
 }
