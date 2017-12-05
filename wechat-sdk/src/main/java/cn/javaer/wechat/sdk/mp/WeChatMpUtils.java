@@ -18,7 +18,6 @@ package cn.javaer.wechat.sdk.mp;
 
 import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
-import retrofit2.Response;
 
 import java.net.URLEncoder;
 
@@ -65,11 +64,11 @@ public class WeChatMpUtils {
                + "#wechat_redirect";
     }
     
-    public static void checkResponse(Response response) {
-        if (!response.isSuccessful()) {
-            throw new WeChatMpException("Http response error, response:" + response.toString());
-        }
-    }
+//    public static void checkResponse(Response response) {
+//        if (!response.isSuccessful()) {
+//            throw new WeChatMpException("Http response error, response:" + response.toString());
+//        }
+//    }
     
     public static void checkResponseBody(AbstractWeChatMpResponse response) {
         if (null == response) {

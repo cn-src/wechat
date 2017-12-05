@@ -17,7 +17,6 @@
 package cn.javaer.wechat.sdk.pay;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import retrofit2.Response;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
@@ -69,11 +68,11 @@ public class WeChatPayUtils {
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
 
-    public static void checkResponse(Response response) {
-        if (!response.isSuccessful()) {
-            throw new WeChatPayException("Http response error, response:" + response.toString());
-        }
-    }
+//    public static void checkResponse(Response response) {
+//        if (!response.isSuccessful()) {
+//            throw new WeChatPayException("Http response error, response:" + response.toString());
+//        }
+//    }
 
     public static void checkResponseBody(AbstractWeChatPayResponse response, String mchKey) {
         if (null == response) {

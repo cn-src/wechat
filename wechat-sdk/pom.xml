@@ -18,14 +18,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.squareup.retrofit2</groupId>
-            <artifactId>retrofit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.vavr</groupId>
-            <artifactId>vavr</artifactId>
-        </dependency>
-        <dependency>
             <!--jitpack.io-->
             <groupId>com.github.kenglxn.qrgen</groupId>
             <artifactId>javase</artifactId>
@@ -36,22 +28,19 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
-            <!--jitpack.io-->
-            <groupId>cn.javaer</groupId>
-            <artifactId>retrofit2-converter-jaxb</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.retrofit2</groupId>
-            <artifactId>converter-jackson</artifactId>
-            <optional>true</optional>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
