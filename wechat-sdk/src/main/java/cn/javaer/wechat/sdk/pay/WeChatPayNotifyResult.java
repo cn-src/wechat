@@ -33,50 +33,62 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayNotifyResult extends AbstractWeChatPayResponse {
     @XmlElement(name = "appid")
-    private String appId;
-    
+    private String appid;
+
     @XmlElement(name = "mch_id")
     private String mchId;
-    
+
+    @XmlElement(name = "sub_appid")
+    private String subAppid;
+
+    @XmlElement(name = "sub_mch_id")
+    private String subMchId;
+
     @XmlElement(name = "device_info")
     private String deviceInfo;
-    
+
     @XmlElement(name = "sign_type")
     private String signType;
-    
+
     @XmlElement(name = "openid")
-    private String openId;
-    
+    private String openid;
+
     @XmlElement(name = "is_subscribe")
     private String isSubscribe;
-    
+
+    @XmlElement(name = "sub_openid")
+    private String subOpenid;
+
+    @XmlElement(name = "sub_is_subscribe")
+    private String subIsSubscribe;
+
     @XmlElement(name = "trade_type")
     private String tradeType;
-    
+
     @XmlElement(name = "bank_type")
     private String bankType;
-    
+
     @XmlElement(name = "settlement_total_fee")
     private String settlementTotalFee;
-    
+
     @XmlElement(name = "fee_type")
     private String feeType;
-    
+
     @XmlElement(name = "total_fee")
     private String totalFee;
-    
+
     @XmlElement(name = "cash_fee")
     private String cashFee;
-    
+
     @XmlElement(name = "cash_fee_type")
     private String cashFeeType;
-    
+
     @XmlElement(name = "coupon_fee")
     private String couponFee;
-    
+
     @XmlElement(name = "coupon_count")
     private String couponCount;
-    
+
     // @XmlElement(name = "coupon_type_$n", required = false)
     // private String couponType;
     //
@@ -85,16 +97,16 @@ public class WeChatPayNotifyResult extends AbstractWeChatPayResponse {
     //
     // @XmlElement(name = "coupon_fee_$n", required = false)
     // private String couponFee;
-    
+
     @XmlElement(name = "transaction_id")
     private String transactionId;
-    
+
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
-    
+
     @XmlElement(name = "attach")
     private String attach;
-    
+
     @XmlElement(name = "time_end")
     private String timeEnd;
 }
