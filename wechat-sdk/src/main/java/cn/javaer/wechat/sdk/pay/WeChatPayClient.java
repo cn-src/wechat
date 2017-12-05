@@ -16,13 +16,11 @@
 
 package cn.javaer.wechat.sdk.pay;
 
-import retrofit2.Call;
-
 public interface WeChatPayClient {
 
     String BASE_URL = "https://api.mch.weixin.qq.com";
 
     String UNIFIED_ORDER_URL = "/pay/unifiedorder";
 
-    Call<WeChatPayUnifiedOrderResponse> unifiedOrder(WeChatPayUnifiedOrderRequest request);
+    WeChatPayUnifiedOrderResponse unifiedOrder(WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
 }
