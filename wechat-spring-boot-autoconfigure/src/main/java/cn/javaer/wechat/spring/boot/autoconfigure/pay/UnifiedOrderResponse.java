@@ -24,7 +24,7 @@ import lombok.Data;
  * @author zhangpeng
  */
 @Data
-public class OrderResponse {
+public class UnifiedOrderResponse {
     private String nonceStr;
     private String prepayId;
     private String codeUrl;

@@ -31,8 +31,8 @@ public interface WeChatPayService {
      * @return 响应结果已处理掉官方的return和result的异常流程
      * @throws WeChatPayException 支付接口调用失败
      */
-    OrderResponse unifiedOrderWithNative(@NotNull String body,
-                                         @NotNull String outTradeNo,
-                                         @NotNull Integer totalFee,
-                                         @NotNull String productId) throws WeChatPayException;
+    UnifiedOrderResponse unifiedOrderWithNative(@NotNull String body,
+                                                @NotNull String outTradeNo,
+                                                @NotNull Integer totalFee,
+                                                @NotNull String productId) throws WeChatPayException;
 }

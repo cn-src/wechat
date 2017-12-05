@@ -45,10 +45,10 @@ public class DefaultWeChatPayService implements WeChatPayService {
 
     /**
      * @param request 微信统一下单 request
-     * @return OrderResponse
+     * @return UnifiedOrderResponse
      * @throws WeChatPayException WeChatPayException
      */
-    public OrderResponse unifiedOrder(
+    public UnifiedOrderResponse unifiedOrder(
             @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
         WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
 
@@ -58,18 +58,18 @@ public class DefaultWeChatPayService implements WeChatPayService {
         WeChatPayUnifiedOrderResponse successfulBody = response.body();
         WeChatPayUtils.checkResponseBody(successfulBody, weChatPayProperties.getMchKey());
 
-        OrderResponse orderResponse = new OrderResponse();
-        orderResponse.setCodeUrl(successfulBody.getCodeUrl());
-        orderResponse.setNonceStr(successfulBody.getNonceStr());
-        orderResponse.setPrepayId(successfulBody.getPrepayId());
-        return orderResponse;
+        UnifiedOrderResponse unifiedOrderResponse = new UnifiedOrderResponse();
+        unifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
+        unifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
+        unifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
+        return unifiedOrderResponse;
     }
 
     /**
      * 微信统一下单 NATIVE 类型
      */
     @Override
-    public OrderResponse unifiedOrderWithNative(
+    public UnifiedOrderResponse unifiedOrderWithNative(
             @NotNull String body,
             @NotNull String outTradeNo,
             @NotNull Integer totalFee,
