@@ -19,6 +19,8 @@ package cn.javaer.wechat.sdk.pay;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -26,14 +28,15 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @Getter
 @Setter
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractWeChatPayResponse {
     public static final String SUCCESS = "SUCCESS";
 
     @XmlElement(name = "return_code")
-    protected String returnCode;
+    private String returnCode;
 
     @XmlElement(name = "return_msg")
-    protected String returnMsg;
+    private String returnMsg;
 
     @XmlElement(name = "nonce_str")
     private String nonceStr;
