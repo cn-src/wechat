@@ -63,7 +63,7 @@ public class WeChatMpUtils {
                + "&response_type=code&scope=" + scope.getScope()
                + "#wechat_redirect";
     }
-    
+
 //    public static void checkResponse(Response response) {
 //        if (!response.isSuccessful()) {
 //            throw new WeChatMpException("Http response error, response:" + response.toString());
