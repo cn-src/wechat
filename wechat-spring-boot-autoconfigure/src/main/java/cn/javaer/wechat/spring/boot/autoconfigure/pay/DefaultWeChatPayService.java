@@ -87,7 +87,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
                 .tradeType("NATIVE")
                 .build();
 
-        final WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
+        WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
 
         UnifiedOrderWithNativeResponse unifiedOrderWithNativeResponse = new UnifiedOrderWithNativeResponse();
         unifiedOrderWithNativeResponse.setCodeUrl(weChatPayUnifiedOrderResponse.getCodeUrl());
