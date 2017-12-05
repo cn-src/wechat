@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayUnifiedOrderRequest {
 
+    public static final String TRADE_TYPE_JSAPI = "JSAPI";
+    public static final String TRADE_TYPE_NATIVE = "NATIVE";
+    public static final String TRADE_TYPE_APP = "APP";
+
     /**
      * 公众账号ID
      */

@@ -84,7 +84,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
                 .productId(productId)
                 .totalFee(totalFee)
                 .notifyUrl(notifyUrl)
-                .tradeType("NATIVE")
+                .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE)
                 .build();
 
         WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
