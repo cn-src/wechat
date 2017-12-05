@@ -16,6 +16,11 @@
 
 package cn.javaer.wechat.sdk.pay;
 
+/**
+ * 微信支付客户端接口.
+ *
+ * @author zhangpeng
+ */
 public interface WeChatPayClient {
 
     String BASE_URL = "https://api.mch.weixin.qq.com";
