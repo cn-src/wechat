@@ -25,9 +25,17 @@ import retrofit2.Retrofit;
 public class WeChatPayClientFactory {
     public WeChatPayClient create() {
         Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(WeChatPayClient.baseUrl)
-            .addConverterFactory(JaxbConverterFactory.create())
-            .build();
+                .baseUrl(WeChatPayClient.baseUrl)
+                .addConverterFactory(JaxbConverterFactory.create())
+                .build();
+        return retrofit.create(WeChatPayClient.class);
+    }
+
+    public WeChatPayClient create(final String baseUrl) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(JaxbConverterFactory.create())
+                .build();
         return retrofit.create(WeChatPayClient.class);
     }
 }
