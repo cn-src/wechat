@@ -20,6 +20,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -43,6 +44,9 @@ public class WeChatPayUtils {
 
         try {
             for (Field field : fields) {
+                if (Modifier.isStatic(field.getModifiers())) {
+                    continue;
+                }
                 field.setAccessible(true);
                 Object objVal;
                 objVal = field.get(data);
