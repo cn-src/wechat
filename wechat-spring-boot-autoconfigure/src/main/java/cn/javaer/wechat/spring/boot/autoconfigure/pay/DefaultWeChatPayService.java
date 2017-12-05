@@ -56,7 +56,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
             .outTradeNo(unifiedOrderRequest.getOutTradeNo())
             .productId(unifiedOrderRequest.getProductId())
             .totalFee(unifiedOrderRequest.getTotalFee())
-            .appId(weChatPayProperties.getAppId())
+            .appid(weChatPayProperties.getAppId())
             .mchId(weChatPayProperties.getMchId())
             .notifyUrl(notifyUrl)
             .spbillCreateIp(weChatPayProperties.getClientIp())
