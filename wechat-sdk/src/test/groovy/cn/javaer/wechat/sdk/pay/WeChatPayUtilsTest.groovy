@@ -33,7 +33,7 @@ class WeChatPayUtilsTest extends Specification {
                 .outTradeNo("outTradeNo")
                 .productId("productId")
                 .totalFee(100)
-                .appId("appId")
+                .appid("appId")
                 .mchId("mchId")
                 .notifyUrl("notifyUrl")
                 .spbillCreateIp("spbillCreateIp")
