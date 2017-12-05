@@ -35,20 +35,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayUnifiedOrderResponse extends AbstractWeChatPayResponse {
     @XmlElement(name = "appid")
-    private String appId;
-    
+    private String appid;
+
     @XmlElement(name = "mch_id")
     private String mchId;
-    
+
+    @XmlElement(name = "sub_appid")
+    private String subAppid;
+
+    @XmlElement(name = "sub_mch_id")
+    private String subMchId;
+
     @XmlElement(name = "device_info")
     private String deviceInfo;
-    
+
     @XmlElement(name = "trade_type")
     private String tradeType;
-    
+
     @XmlElement(name = "prepay_id")
     private String prepayId;
-    
+
     @XmlElement(name = "code_url")
     private String codeUrl;
 }
