@@ -33,13 +33,13 @@
 //     }
 //
 //     @Test
-//     public void unifiedOrder() throws Exception
+//     public void unifiedOrderWithNative() throws Exception
 //     {
 //         final WeChatPayApiUnifiedOrderRequest request = WeChatPayApiUnifiedOrderRequest.builder()
 //             .appId("demo")
 //             .build();
 //
-//         this.mockApiService.unifiedOrder(request).execute();
+//         this.mockApiService.unifiedOrderWithNative(request).execute();
 //     }
 //
 // }

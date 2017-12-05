@@ -17,6 +17,7 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 微信支付服务
@@ -27,10 +28,11 @@ public interface WeChatPayService {
     /**
      * 微信支付-扫码支付-模式二, 统一下单
      *
-     * @param unifiedOrderRequest 扫码支付-模式二 请求，在官方原始api上尽可能最少化
      * @return 响应结果已处理掉官方的return和result的异常流程
      * @throws WeChatPayException 支付接口调用失败
      */
-    OrderResponse unifiedOrder(
-            UnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException;
+    OrderResponse unifiedOrderWithNative(@NotNull String body,
+                                         @NotNull String outTradeNo,
+                                         @NotNull Integer totalFee,
+                                         @NotNull String productId) throws WeChatPayException;
 }

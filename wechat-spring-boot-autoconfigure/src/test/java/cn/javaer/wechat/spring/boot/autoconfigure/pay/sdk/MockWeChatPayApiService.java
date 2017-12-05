@@ -16,9 +16,9 @@
 //     }
 //
 //     @Override
-//     public Call<WeChatPayApiUnifiedOrderResponse> unifiedOrder(final WeChatPayApiUnifiedOrderRequest request)
+//     public Call<WeChatPayApiUnifiedOrderResponse> unifiedOrderWithNative(final WeChatPayApiUnifiedOrderRequest request)
 //     {
 //         System.out.println(request);
-//         return this.delegate.returningResponse("demo").unifiedOrder(request);
+//         return this.delegate.returningResponse("demo").unifiedOrderWithNative(request);
 //     }
 // }
