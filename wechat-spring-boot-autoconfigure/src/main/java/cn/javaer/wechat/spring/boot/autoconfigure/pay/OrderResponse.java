@@ -16,24 +16,16 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 /**
- * 扫码支付模式二，请求参数
+ * 扫码支付模式二，响应结果
  *
  * @author zhangpeng
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ScanQrCodePayTwoUnifiedOrderRequest {
-    @NonNull private String  body;
-    @NonNull private String  outTradeNo;
-    @NonNull private Integer totalFee;
-    @NonNull private String  productId;
+public class OrderResponse {
+    private String nonceStr;
+    private String prepayId;
+    private String codeUrl;
 }

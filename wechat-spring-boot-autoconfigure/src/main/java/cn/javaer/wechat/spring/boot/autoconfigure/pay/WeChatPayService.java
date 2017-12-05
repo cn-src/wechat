@@ -31,6 +31,6 @@ public interface WeChatPayService {
      * @return 响应结果已处理掉官方的return和result的异常流程
      * @throws WeChatPayException 支付接口调用失败
      */
-    ScanQrCodePayTwoUnifiedOrderResponse unifiedOrder(
-        ScanQrCodePayTwoUnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException;
+    OrderResponse unifiedOrder(
+            UnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException;
 }
