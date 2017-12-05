@@ -31,7 +31,7 @@ public class WeChatPayClientFactory {
         return retrofit.create(WeChatPayClient.class);
     }
 
-    public WeChatPayClient create(final String baseUrl) {
+    public WeChatPayClient create(String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(JaxbConverterFactory.create())
