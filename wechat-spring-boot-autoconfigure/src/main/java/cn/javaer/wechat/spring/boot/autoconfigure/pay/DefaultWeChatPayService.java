@@ -22,10 +22,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
-import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * 微信支付服务
@@ -60,13 +57,10 @@ public class DefaultWeChatPayService implements WeChatPayService {
 
         WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
 
-        Call<WeChatPayUnifiedOrderResponse> responseCall = weChatPayClient.unifiedOrder(request);
-        Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
-        WeChatPayUtils.checkResponse(response);
-        WeChatPayUnifiedOrderResponse successfulBody = response.body();
-        WeChatPayUtils.checkResponseBody(successfulBody, weChatPayProperties.getMchKey());
+        WeChatPayUnifiedOrderResponse responseBody = weChatPayClient.unifiedOrder(request);
+        WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
 
-        return successfulBody;
+        return responseBody;
     }
 
     /**
