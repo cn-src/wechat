@@ -24,8 +24,8 @@ import lombok.Data;
  * @author zhangpeng
  */
 @Data
-public class UnifiedOrderResponse {
-    private String nonceStr;
+public class UnifiedOrderWithNativeResponse {
+    //    private String nonceStr;
     private String prepayId;
     private String codeUrl;
 }

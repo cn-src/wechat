@@ -45,11 +45,16 @@ public class DefaultWeChatPayService implements WeChatPayService {
 
     /**
      * @param request 微信统一下单 request
-     * @return UnifiedOrderResponse
+     * @return UnifiedOrderWithNativeResponse
      * @throws WeChatPayException WeChatPayException
      */
-    public UnifiedOrderResponse unifiedOrder(
+    public WeChatPayUnifiedOrderResponse unifiedOrder(
             @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
+
+        request.setAppid(weChatPayProperties.getAppId());
+        request.setMchId(weChatPayProperties.getMchId());
+        request.setSpbillCreateIp(weChatPayProperties.getClientIp());
+
         WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
 
         Call<WeChatPayUnifiedOrderResponse> responseCall = weChatPayClient.unifiedOrder(request);
@@ -58,18 +63,14 @@ public class DefaultWeChatPayService implements WeChatPayService {
         WeChatPayUnifiedOrderResponse successfulBody = response.body();
         WeChatPayUtils.checkResponseBody(successfulBody, weChatPayProperties.getMchKey());
 
-        UnifiedOrderResponse unifiedOrderResponse = new UnifiedOrderResponse();
-        unifiedOrderResponse.setCodeUrl(successfulBody.getCodeUrl());
-        unifiedOrderResponse.setNonceStr(successfulBody.getNonceStr());
-        unifiedOrderResponse.setPrepayId(successfulBody.getPrepayId());
-        return unifiedOrderResponse;
+        return successfulBody;
     }
 
     /**
      * 微信统一下单 NATIVE 类型
      */
     @Override
-    public UnifiedOrderResponse unifiedOrderWithNative(
+    public UnifiedOrderWithNativeResponse unifiedOrderWithNative(
             @NotNull String body,
             @NotNull String outTradeNo,
             @NotNull Integer totalFee,
@@ -82,13 +83,15 @@ public class DefaultWeChatPayService implements WeChatPayService {
                 .outTradeNo(outTradeNo)
                 .productId(productId)
                 .totalFee(totalFee)
-                .appid(weChatPayProperties.getAppId())
-                .mchId(weChatPayProperties.getMchId())
                 .notifyUrl(notifyUrl)
-                .spbillCreateIp(weChatPayProperties.getClientIp())
                 .tradeType("NATIVE")
                 .build();
 
-        return unifiedOrder(request);
+        final WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
+
+        UnifiedOrderWithNativeResponse unifiedOrderWithNativeResponse = new UnifiedOrderWithNativeResponse();
+        unifiedOrderWithNativeResponse.setCodeUrl(weChatPayUnifiedOrderResponse.getCodeUrl());
+        unifiedOrderWithNativeResponse.setPrepayId(weChatPayUnifiedOrderResponse.getPrepayId());
+        return unifiedOrderWithNativeResponse;
     }
 }
