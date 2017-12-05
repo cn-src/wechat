@@ -30,25 +30,40 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @ConfigurationProperties(prefix = "wechat.pay")
 public class WeChatPayProperties {
-    /** 公众号的唯一标识 */
-    @NonNull private String appId;
-    
-    /** 商户号 */
-    @NonNull private String mchId;
-    
-    /** 商户的key，需要去微信支付平台设置 */
-    @NonNull private String mchKey;
-    
+    /**
+     * 公众号的唯一标识
+     */
+    @NonNull
+    private String appId;
+
+    /**
+     * 商户号
+     */
+    @NonNull
+    private String mchId;
+
+    /**
+     * 商户的key，需要去微信支付平台设置
+     */
+    @NonNull
+    private String mchKey;
+
     /**
      * 接收微信异步通知消息的地址
      * <p>
      * 如：http://www.demo.com:8080
      */
-    @NonNull private String notifyAddress;
-    
-    /** 服务器的公网ip */
-    @NonNull private String clientIp;
-    
-    /** 接收支付结果通知 Controller 的 path */
-    private String notifyResultPath;
+    @NonNull
+    private String notifyAddress;
+
+    /**
+     * 服务器的公网ip
+     */
+    @NonNull
+    private String clientIp;
+
+    /**
+     * 接收支付结果通知 Controller 的 path
+     */
+    private String notifyResultPath = "/public/wechat/pay/notify_result";
 }

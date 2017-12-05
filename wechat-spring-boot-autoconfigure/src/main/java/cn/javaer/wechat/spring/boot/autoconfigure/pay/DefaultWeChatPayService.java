@@ -51,6 +51,9 @@ public class DefaultWeChatPayService implements WeChatPayService {
     public WeChatPayUnifiedOrderResponse unifiedOrder(
             @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
 
+        String notifyUrl = WeChatUtils.joinPath(weChatPayProperties.getNotifyAddress(), weChatPayProperties.getNotifyResultPath());
+
+        request.setNotifyUrl(notifyUrl);
         request.setAppid(weChatPayProperties.getAppId());
         request.setMchId(weChatPayProperties.getMchId());
         request.setSpbillCreateIp(weChatPayProperties.getClientIp());
@@ -75,7 +78,6 @@ public class DefaultWeChatPayService implements WeChatPayService {
             @NotNull String outTradeNo,
             @NotNull Integer totalFee,
             @NotNull String productId) throws WeChatPayException {
-        String notifyUrl = WeChatUtils.joinPath(weChatPayProperties.getNotifyAddress(), weChatPayProperties.getNotifyResultPath());
 
         WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
                 .body(body)
@@ -83,7 +85,6 @@ public class DefaultWeChatPayService implements WeChatPayService {
                 .outTradeNo(outTradeNo)
                 .productId(productId)
                 .totalFee(totalFee)
-                .notifyUrl(notifyUrl)
                 .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE)
                 .build();
 
