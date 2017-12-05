@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import lombok.Data;
 
 /**
@@ -27,4 +28,11 @@ import lombok.Data;
 public class UnifiedOrderWithNativeResponse {
     private String prepayId;
     private String codeUrl;
+
+    public static UnifiedOrderWithNativeResponse createWith(WeChatPayUnifiedOrderResponse response) {
+        UnifiedOrderWithNativeResponse unifiedOrderWithNativeResponse = new UnifiedOrderWithNativeResponse();
+        unifiedOrderWithNativeResponse.setCodeUrl(response.getCodeUrl());
+        unifiedOrderWithNativeResponse.setPrepayId(response.getPrepayId());
+        return unifiedOrderWithNativeResponse;
+    }
 }

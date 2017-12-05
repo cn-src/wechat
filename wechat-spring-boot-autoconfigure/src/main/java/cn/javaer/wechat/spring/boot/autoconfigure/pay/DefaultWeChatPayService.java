@@ -89,9 +89,6 @@ public class DefaultWeChatPayService implements WeChatPayService {
 
         WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
 
-        UnifiedOrderWithNativeResponse unifiedOrderWithNativeResponse = new UnifiedOrderWithNativeResponse();
-        unifiedOrderWithNativeResponse.setCodeUrl(weChatPayUnifiedOrderResponse.getCodeUrl());
-        unifiedOrderWithNativeResponse.setPrepayId(weChatPayUnifiedOrderResponse.getPrepayId());
-        return unifiedOrderWithNativeResponse;
+        return UnifiedOrderWithNativeResponse.createWith(weChatPayUnifiedOrderResponse);
     }
 }
