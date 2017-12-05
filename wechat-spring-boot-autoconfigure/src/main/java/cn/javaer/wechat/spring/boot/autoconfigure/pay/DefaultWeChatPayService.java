@@ -34,15 +34,15 @@ import retrofit2.Response;
  */
 public class DefaultWeChatPayService implements WeChatPayService {
     private final WeChatPayProperties weChatPayProperties;
-    private final WeChatPayClient     weChatPayClient;
-    
+    private final WeChatPayClient weChatPayClient;
+
     public DefaultWeChatPayService(
-        @NotNull WeChatPayProperties weChatPayProperties,
-        @NotNull WeChatPayClient weChatPayClient) {
+            @NotNull WeChatPayProperties weChatPayProperties,
+            @NotNull WeChatPayClient weChatPayClient) {
         this.weChatPayProperties = weChatPayProperties;
         this.weChatPayClient = weChatPayClient;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -51,19 +51,19 @@ public class DefaultWeChatPayService implements WeChatPayService {
             @NotNull UnifiedOrderRequest unifiedOrderRequest) throws WeChatPayException {
         String notifyUrl = WeChatUtils.joinPath(weChatPayProperties.getNotifyAddress(), weChatPayProperties.getNotifyResultPath());
         WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
-            .body(unifiedOrderRequest.getBody())
-            .nonceStr(WeChatUtils.uuid())
-            .outTradeNo(unifiedOrderRequest.getOutTradeNo())
-            .productId(unifiedOrderRequest.getProductId())
-            .totalFee(unifiedOrderRequest.getTotalFee())
+                .body(unifiedOrderRequest.getBody())
+                .nonceStr(WeChatUtils.uuid())
+                .outTradeNo(unifiedOrderRequest.getOutTradeNo())
+                .productId(unifiedOrderRequest.getProductId())
+                .totalFee(unifiedOrderRequest.getTotalFee())
                 .appid(weChatPayProperties.getAppId())
-            .mchId(weChatPayProperties.getMchId())
-            .notifyUrl(notifyUrl)
-            .spbillCreateIp(weChatPayProperties.getClientIp())
-            .tradeType("NATIVE")
-            .build();
+                .mchId(weChatPayProperties.getMchId())
+                .notifyUrl(notifyUrl)
+                .spbillCreateIp(weChatPayProperties.getClientIp())
+                .tradeType("NATIVE")
+                .build();
         WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
-    
+
         Call<WeChatPayUnifiedOrderResponse> responseCall = weChatPayClient.unifiedOrder(request);
         Response<WeChatPayUnifiedOrderResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatPayException::new);
         WeChatPayUtils.checkResponse(response);
