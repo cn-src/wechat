@@ -17,6 +17,8 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
+import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderRequest;
+import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -25,14 +27,28 @@ import org.jetbrains.annotations.NotNull;
  * @author zhangpeng
  */
 public interface WeChatPayService {
+
     /**
-     * 微信支付-扫码支付-模式二, 统一下单
-     *
-     * @return 响应结果已处理掉官方的return和result的异常流程
-     * @throws WeChatPayException 支付接口调用失败
+     * 微信统一下单，除配置参数外，其它参数自行决定使用。
+     */
+    WeChatPayUnifiedOrderResponse unifiedOrder(
+            @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
+
+    /**
+     * 微信统一下单 NATIVE 类型简化。
      */
     UnifiedOrderWithNativeResponse unifiedOrderWithNative(@NotNull String body,
                                                           @NotNull String outTradeNo,
                                                           @NotNull Integer totalFee,
                                                           @NotNull String productId) throws WeChatPayException;
+
+    /**
+     * 微信统一下单 JSAPI 类型简化。
+     */
+    UnifiedOrderWithJsApiResponse unifiedOrderWithJsApi(
+            @NotNull String openid,
+            @NotNull String body,
+            @NotNull String outTradeNo,
+            @NotNull Integer totalFee,
+            @NotNull String productId) throws WeChatPayException;
 }

@@ -40,11 +40,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
         this.weChatPayClient = weChatPayClient;
     }
 
-    /**
-     * @param request 微信统一下单 request
-     * @return UnifiedOrderWithNativeResponse
-     * @throws WeChatPayException WeChatPayException
-     */
+    @Override
     public WeChatPayUnifiedOrderResponse unifiedOrder(
             @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
 
@@ -63,9 +59,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
         return responseBody;
     }
 
-    /**
-     * 微信统一下单 NATIVE 类型
-     */
+
     @Override
     public UnifiedOrderWithNativeResponse unifiedOrderWithNative(
             @NotNull String body,
@@ -85,5 +79,28 @@ public class DefaultWeChatPayService implements WeChatPayService {
         WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
 
         return UnifiedOrderWithNativeResponse.createWith(weChatPayUnifiedOrderResponse);
+    }
+
+    @Override
+    public UnifiedOrderWithJsApiResponse unifiedOrderWithJsApi(
+            @NotNull String openid,
+            @NotNull String body,
+            @NotNull String outTradeNo,
+            @NotNull Integer totalFee,
+            @NotNull String productId) throws WeChatPayException {
+
+        WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
+                .openid(openid)
+                .body(body)
+                .nonceStr(WeChatUtils.uuid())
+                .outTradeNo(outTradeNo)
+                .productId(productId)
+                .totalFee(totalFee)
+                .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_JSAPI)
+                .build();
+
+        WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
+
+        return UnifiedOrderWithJsApiResponse.createWith(weChatPayUnifiedOrderResponse);
     }
 }
