@@ -104,56 +104,56 @@ public class WeChatPayNotifyResult extends AbstractWeChatPayResponse {
     // ---- 代金券
     // ----  0
 
-    @XmlElement(name = "coupon_type_$0")
+    @XmlElement(name = "coupon_type_0")
     private String couponType0;
 
-    @XmlElement(name = "coupon_id_$0")
+    @XmlElement(name = "coupon_id_0")
     private String couponId0;
 
-    @XmlElement(name = "coupon_fee_$0")
+    @XmlElement(name = "coupon_fee_0")
     private String couponFee0;
 
     // ----  1
 
-    @XmlElement(name = "coupon_type_$1")
+    @XmlElement(name = "coupon_type_1")
     private String couponType1;
 
-    @XmlElement(name = "coupon_id_$1")
+    @XmlElement(name = "coupon_id_1")
     private String couponId1;
 
-    @XmlElement(name = "coupon_fee_$1")
+    @XmlElement(name = "coupon_fee_1")
     private String couponFee1;
 
     // ----  2
 
-    @XmlElement(name = "coupon_type_$2")
+    @XmlElement(name = "coupon_type_2")
     private String couponType2;
 
-    @XmlElement(name = "coupon_id_$2")
+    @XmlElement(name = "coupon_id_2")
     private String couponId2;
 
-    @XmlElement(name = "coupon_fee_$2")
+    @XmlElement(name = "coupon_fee_2")
     private String couponFee2;
 
     // ----  3
 
-    @XmlElement(name = "coupon_type_$3")
+    @XmlElement(name = "coupon_type_3")
     private String couponType3;
 
-    @XmlElement(name = "coupon_id_$3")
+    @XmlElement(name = "coupon_id_3")
     private String couponId3;
 
-    @XmlElement(name = "coupon_fee_$3")
+    @XmlElement(name = "coupon_fee_3")
     private String couponFee3;
 
     // ----  4
 
-    @XmlElement(name = "coupon_type_$4")
+    @XmlElement(name = "coupon_type_4")
     private String couponType4;
 
-    @XmlElement(name = "coupon_id_$4")
+    @XmlElement(name = "coupon_id_4")
     private String couponId4;
 
-    @XmlElement(name = "coupon_fee_$4")
+    @XmlElement(name = "coupon_fee_4")
     private String couponFee4;
 }
