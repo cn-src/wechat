@@ -50,7 +50,7 @@ public class WeChatPayNotifyResultEvent {
      *
      * @return 支付成功为 true
      */
-    public boolean isSuccessful() {
+    public boolean isPaySuccessful() {
         return successful;
     }
 }

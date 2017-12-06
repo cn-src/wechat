@@ -33,7 +33,7 @@ public class WeChatPayUnifiedOrderEvent {
      *
      * @return 成功为 true
      */
-    public boolean isSuccessful() {
+    public boolean isPlaceOrderSuccessful() {
         return successful;
     }
 }
