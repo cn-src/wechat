@@ -4,6 +4,8 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 
 /**
+ * 微信支付-统一下单事件.
+ *
  * @author zhangpeng
  */
 public class WeChatPayUnifiedOrderEvent {
@@ -17,10 +19,20 @@ public class WeChatPayUnifiedOrderEvent {
         this.successful = WeChatPayUtils.isSuccessfulResponseBody(unifiedOrderResponse);
     }
 
+    /**
+     * 获取统一下单的响应.
+     *
+     * @return WeChatPayUnifiedOrderResponse
+     */
     public WeChatPayUnifiedOrderResponse getUnifiedOrderResponse() {
         return unifiedOrderResponse;
     }
 
+    /**
+     * 判断下单是否成功.
+     *
+     * @return 成功为 true
+     */
     public boolean isSuccessful() {
         return successful;
     }

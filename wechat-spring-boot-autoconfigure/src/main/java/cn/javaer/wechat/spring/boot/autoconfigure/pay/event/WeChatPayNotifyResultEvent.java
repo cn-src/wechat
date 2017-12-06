@@ -20,6 +20,8 @@ import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 
 /**
+ * 微信支付-支付结果通知事件.
+ *
  * @author zhangpeng
  */
 
@@ -34,10 +36,20 @@ public class WeChatPayNotifyResultEvent {
         this.successful = WeChatPayUtils.isSuccessfulResponseBody(notifyResult);
     }
 
+    /**
+     * 获取支付结果通知事件的响应.
+     *
+     * @return WeChatPayNotifyResult
+     */
     public WeChatPayNotifyResult getNotifyResult() {
         return notifyResult;
     }
 
+    /**
+     * 判断支付结果通知是否支付成功.
+     *
+     * @return 支付成功为 true
+     */
     public boolean isSuccessful() {
         return successful;
     }
