@@ -3,7 +3,7 @@
 目前支持的功能
 > * 微信公众号网页授权登录
 > * 微信支付-扫码支付模式二
-> * 摸索中，但此项目可以为封装第三方接口提供一个参考的思路
+> * 微信支付-公众号支付
 
 # 说明
 对微信 api 的调用由 WeChatXXXClient 相关接口发起请求
@@ -12,4 +12,5 @@
 
 对微信回调接口已提供相关 Controller，并采用 spring 事件机制封装
 > * WeChatMpAuthenticationSuccessEvent 微信公众号授权成功事件
-> * WeChatPayNotifyResultEvent 支付结果事件
+> * WeChatPayUnifiedOrderEvent 支付统一下单事件
+> * WeChatPayNotifyResultEvent 支付结果通知事件
