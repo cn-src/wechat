@@ -22,6 +22,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
+import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderSuccessEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 
