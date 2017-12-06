@@ -22,7 +22,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
-import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderSuccessEvent;
+import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 
@@ -60,9 +60,10 @@ public class DefaultWeChatPayService implements WeChatPayService {
         WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
 
         WeChatPayUnifiedOrderResponse responseBody = weChatPayClient.unifiedOrder(request);
-        WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
 
-        publisher.publishEvent(new WeChatPayUnifiedOrderSuccessEvent(responseBody));
+        publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
+
+        WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
 
         return responseBody;
     }

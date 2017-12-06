@@ -5,11 +5,11 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 /**
  * @author zhangpeng
  */
-public class WeChatPayUnifiedOrderSuccessEvent {
+public class WeChatPayUnifiedOrderEvent {
 
     private final WeChatPayUnifiedOrderResponse unifiedOrderResponse;
 
-    public WeChatPayUnifiedOrderSuccessEvent(WeChatPayUnifiedOrderResponse unifiedOrderResponse) {
+    public WeChatPayUnifiedOrderEvent(WeChatPayUnifiedOrderResponse unifiedOrderResponse) {
         this.unifiedOrderResponse = unifiedOrderResponse;
     }
 
