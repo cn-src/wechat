@@ -88,10 +88,9 @@ public class WeChatPayUtils {
         }
     }
 
-    public static boolean isSuccessfulResponseBody(AbstractWeChatPayResponse response, @NotNull String mchKey) {
+    public static boolean isSuccessfulResponseBody(AbstractWeChatPayResponse response) {
 
         return (null != response) &&
-                (response.getSign().equals(WeChatPayUtils.sign(response, mchKey))) &&
                 (AbstractWeChatPayResponse.SUCCESS.equals(response.getReturnCode())) &&
                 (AbstractWeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }

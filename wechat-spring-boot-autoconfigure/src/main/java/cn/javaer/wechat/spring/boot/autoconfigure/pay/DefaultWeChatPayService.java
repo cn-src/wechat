@@ -60,10 +60,9 @@ public class DefaultWeChatPayService implements WeChatPayService {
         WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
 
         WeChatPayUnifiedOrderResponse responseBody = weChatPayClient.unifiedOrder(request);
+        WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
 
         publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
-
-        WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
 
         return responseBody;
     }
