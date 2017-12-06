@@ -64,12 +64,6 @@ public class WeChatMpUtils {
                + "#wechat_redirect";
     }
 
-//    public static void checkResponse(Response response) {
-//        if (!response.isSuccessful()) {
-//            throw new WeChatMpException("Http response error, response:" + response.toString());
-//        }
-//    }
-    
     public static void checkResponseBody(AbstractWeChatMpResponse response) {
         if (null == response) {
             throw new WeChatMpException("WeChat mp response is null");
