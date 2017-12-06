@@ -51,7 +51,7 @@ public class WeChatPayAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public WeChatPayService weChatPayService(WeChatPayClient weChatPayClient) {
-        return new DefaultWeChatPayService(weChatPayProperties, weChatPayClient);
+        return new DefaultWeChatPayService(weChatPayProperties, weChatPayClient, publisher);
     }
 
     @Bean

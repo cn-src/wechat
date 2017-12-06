@@ -23,6 +23,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.ApplicationEventPublisher;
 
 /**
  * 微信支付服务
@@ -33,11 +34,15 @@ public class DefaultWeChatPayService implements WeChatPayService {
     private final WeChatPayProperties weChatPayProperties;
     private final WeChatPayClient weChatPayClient;
 
+    private final ApplicationEventPublisher publisher;
+
     public DefaultWeChatPayService(
             @NotNull WeChatPayProperties weChatPayProperties,
-            @NotNull WeChatPayClient weChatPayClient) {
+            @NotNull WeChatPayClient weChatPayClient,
+            @NotNull ApplicationEventPublisher publisher) {
         this.weChatPayProperties = weChatPayProperties;
         this.weChatPayClient = weChatPayClient;
+        this.publisher = publisher;
     }
 
     @Override
@@ -55,6 +60,8 @@ public class DefaultWeChatPayService implements WeChatPayService {
 
         WeChatPayUnifiedOrderResponse responseBody = weChatPayClient.unifiedOrder(request);
         WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
+
+        publisher.publishEvent(new WeChatPayUnifiedOrderSuccessEvent(responseBody));
 
         return responseBody;
     }
@@ -82,7 +89,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
     }
 
     @Override
-    public UnifiedOrderWithJsApiResponse unifiedOrderWithJsApi(
+    public void unifiedOrderWithJsApi(
             @NotNull String openid,
             @NotNull String body,
             @NotNull String outTradeNo,
@@ -99,8 +106,6 @@ public class DefaultWeChatPayService implements WeChatPayService {
                 .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_JSAPI)
                 .build();
 
-        WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
-
-        return UnifiedOrderWithJsApiResponse.createWith(weChatPayUnifiedOrderResponse);
+        unifiedOrder(request);
     }
 }

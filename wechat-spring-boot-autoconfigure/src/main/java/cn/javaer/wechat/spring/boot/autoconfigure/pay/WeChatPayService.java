@@ -45,7 +45,7 @@ public interface WeChatPayService {
     /**
      * 微信统一下单 JSAPI 类型简化。
      */
-    UnifiedOrderWithJsApiResponse unifiedOrderWithJsApi(
+    void unifiedOrderWithJsApi(
             @NotNull String openid,
             @NotNull String body,
             @NotNull String outTradeNo,
