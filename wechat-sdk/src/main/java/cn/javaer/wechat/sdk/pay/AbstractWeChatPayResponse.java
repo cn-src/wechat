@@ -38,6 +38,18 @@ public abstract class AbstractWeChatPayResponse {
     @XmlElement(name = "return_msg")
     private String returnMsg;
 
+    @XmlElement(name = "appid")
+    private String appid;
+
+    @XmlElement(name = "mch_id")
+    private String mchId;
+
+    @XmlElement(name = "sub_appid")
+    private String subAppid;
+
+    @XmlElement(name = "sub_mch_id")
+    private String subMchId;
+
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
@@ -52,4 +64,11 @@ public abstract class AbstractWeChatPayResponse {
 
     @XmlElement(name = "err_code_des")
     private String errCodeDes;
+
+    @XmlElement(name = "device_info")
+    private String deviceInfo;
+
+    @XmlElement(name = "trade_type")
+    private String tradeType;
+
 }
