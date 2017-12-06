@@ -18,12 +18,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <!--jitpack.io-->
-            <groupId>com.github.kenglxn.qrgen</groupId>
-            <artifactId>javase</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>
