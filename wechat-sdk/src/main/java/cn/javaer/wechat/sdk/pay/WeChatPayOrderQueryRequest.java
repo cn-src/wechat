@@ -2,8 +2,9 @@ package cn.javaer.wechat.sdk.pay;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,7 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @author zhangpeng
  */
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -51,9 +53,16 @@ public class WeChatPayOrderQueryRequest {
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
+    /**
+     * 随机字符串
+     */
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
+    /**
+     * 签名
+     */
     @XmlElement(name = "sign")
     private String sign;
+
 }
