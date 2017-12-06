@@ -17,6 +17,7 @@
 package cn.javaer.wechat.sdk.pay;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
@@ -72,13 +73,7 @@ public class WeChatPayUtils {
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
 
-//    public static void checkResponse(Response response) {
-//        if (!response.isSuccessful()) {
-//            throw new WeChatPayException("Http response error, response:" + response.toString());
-//        }
-//    }
-
-    public static void checkResponseBody(AbstractWeChatPayResponse response, String mchKey) {
+    public static void checkResponseBody(AbstractWeChatPayResponse response, @NotNull String mchKey) {
         if (null == response) {
             throw new WeChatPayException("WeChat pay response is null");
         }
@@ -93,4 +88,11 @@ public class WeChatPayUtils {
         }
     }
 
+    public static boolean isSuccessfulResponseBody(AbstractWeChatPayResponse response, @NotNull String mchKey) {
+
+        return (null != response) &&
+                (response.getSign().equals(WeChatPayUtils.sign(response, mchKey))) &&
+                (AbstractWeChatPayResponse.SUCCESS.equals(response.getReturnCode())) &&
+                (AbstractWeChatPayResponse.SUCCESS.equals(response.getResultCode()));
+    }
 }
