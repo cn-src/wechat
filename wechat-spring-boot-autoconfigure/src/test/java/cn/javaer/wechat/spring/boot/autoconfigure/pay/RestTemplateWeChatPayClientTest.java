@@ -17,8 +17,6 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 /**
  * @author zhangpeng
  */
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class RestTemplateWeChatPayClientTest {
 
     private RestTemplateWeChatPayClient weChatPayClient;
