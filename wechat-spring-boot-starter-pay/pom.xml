@@ -17,9 +17,5 @@
             <groupId>cn.javaer.wechat</groupId>
             <artifactId>wechat-spring-boot-autoconfigure</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.javaer</groupId>
-            <artifactId>retrofit2-converter-jaxb</artifactId>
-        </dependency>
     </dependencies>
 </project>
