@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest
 import spock.lang.Specification
 
 import javax.xml.bind.JAXBContext

@@ -16,6 +16,11 @@
 
 package cn.javaer.wechat.sdk.pay;
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryRequest;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
+
 /**
  * 微信支付客户端接口.
  *

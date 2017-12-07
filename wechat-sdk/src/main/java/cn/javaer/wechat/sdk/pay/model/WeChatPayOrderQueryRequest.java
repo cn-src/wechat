@@ -1,4 +1,4 @@
-package cn.javaer.wechat.sdk.pay;
+package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay;
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,5 +1,6 @@
 package cn.javaer.wechat.sdk.pay
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResult
 import spock.lang.Specification
 
 import javax.xml.bind.JAXBContext

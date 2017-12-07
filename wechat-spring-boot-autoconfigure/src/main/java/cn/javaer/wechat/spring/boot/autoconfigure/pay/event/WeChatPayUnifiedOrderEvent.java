@@ -1,6 +1,6 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay.event;
 
-import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 
 /**

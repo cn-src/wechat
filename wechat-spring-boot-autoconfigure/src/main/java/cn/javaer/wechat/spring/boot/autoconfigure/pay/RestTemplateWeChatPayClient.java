@@ -2,10 +2,10 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
-import cn.javaer.wechat.sdk.pay.WeChatPayOrderQueryRequest;
-import cn.javaer.wechat.sdk.pay.WeChatPayOrderQueryResponse;
-import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderRequest;
-import cn.javaer.wechat.sdk.pay.WeChatPayUnifiedOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryRequest;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

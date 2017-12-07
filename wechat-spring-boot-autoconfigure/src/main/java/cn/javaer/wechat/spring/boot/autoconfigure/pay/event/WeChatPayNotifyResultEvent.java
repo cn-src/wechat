@@ -16,7 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay.event;
 
-import cn.javaer.wechat.sdk.pay.WeChatPayNotifyResult;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResult;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 
 /**
