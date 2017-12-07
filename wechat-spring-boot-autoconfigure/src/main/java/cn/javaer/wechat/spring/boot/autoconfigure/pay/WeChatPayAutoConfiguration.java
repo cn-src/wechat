@@ -18,8 +18,10 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +33,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Configuration
 @ConditionalOnClass(name = "cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger")
+@AutoConfigureAfter({WebClientAutoConfiguration.class})
 @EnableConfigurationProperties(WeChatPayProperties.class)
 public class WeChatPayAutoConfiguration {
     private final WeChatPayProperties weChatPayProperties;
@@ -41,7 +44,8 @@ public class WeChatPayAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayClient weChatPayClient(@Autowired(required = false) RestTemplate restTemplate) {
+    public WeChatPayClient weChatPayClient(@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+                                           @Autowired(required = false) RestTemplate restTemplate) {
         if (null == restTemplate) {
             restTemplate = new RestTemplate();
         }
