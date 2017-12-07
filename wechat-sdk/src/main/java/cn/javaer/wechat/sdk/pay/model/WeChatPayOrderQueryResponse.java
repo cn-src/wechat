@@ -29,6 +29,9 @@ public class WeChatPayOrderQueryResponse extends AbstractWeChatPayResponse {
     @XmlElement(name = "sub_is_subscribe")
     private String subIsSubscribe;
 
+    @XmlElement(name = "trade_type")
+    private String tradeType;
+
     @XmlElement(name = "trade_state")
     private String tradeState;
 

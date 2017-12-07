@@ -67,8 +67,4 @@ public abstract class AbstractWeChatPayResponse {
 
     @XmlElement(name = "device_info")
     private String deviceInfo;
-
-    @XmlElement(name = "trade_type")
-    private String tradeType;
-
 }
