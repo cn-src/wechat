@@ -16,7 +16,10 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.javaer.wechat</groupId>
+            <artifactId>wechat-sdk</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -24,6 +27,12 @@
             <plugin>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                <configuration>
+                    <classes>
+                        <param>cn.javaer.wechat.sdk.pay.model</param>
+                    </classes>
+                    <targetDir>${basedir}/src/main/java</targetDir>
+                </configuration>
             </plugin>
         </plugins>
     </build>
