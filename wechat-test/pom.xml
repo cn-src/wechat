@@ -20,6 +20,7 @@
         <dependency>
             <groupId>cn.javaer.wechat</groupId>
             <artifactId>wechat-sdk</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
