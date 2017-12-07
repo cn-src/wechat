@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cd ./wechat-mock-server && java -jar wiremock-standalone-*.jar
