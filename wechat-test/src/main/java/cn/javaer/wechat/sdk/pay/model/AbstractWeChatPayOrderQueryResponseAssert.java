@@ -776,6 +776,29 @@ public abstract class AbstractWeChatPayOrderQueryResponseAssert<S extends Abstra
   }
 
   /**
+   * Verifies that the actual WeChatPayOrderQueryResponse's tradeType is equal to the given one.
+   * @param tradeType the given tradeType to compare the actual WeChatPayOrderQueryResponse's tradeType to.
+   * @return this assertion object.
+   * @throws AssertionError - if the actual WeChatPayOrderQueryResponse's tradeType is not equal to the given one.
+   */
+  public S hasTradeType(String tradeType) {
+    // check that actual WeChatPayOrderQueryResponse we want to make assertions on is not null.
+    isNotNull();
+
+    // overrides the default error message with a more explicit one
+    String assertjErrorMessage = "\nExpecting tradeType of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
+
+    // null safe check
+    String actualTradeType = actual.getTradeType();
+    if (!Objects.areEqual(actualTradeType, tradeType)) {
+      failWithMessage(assertjErrorMessage, actual, tradeType, actualTradeType);
+    }
+
+    // return the current assertion for method chaining
+    return myself;
+  }
+
+  /**
    * Verifies that the actual WeChatPayOrderQueryResponse's transactionId is equal to the given one.
    * @param transactionId the given transactionId to compare the actual WeChatPayOrderQueryResponse's transactionId to.
    * @return this assertion object.
