@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.sdk.pay;
+package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.Getter;
 import lombok.Setter;

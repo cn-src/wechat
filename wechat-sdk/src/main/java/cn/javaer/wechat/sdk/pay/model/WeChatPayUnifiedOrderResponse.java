@@ -16,7 +16,6 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import cn.javaer.wechat.sdk.pay.AbstractWeChatPayResponse;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

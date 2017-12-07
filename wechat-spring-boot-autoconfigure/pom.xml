@@ -87,5 +87,17 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>2.12.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.javaer.wechat</groupId>
+            <artifactId>wechat-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
