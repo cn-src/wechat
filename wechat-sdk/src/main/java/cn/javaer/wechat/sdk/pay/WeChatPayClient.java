@@ -23,8 +23,6 @@ package cn.javaer.wechat.sdk.pay;
  */
 public interface WeChatPayClient {
 
-    String BASE_URL = "https://api.mch.weixin.qq.com";
-
     String UNIFIED_ORDER_URL = "/pay/unifiedorder";
     String ORDER_QUERY_URL = "/pay/orderquery";
 

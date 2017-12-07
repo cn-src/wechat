@@ -66,4 +66,6 @@ public class WeChatPayProperties {
      * 接收支付结果通知 Controller 的 path
      */
     private String notifyResultPath = "/public/wechat/pay/notify_result";
+
+    private String apiBasePath = "https://api.mch.weixin.qq.com";
 }
