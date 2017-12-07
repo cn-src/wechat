@@ -75,6 +75,11 @@
                 <artifactId>wechat-spring-boot-starter-mp</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.javaer.wechat</groupId>
+                <artifactId>wechat-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -83,9 +88,19 @@
         <module>wechat-spring-boot-autoconfigure</module>
         <module>wechat-spring-boot-starter-pay</module>
         <module>wechat-spring-boot-starter-mp</module>
+        <module>wechat-test</module>
     </modules>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.assertj</groupId>
+                    <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                    <version>2.1.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -113,12 +128,6 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
 
     <profiles>
         <profile>
