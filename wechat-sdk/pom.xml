@@ -35,6 +35,12 @@
             <artifactId>jackson-annotations</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>cn.javaer.wechat</groupId>
+            <artifactId>wechat-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
