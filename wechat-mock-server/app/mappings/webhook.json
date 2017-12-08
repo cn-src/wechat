@@ -9,6 +9,9 @@
   },
   "postServeActions": {
     "webhook": {
+      "headers": {
+        "Content-Type": "text/plain"
+      },
       "method": "GET",
       "url": "https://localhost:8080:/demo"
     }
