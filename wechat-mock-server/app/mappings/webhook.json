@@ -1,0 +1,16 @@
+{
+  "request": {
+    "urlPath": "/webhook",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "WebHook!"
+  },
+  "postServeActions": {
+    "webhook": {
+      "method": "GET",
+      "url": "https://localhost:8080:/demo"
+    }
+  }
+}
