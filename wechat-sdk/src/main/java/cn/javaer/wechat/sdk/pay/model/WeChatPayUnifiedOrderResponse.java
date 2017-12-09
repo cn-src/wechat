@@ -35,6 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayUnifiedOrderResponse extends AbstractWeChatPayResponse {
 
+    @XmlElement(name = "trade_type")
+    private String tradeType;
+
     @XmlElement(name = "prepay_id")
     private String prepayId;
 
