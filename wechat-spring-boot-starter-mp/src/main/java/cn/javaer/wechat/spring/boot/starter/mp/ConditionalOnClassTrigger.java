@@ -19,5 +19,5 @@ package cn.javaer.wechat.spring.boot.starter.mp;
 /**
  * @author zhangpeng
  */
-public class ConditionalOnClassTrigger {
+class ConditionalOnClassTrigger {
 }
