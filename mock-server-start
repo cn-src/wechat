@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-cd ./wechat-mock-server/app && java -jar wechat-mock-server-*.jar --verbose
+cd ./wechat-mock-server/app && java -jar wechat-mock-server-*.jar --verbose --port 9090
