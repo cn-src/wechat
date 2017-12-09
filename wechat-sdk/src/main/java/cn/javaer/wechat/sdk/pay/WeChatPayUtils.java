@@ -80,7 +80,7 @@ public class WeChatPayUtils {
             throw new WeChatPayException("WeChat pay response is null");
         }
         if (!response.getSign().equals(WeChatPayUtils.sign(response, mchKey))) {
-            throw new WeChatPayException("WeChat pay response 'sign' error");
+            throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
         }
         if (!AbstractWeChatPayResponse.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
