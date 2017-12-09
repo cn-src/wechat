@@ -39,4 +39,6 @@ public class WeChatMpProperties {
     private String authorizeCodePath;
     
     private String accessAuthorizePath;
+
+    private String apiBasePath = "https://api.weixin.qq.com";
 }
