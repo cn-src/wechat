@@ -30,7 +30,7 @@ public class RestTemplateWeChatPayClient implements WeChatPayClient {
     @Override
     public WeChatPayUnifiedOrderResponse unifiedOrder(WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_XML);
+        headers.setContentType(MediaType.TEXT_XML);
         HttpEntity<WeChatPayUnifiedOrderRequest> httpEntity = new HttpEntity<>(request, headers);
         String url = WeChatUtils.joinPath(weChatPayProperties.getApiBasePath(), WeChatPayClient.UNIFIED_ORDER_URL);
         ResponseEntity<WeChatPayUnifiedOrderResponse> responseEntity = restTemplate.postForEntity(
