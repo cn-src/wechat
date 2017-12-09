@@ -24,8 +24,11 @@ import org.jetbrains.annotations.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -43,10 +46,16 @@ public class WeChatPayUtils {
 
         Class<?> clazz = data.getClass();
         Field[] fields = clazz.getDeclaredFields();
+        final Set<Field> fieldSet = new HashSet<>(Arrays.asList(fields));
+        final Class<?> superclass = clazz.getSuperclass();
+        if (superclass != Object.class) {
+            //TODO 目前仅支持一级父类
+            fieldSet.addAll(Arrays.asList(superclass.getDeclaredFields()));
+        }
         Map<String, String> dataMap = new TreeMap<>();
 
         try {
-            for (Field field : fields) {
+            for (Field field : fieldSet) {
                 if (Modifier.isStatic(field.getModifiers())) {
                     continue;
                 }
