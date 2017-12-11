@@ -17,8 +17,11 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
 import cn.javaer.wechat.sdk.mp.WeChatMpClient;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +32,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnClass(name = "cn.javaer.wechat.spring.boot.starter.mp.ConditionalOnClassTrigger")
+@ConditionalOnWebApplication
+@AutoConfigureAfter({WebClientAutoConfiguration.class})
 @EnableConfigurationProperties(WeChatMpProperties.class)
 public class WeChatMpAutoConfiguration {
     private final WeChatMpProperties weChatMpProperties;
