@@ -18,18 +18,16 @@ package cn.javaer.wechat.sdk.pay;
 
 import cn.javaer.wechat.sdk.pay.model.AbstractWeChatPayResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
+import com.esotericsoftware.reflectasm.MethodAccess;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.List;
 
 /**
  * @author zhangpeng
@@ -42,44 +40,48 @@ public class WeChatPayUtils {
         request.setSign(WeChatPayUtils.sign(request, mchKey));
     }
 
-    public static String sign(Object data, String key) {
+    public static String sign(Object obj, String key) {
 
-        Class<?> clazz = data.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        final Set<Field> fieldSet = new HashSet<>(Arrays.asList(fields));
-        final Class<?> superclass = clazz.getSuperclass();
-        if (superclass != Object.class) {
-            //TODO 目前仅支持一级父类
-            fieldSet.addAll(Arrays.asList(superclass.getDeclaredFields()));
-        }
-        Map<String, String> dataMap = new TreeMap<>();
+        final Class<?> aClass = obj.getClass();
+        final MethodAccess methodAccess = MethodAccess.get(aClass);
+        final Class[] returnTypes = methodAccess.getReturnTypes();
+        final Class[][] parameterTypes = methodAccess.getParameterTypes();
+        final String[] methodNames = methodAccess.getMethodNames();
 
-        try {
-            for (Field field : fieldSet) {
-                if (Modifier.isStatic(field.getModifiers())) {
-                    continue;
-                }
-                field.setAccessible(true);
-                Object objVal;
-                objVal = field.get(data);
+        final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(aClass, XmlElement.class);
 
-                if (null != objVal && !objVal.toString().isEmpty()) {
-                    String dataKey = Optional.ofNullable(field.getAnnotation(XmlElement.class))
-                            .map(XmlElement::name)
-                            .orElse(field.getName());
-                    if (!"sign".equals(dataKey)) {
-                        dataMap.put(dataKey, objVal.toString());
-                    }
-                }
-            }
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
         StringBuilder sb = new StringBuilder();
 
-        for (Map.Entry<String, String> entry : dataMap.entrySet()) {
-            sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
+        for (int i = 0; i < methodNames.length; i++) {
+            final String methodName = methodNames[i];
+
+            final boolean readMethodNonParam = parameterTypes[i] == null || parameterTypes[i].length == 0;
+            final boolean readWithBool = methodName.startsWith("is") && (
+                    (returnTypes[i] == boolean.class) || (returnTypes[i] == Boolean.class));
+            final boolean readMethod = methodName.startsWith("get") || readWithBool;
+            final boolean notIgnoreMethod = !"sign".endsWith(methodName);
+
+            if (readMethod && readMethodNonParam && notIgnoreMethod) {
+                String k = methodName;
+                for (final Field field : fields) {
+                    if (field.getName().equals(beanMethodNameToFieldName(methodName, returnTypes[i]))) {
+                        final XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
+                        if (null != xmlElements && xmlElements.length > 0) {
+                            final String xmlElementName = xmlElements[0].name();
+                            if (StringUtils.isNotEmpty(xmlElementName)) {
+                                k = xmlElementName;
+                            }
+                        }
+                    }
+                }
+
+                final Object value = methodAccess.invoke(obj, i, methodName);
+                if (null != value && !value.toString().isEmpty()) {
+                    sb.append(k).append('=').append(value).append('&');
+                }
+            }
         }
+
         sb.append("key").append('=').append(key);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
@@ -104,5 +106,17 @@ public class WeChatPayUtils {
         return (null != response) &&
                 (AbstractWeChatPayResponse.SUCCESS.equals(response.getReturnCode())) &&
                 (AbstractWeChatPayResponse.SUCCESS.equals(response.getResultCode()));
+    }
+
+    private static String beanMethodNameToFieldName(final String methodName, final Class returnType) {
+        if (methodName.startsWith("is") && (returnType == boolean.class || returnType == Boolean.class)) {
+            return WordUtils.uncapitalize(methodName.substring(2));
+        }
+
+        if (methodName.startsWith("get")) {
+            return WordUtils.uncapitalize(methodName.substring(3));
+        }
+
+        return methodName;
     }
 }
