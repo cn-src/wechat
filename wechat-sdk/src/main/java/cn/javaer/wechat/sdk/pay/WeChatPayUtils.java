@@ -28,6 +28,8 @@ import org.jetbrains.annotations.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author zhangpeng
@@ -50,7 +52,7 @@ public class WeChatPayUtils {
 
         final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(aClass, XmlElement.class);
 
-        StringBuilder sb = new StringBuilder();
+        final Map<String, Object> sortedMap = new TreeMap<>();
 
         for (int i = 0; i < methodNames.length; i++) {
             final String methodName = methodNames[i];
@@ -77,11 +79,16 @@ public class WeChatPayUtils {
 
                 final Object value = methodAccess.invoke(obj, i, methodName);
                 if (null != value && !value.toString().isEmpty()) {
-                    sb.append(k).append('=').append(value).append('&');
+                    sortedMap.put(k, value);
                 }
             }
         }
 
+        StringBuilder sb = new StringBuilder();
+
+        for (final Map.Entry<String, Object> entry : sortedMap.entrySet()) {
+            sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
+        }
         sb.append("key").append('=').append(key);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
