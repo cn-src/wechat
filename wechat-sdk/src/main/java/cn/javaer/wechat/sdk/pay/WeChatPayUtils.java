@@ -24,17 +24,25 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author zhangpeng
  */
 public class WeChatPayUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(WeChatPayUtils.class);
+
+    private static final Map<Class, Map<String, NameIndex>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
+
     public static void checkAndSignRequest(WeChatPayUnifiedOrderRequest request, String mchKey) {
         if (WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE.equals(request.getTradeType()) && (request.getProductId() == null || request.getProductId().isEmpty())) {
             throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
@@ -45,10 +53,33 @@ public class WeChatPayUtils {
     public static String sign(Object obj, String key) {
 
         final Class<?> aClass = obj.getClass();
+
+        Map<String, NameIndex> cache = CACHE_FOR_SIGN.get(aClass);
+
         final MethodAccess methodAccess = MethodAccess.get(aClass);
+
+        if (null != cache) {
+            log.debug("Sign '{}' from cache", aClass.getName());
+
+            final StringBuilder sb = new StringBuilder();
+
+            for (final Map.Entry<String, NameIndex> entry : cache.entrySet()) {
+                final NameIndex nameIndex = entry.getValue();
+                final Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex(), nameIndex.getMethodName());
+                if (null != value && !value.toString().isEmpty()) {
+                    sb.append(entry.getKey()).append('=').append(value).append('&');
+                }
+            }
+            sb.append("key").append('=').append(key);
+            return DigestUtils.md5Hex(sb.toString()).toUpperCase();
+        } else {
+            cache = new TreeMap<>();
+            CACHE_FOR_SIGN.put(aClass, cache);
+        }
+
+        final String[] methodNames = methodAccess.getMethodNames();
         final Class[] returnTypes = methodAccess.getReturnTypes();
         final Class[][] parameterTypes = methodAccess.getParameterTypes();
-        final String[] methodNames = methodAccess.getMethodNames();
 
         final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(aClass, XmlElement.class);
 
@@ -72,6 +103,7 @@ public class WeChatPayUtils {
                             final String xmlElementName = xmlElements[0].name();
                             if (StringUtils.isNotEmpty(xmlElementName)) {
                                 k = xmlElementName;
+                                cache.put(k, new NameIndex(methodName, i));
                             }
                         }
                     }
@@ -84,7 +116,7 @@ public class WeChatPayUtils {
             }
         }
 
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
         for (final Map.Entry<String, Object> entry : sortedMap.entrySet()) {
             sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
@@ -125,5 +157,23 @@ public class WeChatPayUtils {
         }
 
         return methodName;
+    }
+
+    private static class NameIndex {
+        public NameIndex(String methodName, int methodIndex) {
+            this.methodName = methodName;
+            this.methodIndex = methodIndex;
+        }
+
+        private String methodName;
+        private int methodIndex;
+
+        public String getMethodName() {
+            return methodName;
+        }
+
+        public int getMethodIndex() {
+            return methodIndex;
+        }
     }
 }
