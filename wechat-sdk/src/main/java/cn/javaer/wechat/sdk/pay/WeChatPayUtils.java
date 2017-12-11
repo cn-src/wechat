@@ -59,7 +59,7 @@ public class WeChatPayUtils {
             final boolean readWithBool = methodName.startsWith("is") && (
                     (returnTypes[i] == boolean.class) || (returnTypes[i] == Boolean.class));
             final boolean readMethod = methodName.startsWith("get") || readWithBool;
-            final boolean notIgnoreMethod = !"sign".endsWith(methodName);
+            final boolean notIgnoreMethod = !"getSign".endsWith(methodName) && !"getClass".endsWith(methodName);
 
             if (readMethod && readMethodNonParam && notIgnoreMethod) {
                 String k = methodName;
