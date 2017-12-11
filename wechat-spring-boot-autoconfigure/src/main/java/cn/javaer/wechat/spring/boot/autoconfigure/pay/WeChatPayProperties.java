@@ -34,6 +34,7 @@ import org.springframework.util.StringUtils;
 @Getter
 @ConfigurationProperties(prefix = "wechat.pay")
 public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
+    public static final String NOTIFY_RESULT_PATH = "/public/wechat/pay/notify_result";
     private Environment environment;
 
 
@@ -72,7 +73,7 @@ public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
     /**
      * 接收支付结果通知 Controller 的 path
      */
-    private String notifyResultPath = "/public/wechat/pay/notify_result";
+    private String notifyResultPath = NOTIFY_RESULT_PATH;
 
     private String apiBasePath = "https://api.mch.weixin.qq.com";
 
