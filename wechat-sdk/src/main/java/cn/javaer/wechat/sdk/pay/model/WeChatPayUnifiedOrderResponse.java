@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * 微信支付-统一下单-响应.
+ *
  * @author zhangpeng
  */
 @EqualsAndHashCode(callSuper = true)

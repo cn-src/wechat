@@ -35,6 +35,8 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 微信支付工具类.
+ *
  * @author zhangpeng
  */
 public class WeChatPayUtils {
@@ -43,29 +45,44 @@ public class WeChatPayUtils {
 
     private static final Map<Class, Map<String, NameIndex>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
 
+    /**
+     * 根据 TradeType 校验参数, 并签名.
+     *
+     * @param request WeChatPayUnifiedOrderRequest
+     * @param mchKey 商户key
+     */
     public static void checkAndSignRequest(WeChatPayUnifiedOrderRequest request, String mchKey) {
-        if (WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE.equals(request.getTradeType()) && (request.getProductId() == null || request.getProductId().isEmpty())) {
+        if (WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE.equals(request.getTradeType())
+                && (request.getProductId() == null || request.getProductId().isEmpty())) {
             throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
         }
         request.setSign(WeChatPayUtils.sign(request, mchKey));
     }
 
+    /**
+     * 微信支付-签名.
+     *
+     * @param obj 要签名的数据对象.
+     * @param key key
+     *
+     * @return 返回签名 String
+     */
     public static String sign(Object obj, String key) {
 
-        final Class<?> aClass = obj.getClass();
+        Class<?> clazz = obj.getClass();
 
-        Map<String, NameIndex> cache = CACHE_FOR_SIGN.get(aClass);
+        Map<String, NameIndex> cache = CACHE_FOR_SIGN.get(clazz);
 
-        final MethodAccess methodAccess = MethodAccess.get(aClass);
+        MethodAccess methodAccess = MethodAccess.get(clazz);
 
         if (null != cache) {
-            log.debug("Sign '{}' from cache", aClass.getName());
+            log.debug("Sign '{}' from cache", clazz.getName());
 
-            final StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
-            for (final Map.Entry<String, NameIndex> entry : cache.entrySet()) {
-                final NameIndex nameIndex = entry.getValue();
-                final Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex(), nameIndex.getMethodName());
+            for (Map.Entry<String, NameIndex> entry : cache.entrySet()) {
+                NameIndex nameIndex = entry.getValue();
+                Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex(), nameIndex.getMethodName());
                 if (null != value && !value.toString().isEmpty()) {
                     sb.append(entry.getKey()).append('=').append(value).append('&');
                 }
@@ -74,33 +91,33 @@ public class WeChatPayUtils {
             return DigestUtils.md5Hex(sb.toString()).toUpperCase();
         } else {
             cache = new TreeMap<>();
-            CACHE_FOR_SIGN.put(aClass, cache);
+            CACHE_FOR_SIGN.put(clazz, cache);
         }
 
-        final String[] methodNames = methodAccess.getMethodNames();
-        final Class[] returnTypes = methodAccess.getReturnTypes();
-        final Class[][] parameterTypes = methodAccess.getParameterTypes();
+        String[] methodNames = methodAccess.getMethodNames();
+        Class[] returnTypes = methodAccess.getReturnTypes();
+        Class[][] parameterTypes = methodAccess.getParameterTypes();
 
-        final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(aClass, XmlElement.class);
+        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
 
-        final Map<String, Object> sortedMap = new TreeMap<>();
+        Map<String, Object> sortedMap = new TreeMap<>();
 
         for (int i = 0; i < methodNames.length; i++) {
-            final String methodName = methodNames[i];
+            String methodName = methodNames[i];
 
-            final boolean readMethodNonParam = parameterTypes[i] == null || parameterTypes[i].length == 0;
-            final boolean readWithBool = methodName.startsWith("is") && (
+            boolean readMethodNonParam = parameterTypes[i] == null || parameterTypes[i].length == 0;
+            boolean readWithBool = methodName.startsWith("is") && (
                     (returnTypes[i] == boolean.class) || (returnTypes[i] == Boolean.class));
-            final boolean readMethod = methodName.startsWith("get") || readWithBool;
-            final boolean notIgnoreMethod = !"getSign".equals(methodName) && !"getClass".equals(methodName);
+            boolean readMethod = methodName.startsWith("get") || readWithBool;
+            boolean notIgnoreMethod = !"getSign".equals(methodName) && !"getClass".equals(methodName);
 
             if (readMethod && readMethodNonParam && notIgnoreMethod) {
                 String k = methodName;
-                for (final Field field : fields) {
+                for (Field field : fields) {
                     if (field.getName().equals(beanMethodNameToFieldName(methodName, returnTypes[i]))) {
-                        final XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
+                        XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
                         if (null != xmlElements && xmlElements.length > 0) {
-                            final String xmlElementName = xmlElements[0].name();
+                            String xmlElementName = xmlElements[0].name();
                             if (StringUtils.isNotEmpty(xmlElementName)) {
                                 k = xmlElementName;
                                 cache.put(k, new NameIndex(methodName, i));
@@ -109,22 +126,30 @@ public class WeChatPayUtils {
                     }
                 }
 
-                final Object value = methodAccess.invoke(obj, i, methodName);
+                Object value = methodAccess.invoke(obj, i, methodName);
                 if (null != value && !value.toString().isEmpty()) {
                     sortedMap.put(k, value);
                 }
             }
         }
 
-        final StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-        for (final Map.Entry<String, Object> entry : sortedMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : sortedMap.entrySet()) {
             sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
         }
         sb.append("key").append('=').append(key);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
 
+    /**
+     * 校验响应信息是否为成功.
+     *
+     * @param response WeChatPayResponse
+     * @param mchKey 商户key
+     *
+     * @throws WeChatPayException 没有响应信息, 签名错误, 响应信息标示不成功时抛出此异常.
+     */
     public static void checkResponseBody(WeChatPayResponse response, @NotNull String mchKey) {
         if (null == response) {
             throw new WeChatPayException("WeChat pay response is null");
@@ -140,14 +165,21 @@ public class WeChatPayUtils {
         }
     }
 
+    /**
+     * 判断响应信息是否为成功.
+     *
+     * @param response WeChatPayResponse
+     *
+     * @return 有响应信息, 并且完全成功返回 true
+     */
     public static boolean isSuccessfulResponseBody(WeChatPayResponse response) {
 
-        return (null != response) &&
-                (WeChatPayResponse.SUCCESS.equals(response.getReturnCode())) &&
-                (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
+        return (null != response)
+                && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
+                && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
-    private static String beanMethodNameToFieldName(final String methodName, final Class returnType) {
+    private static String beanMethodNameToFieldName(String methodName, Class returnType) {
         if (methodName.startsWith("is") && (returnType == boolean.class || returnType == Boolean.class)) {
             return WordUtils.uncapitalize(methodName.substring(2));
         }
@@ -160,13 +192,13 @@ public class WeChatPayUtils {
     }
 
     private static class NameIndex {
+        private final String methodName;
+        private final int methodIndex;
+
         public NameIndex(String methodName, int methodIndex) {
             this.methodName = methodName;
             this.methodIndex = methodIndex;
         }
-
-        private String methodName;
-        private int methodIndex;
 
         public String getMethodName() {
             return methodName;
