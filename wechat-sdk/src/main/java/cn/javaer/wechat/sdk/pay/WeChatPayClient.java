@@ -34,9 +34,30 @@ public interface WeChatPayClient {
     String ORDER_QUERY_URL = "/pay/orderquery";
     String CLOSE_ORDER_URL = "/pay/closeorder";
 
+    /**
+     * 统一下单
+     *
+     * @param request request
+     * @return response
+     * @throws WeChatPayException WeChatPayException
+     */
     WeChatPayUnifiedOrderResponse unifiedOrder(WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
 
+    /**
+     * 查询订单
+     *
+     * @param request request
+     * @return response
+     * @throws WeChatPayException WeChatPayException
+     */
     WeChatPayOrderQueryResponse orderQuery(WeChatPayOrderQueryRequest request) throws WeChatPayException;
 
+    /**
+     * 关闭订单
+     *
+     * @param request request
+     * @return response
+     * @throws WeChatPayException WeChatPayException
+     */
     WeChatPayCloseOrderResponse closeOrder(WeChatPayCloseOrderRequest request) throws WeChatPayException;
 }
