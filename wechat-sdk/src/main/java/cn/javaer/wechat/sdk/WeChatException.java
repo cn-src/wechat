@@ -22,11 +22,11 @@ package cn.javaer.wechat.sdk;
  * @author zhangpeng
  */
 public class WeChatException extends RuntimeException {
-    public WeChatException(String message) {
+    public WeChatException(final String message) {
         super(message);
     }
 
-    public WeChatException(Throwable cause) {
+    public WeChatException(final Throwable cause) {
         super(cause);
     }
 }

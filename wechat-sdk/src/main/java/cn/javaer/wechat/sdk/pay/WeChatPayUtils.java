@@ -51,7 +51,7 @@ public class WeChatPayUtils {
      * @param request WeChatPayUnifiedOrderRequest
      * @param mchKey 商户key
      */
-    public static void checkAndSignRequest(WeChatPayUnifiedOrderRequest request, String mchKey) {
+    public static void checkAndSignRequest(final WeChatPayUnifiedOrderRequest request, final String mchKey) {
         if (WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE.equals(request.getTradeType())
                 && (request.getProductId() == null || request.getProductId().isEmpty())) {
             throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
@@ -67,22 +67,22 @@ public class WeChatPayUtils {
      *
      * @return 返回签名 String
      */
-    public static String sign(Object obj, String key) {
+    public static String sign(final Object obj, final String key) {
 
-        Class<?> clazz = obj.getClass();
+        final Class<?> clazz = obj.getClass();
 
         Map<String, NameIndex> cache = CACHE_FOR_SIGN.get(clazz);
 
-        MethodAccess methodAccess = MethodAccess.get(clazz);
+        final MethodAccess methodAccess = MethodAccess.get(clazz);
 
         if (null != cache) {
             log.debug("Sign '{}' from cache", clazz.getName());
 
-            StringBuilder sb = new StringBuilder();
+            final StringBuilder sb = new StringBuilder();
 
-            for (Map.Entry<String, NameIndex> entry : cache.entrySet()) {
-                NameIndex nameIndex = entry.getValue();
-                Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex(), nameIndex.getMethodName());
+            for (final Map.Entry<String, NameIndex> entry : cache.entrySet()) {
+                final NameIndex nameIndex = entry.getValue();
+                final Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex(), nameIndex.getMethodName());
                 if (null != value && !value.toString().isEmpty()) {
                     sb.append(entry.getKey()).append('=').append(value).append('&');
                 }
@@ -94,30 +94,30 @@ public class WeChatPayUtils {
             CACHE_FOR_SIGN.put(clazz, cache);
         }
 
-        String[] methodNames = methodAccess.getMethodNames();
-        Class[] returnTypes = methodAccess.getReturnTypes();
-        Class[][] parameterTypes = methodAccess.getParameterTypes();
+        final String[] methodNames = methodAccess.getMethodNames();
+        final Class[] returnTypes = methodAccess.getReturnTypes();
+        final Class[][] parameterTypes = methodAccess.getParameterTypes();
 
-        List<Field> fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
+        final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
 
-        Map<String, Object> sortedMap = new TreeMap<>();
+        final Map<String, Object> sortedMap = new TreeMap<>();
 
         for (int i = 0; i < methodNames.length; i++) {
-            String methodName = methodNames[i];
+            final String methodName = methodNames[i];
 
-            boolean readMethodNonParam = parameterTypes[i] == null || parameterTypes[i].length == 0;
-            boolean readWithBool = methodName.startsWith("is") && (
+            final boolean readMethodNonParam = parameterTypes[i] == null || parameterTypes[i].length == 0;
+            final boolean readWithBool = methodName.startsWith("is") && (
                     (returnTypes[i] == boolean.class) || (returnTypes[i] == Boolean.class));
-            boolean readMethod = methodName.startsWith("get") || readWithBool;
-            boolean notIgnoreMethod = !"getSign".equals(methodName) && !"getClass".equals(methodName);
+            final boolean readMethod = methodName.startsWith("get") || readWithBool;
+            final boolean notIgnoreMethod = !"getSign".equals(methodName) && !"getClass".equals(methodName);
 
             if (readMethod && readMethodNonParam && notIgnoreMethod) {
                 String k = methodName;
-                for (Field field : fields) {
+                for (final Field field : fields) {
                     if (field.getName().equals(beanMethodNameToFieldName(methodName, returnTypes[i]))) {
-                        XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
+                        final XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
                         if (null != xmlElements && xmlElements.length > 0) {
-                            String xmlElementName = xmlElements[0].name();
+                            final String xmlElementName = xmlElements[0].name();
                             if (StringUtils.isNotEmpty(xmlElementName)) {
                                 k = xmlElementName;
                                 cache.put(k, new NameIndex(methodName, i));
@@ -126,16 +126,16 @@ public class WeChatPayUtils {
                     }
                 }
 
-                Object value = methodAccess.invoke(obj, i, methodName);
+                final Object value = methodAccess.invoke(obj, i, methodName);
                 if (null != value && !value.toString().isEmpty()) {
                     sortedMap.put(k, value);
                 }
             }
         }
 
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
-        for (Map.Entry<String, Object> entry : sortedMap.entrySet()) {
+        for (final Map.Entry<String, Object> entry : sortedMap.entrySet()) {
             sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
         }
         sb.append("key").append('=').append(key);
@@ -150,7 +150,7 @@ public class WeChatPayUtils {
      *
      * @throws WeChatPayException 没有响应信息, 签名错误, 响应信息标示不成功时抛出此异常.
      */
-    public static void checkResponseBody(WeChatPayResponse response, @NotNull String mchKey) {
+    public static void checkResponseBody(final WeChatPayResponse response, @NotNull final String mchKey) {
         if (null == response) {
             throw new WeChatPayException("WeChat pay response is null");
         }
@@ -172,14 +172,14 @@ public class WeChatPayUtils {
      *
      * @return 有响应信息, 并且完全成功返回 true
      */
-    public static boolean isSuccessfulResponseBody(WeChatPayResponse response) {
+    public static boolean isSuccessfulResponseBody(final WeChatPayResponse response) {
 
         return (null != response)
                 && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
-    private static String beanMethodNameToFieldName(String methodName, Class returnType) {
+    private static String beanMethodNameToFieldName(final String methodName, final Class returnType) {
         if (methodName.startsWith("is") && (returnType == boolean.class || returnType == Boolean.class)) {
             return WordUtils.uncapitalize(methodName.substring(2));
         }
@@ -195,7 +195,7 @@ public class WeChatPayUtils {
         private final String methodName;
         private final int methodIndex;
 
-        public NameIndex(String methodName, int methodIndex) {
+        public NameIndex(final String methodName, final int methodIndex) {
             this.methodName = methodName;
             this.methodIndex = methodIndex;
         }
