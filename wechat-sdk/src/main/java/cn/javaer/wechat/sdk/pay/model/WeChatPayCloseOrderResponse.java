@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * 微信支付-关闭订单-响应.
+ *
  * @author zhangpeng
  */
 @EqualsAndHashCode(callSuper = true)
