@@ -18,16 +18,16 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
-import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 
 /**
- * 微信支付服务
+ * 微信支付服务.
  *
  * @author zhangpeng
  */
@@ -50,7 +50,9 @@ public class WeChatPayDefaultService implements WeChatPayService {
     public WeChatPayUnifiedOrderResponse unifiedOrder(
             @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
 
-        String notifyUrl = WeChatUtils.joinPath(weChatPayProperties.getNotifyAddress(), weChatPayProperties.getNotifyResultPath());
+        String notifyUrl = WeChatUtils.joinPath(
+                weChatPayProperties.getNotifyAddress(),
+                weChatPayProperties.getNotifyResultPath());
 
         request.setNotifyUrl(notifyUrl);
         request.setAppid(weChatPayProperties.getAppId());
