@@ -56,7 +56,7 @@ public class WeChatMpController {
     }
 
     /**
-     * 重定向到微信授权地址。
+     * 重定向到微信授权地址.
      *
      * @param redirect 应用自身回调地址
      */
@@ -71,7 +71,7 @@ public class WeChatMpController {
     }
 
     /**
-     * 微信回调接口，提供给微信在授权之后的重定向
+     * 微信回调接口, 提供给微信在授权之后的重定向.
      *
      * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
      */
@@ -80,18 +80,6 @@ public class WeChatMpController {
             @RequestParam("code") String code,
             @RequestParam("redirect") String redirect) {
         //TODO
-//        Call<WeChatWeChatMpAccessTokenResponse> responseCall
-//            = weChatMpClient.snsOauth2AccessToken(
-//            weChatMpProperties.getAppId(), weChatMpProperties.getAppSecret(), code, "authorization_code");
-//
-//        Response<WeChatWeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
-//        WeChatMpUtils.checkResponse(response);
-//        WeChatWeChatMpAccessTokenResponse body = response.body();
-//        WeChatMpUtils.checkResponseBody(body);
-//
-//        WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);
-//        successEvent.setRedirect(redirect);
-//        publisher.publishEvent(successEvent);
         return new RedirectView(redirect);
     }
 }

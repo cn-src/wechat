@@ -31,7 +31,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "wechat.mp")
 public class WeChatMpProperties {
     /**
-     * 公众号的唯一标识
+     * 公众号的唯一标识.
      */
     @NonNull
     private String appId;
@@ -43,7 +43,7 @@ public class WeChatMpProperties {
     private String notifyAddress;
 
     /**
-     * 授权后重定向的回调链接path
+     * 授权后重定向的回调链接 path.
      */
     private String authorizeCodePath;
 
