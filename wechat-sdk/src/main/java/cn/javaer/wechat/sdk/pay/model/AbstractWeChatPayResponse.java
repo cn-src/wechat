@@ -65,6 +65,4 @@ public abstract class AbstractWeChatPayResponse {
     @XmlElement(name = "err_code_des")
     private String errCodeDes;
 
-    @XmlElement(name = "device_info")
-    private String deviceInfo;
 }

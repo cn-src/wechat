@@ -68,6 +68,9 @@ public class WeChatPayOrderQueryResponse extends AbstractWeChatPayResponse {
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
+    @XmlElement(name = "device_info")
+    private String deviceInfo;
+
     @XmlElement(name = "attach")
     private String attach;
 
