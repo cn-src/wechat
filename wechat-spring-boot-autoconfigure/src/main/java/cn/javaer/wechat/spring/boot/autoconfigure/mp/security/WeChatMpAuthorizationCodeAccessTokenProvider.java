@@ -35,6 +35,12 @@ import java.util.Map;
  * @author zhangpeng
  */
 public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationCodeAccessTokenProvider {
+
+    /**
+     * 构造公众号认证令牌提供者.
+     *
+     * @param messageConverters messageConverters
+     */
     public WeChatMpAuthorizationCodeAccessTokenProvider(List<HttpMessageConverter<?>> messageConverters) {
         setMessageConverters(messageConverters);
         setTokenRequestEnhancer((request, resource, form, headers) -> {
@@ -49,7 +55,8 @@ public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationC
 
     @Override
     public OAuth2AccessToken obtainAccessToken(OAuth2ProtectedResourceDetails details,
-                                               AccessTokenRequest request) throws UserRedirectRequiredException, UserApprovalRequiredException,
+                                               AccessTokenRequest request)
+            throws UserRedirectRequiredException, UserApprovalRequiredException,
             AccessDeniedException, OAuth2AccessDeniedException {
         try {
             return super.obtainAccessToken(details, request);

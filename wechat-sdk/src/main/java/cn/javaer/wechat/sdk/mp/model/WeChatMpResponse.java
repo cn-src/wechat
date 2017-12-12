@@ -21,6 +21,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * 微信公众号基本的响应信息.
+ *
  * @author zhangpeng
  */
 @Getter
@@ -28,7 +30,7 @@ import lombok.Setter;
 public abstract class WeChatMpResponse {
     @JsonProperty("errcode")
     protected String errcode;
-    
+
     @JsonProperty("errmsg")
     protected String errmsg;
 }

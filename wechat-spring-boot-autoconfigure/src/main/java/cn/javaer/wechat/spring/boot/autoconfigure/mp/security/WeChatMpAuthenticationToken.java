@@ -30,6 +30,12 @@ import java.util.Collection;
 public class WeChatMpAuthenticationToken extends AbstractAuthenticationToken {
     private final Object principal;
 
+    /**
+     * 构造微信公众号认证令牌.
+     *
+     * @param principal   principal
+     * @param authorities authorities
+     */
     public WeChatMpAuthenticationToken(@NotNull Object principal,
                                        Collection<? extends GrantedAuthority> authorities) {
         super(authorities);

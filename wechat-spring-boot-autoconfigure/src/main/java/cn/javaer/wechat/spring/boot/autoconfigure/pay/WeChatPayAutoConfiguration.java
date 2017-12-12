@@ -30,6 +30,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 /**
+ * 微信支付自动配置.
+ *
  * @author zhangpeng
  */
 @Configuration
@@ -46,8 +48,8 @@ public class WeChatPayAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayClient weChatPayClient(@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-                                           @Autowired(required = false) RestTemplate restTemplate) {
+    public WeChatPayClient weChatPayClient(
+            @Autowired(required = false) RestTemplate restTemplate) {
         if (null == restTemplate) {
             restTemplate = new RestTemplate();
         }

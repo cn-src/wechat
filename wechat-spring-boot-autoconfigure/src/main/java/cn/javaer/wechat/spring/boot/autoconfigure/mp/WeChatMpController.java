@@ -39,6 +39,13 @@ public class WeChatMpController {
     private final WeChatMpClient weChatMpClient;
     private final ApplicationEventPublisher publisher;
 
+    /**
+     * 微信公众号 Controller.
+     *
+     * @param weChatMpProperties weChatMpProperties
+     * @param weChatMpClient     weChatMpClient
+     * @param publisher          publisher
+     */
     public WeChatMpController(
             @NotNull WeChatMpProperties weChatMpProperties,
             @NotNull WeChatMpClient weChatMpClient,
@@ -59,7 +66,8 @@ public class WeChatMpController {
         //     ? this.weChatMpProperties.getAuthorizeCodePath()
         //     : AUTHORIZE_CODE_PATH;
         String redirectUri = WeChatUtils.joinPath(weChatMpProperties.getNotifyAddress(), redirect);
-        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
+        return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(
+                weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
     }
 
     /**

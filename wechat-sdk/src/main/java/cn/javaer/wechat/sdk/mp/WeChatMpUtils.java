@@ -24,11 +24,13 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URLEncoder;
 
 /**
+ * 微信公众号工具类.
+ *
  * @author zhangpeng
  */
 public class WeChatMpUtils {
     /**
-     * 微信网页授权，生成授权url。<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842">官方文档<a/>
+     * 微信网页授权，生成授权url。<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842">官方文档</a>
      * <p>
      * 用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。
      *
@@ -43,34 +45,34 @@ public class WeChatMpUtils {
      * <br/> https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
      */
     public static String generateAuthorizeUrl(
-        @NotNull String appId,
-        @NotNull String redirectUri,
-        @NotNull AuthorizeScope scope,
-        @NotNull String state) {
+            @NotNull String appId,
+            @NotNull String redirectUri,
+            @NotNull AuthorizeScope scope,
+            @NotNull String state) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
-               + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
-               + "&response_type=code&scope=" + scope.getScope()
-               + "&state=" + state + "#wechat_redirect";
+                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
+                + "&response_type=code&scope=" + scope.getScope()
+                + "&state=" + state + "#wechat_redirect";
     }
-    
+
     /**
      * @see #generateAuthorizeUrl(String, String, AuthorizeScope, String)
      */
     public static String generateAuthorizeUrl(
-        @NotNull String appId,
-        @NotNull String redirectUri,
-        @NotNull AuthorizeScope scope) {
+            @NotNull String appId,
+            @NotNull String redirectUri,
+            @NotNull AuthorizeScope scope) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
-               + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
-               + "&response_type=code&scope=" + scope.getScope()
-               + "#wechat_redirect";
+                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
+                + "&response_type=code&scope=" + scope.getScope()
+                + "#wechat_redirect";
     }
 
     public static void checkResponseBody(WeChatMpResponse response) {
         if (null == response) {
             throw new WeChatMpException("WeChat mp response is null");
         }
-        
+
         if (null != response.getErrcode() && !response.getErrcode().isEmpty()) {
             throw new WeChatMpException("WeChat mp response error, response:" + response.toString());
         }

@@ -22,22 +22,31 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * 微信公众号配置.
+ *
  * @author zhangpeng
  */
 @Setter
 @Getter
 @ConfigurationProperties(prefix = "wechat.mp")
 public class WeChatMpProperties {
-    /** 公众号的唯一标识 */
-    @NonNull private String appId;
-    
-    @NonNull private String appSecret;
-    
-    @NonNull private String notifyAddress;
-    
-    /** 授权后重定向的回调链接path */
+    /**
+     * 公众号的唯一标识
+     */
+    @NonNull
+    private String appId;
+
+    @NonNull
+    private String appSecret;
+
+    @NonNull
+    private String notifyAddress;
+
+    /**
+     * 授权后重定向的回调链接path
+     */
     private String authorizeCodePath;
-    
+
     private String accessAuthorizePath;
 
     private String apiBasePath = "https://api.weixin.qq.com";
