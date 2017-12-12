@@ -19,7 +19,7 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import javassist.ClassPool;
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -29,17 +29,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class WeChatPayAutoConfigurationTest {
     @Test
     public void weChatPayClientMissBean() throws Exception {
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
+        try (AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext()) {
             context.register(WeChatPayAutoConfiguration.class);
             context.refresh();
             assertThatThrownBy(() -> context.getBean(WeChatPayClient.class)).hasMessage("No qualifying bean of type 'cn.javaer.wechat.sdk.pay.WeChatPayClient' available");
         }
     }
-    
+
     @Test
     public void weChatPayClient() throws Exception {
         ClassPool.getDefault().makeClass("cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger").toClass();
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
+        try (AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext()) {
             context.register(WeChatPayAutoConfiguration.class);
             context.refresh();
             context.getBean(WeChatPayClient.class);
