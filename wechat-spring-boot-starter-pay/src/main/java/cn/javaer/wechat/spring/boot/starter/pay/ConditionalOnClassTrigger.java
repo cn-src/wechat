@@ -17,6 +17,8 @@
 package cn.javaer.wechat.spring.boot.starter.pay;
 
 /**
+ * 触发微信支付自动配置.
+ *
  * @author zhangpeng
  */
 class ConditionalOnClassTrigger {

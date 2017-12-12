@@ -17,6 +17,8 @@
 package cn.javaer.wechat.spring.boot.starter.mp;
 
 /**
+ * 触发微信公众号自动配置.
+ *
  * @author zhangpeng
  */
 class ConditionalOnClassTrigger {

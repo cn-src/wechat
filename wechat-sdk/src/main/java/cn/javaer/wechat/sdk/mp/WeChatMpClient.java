@@ -16,7 +16,6 @@
 
 package cn.javaer.wechat.sdk.mp;
 
-
 import cn.javaer.wechat.sdk.mp.model.WeChatWeChatMpAccessTokenResponse;
 
 public interface WeChatMpClient {

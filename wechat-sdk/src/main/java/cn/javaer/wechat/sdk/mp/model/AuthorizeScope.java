@@ -17,16 +17,18 @@
 package cn.javaer.wechat.sdk.mp.model;
 
 /**
+ * 授权范围.
+ *
  * @author zhangpeng
  */
 public enum AuthorizeScope {
     BASE("snsapi_base"), USERINFO("snsapi_userinfo");
     private final String scope;
-    
+
     AuthorizeScope(String scope) {
         this.scope = scope;
     }
-    
+
     public String getScope() {
         return scope;
     }

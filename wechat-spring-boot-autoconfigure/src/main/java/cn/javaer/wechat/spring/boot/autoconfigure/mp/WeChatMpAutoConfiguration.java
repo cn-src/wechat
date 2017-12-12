@@ -28,6 +28,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 微信公众号自动配置.
+ *
  * @author zhangpeng
  */
 @Configuration

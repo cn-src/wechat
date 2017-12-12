@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 公众号认证令牌提供者.
+ *
  * @author zhangpeng
  */
 public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationCodeAccessTokenProvider {
@@ -44,11 +46,11 @@ public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationC
             form.remove("client_secret");
         });
     }
-    
+
     @Override
     public OAuth2AccessToken obtainAccessToken(OAuth2ProtectedResourceDetails details,
-        AccessTokenRequest request) throws UserRedirectRequiredException, UserApprovalRequiredException,
-        AccessDeniedException, OAuth2AccessDeniedException {
+                                               AccessTokenRequest request) throws UserRedirectRequiredException, UserApprovalRequiredException,
+            AccessDeniedException, OAuth2AccessDeniedException {
         try {
             return super.obtainAccessToken(details, request);
         } catch (UserRedirectRequiredException e) {

@@ -21,23 +21,25 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
-import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
+ * 公众号认证过滤器.
+ *
  * @author zhangpeng
  */
 public class WeChatMpAuthenticationFilter extends GenericFilterBean implements ApplicationEventPublisherAware {
     private ApplicationEventPublisher eventPublisher;
-    
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-        FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -46,7 +48,7 @@ public class WeChatMpAuthenticationFilter extends GenericFilterBean implements A
             chain.doFilter(request, response);
         }
     }
-    
+
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;

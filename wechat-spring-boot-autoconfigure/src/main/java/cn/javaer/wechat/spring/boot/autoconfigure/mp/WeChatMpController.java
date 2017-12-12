@@ -16,9 +16,9 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
-import cn.javaer.wechat.sdk.mp.model.AuthorizeScope;
 import cn.javaer.wechat.sdk.mp.WeChatMpClient;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
+import cn.javaer.wechat.sdk.mp.model.AuthorizeScope;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
@@ -28,24 +28,26 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
+ * 微信公众号 Controller.
+ *
  * @author zhangpeng
  */
 @RestController
 public class WeChatMpController {
     private static final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
-    private final WeChatMpProperties        weChatMpProperties;
-    private final WeChatMpClient            weChatMpClient;
+    private final WeChatMpProperties weChatMpProperties;
+    private final WeChatMpClient weChatMpClient;
     private final ApplicationEventPublisher publisher;
-    
+
     public WeChatMpController(
-        @NotNull WeChatMpProperties weChatMpProperties,
-        @NotNull WeChatMpClient weChatMpClient,
-        @NotNull ApplicationEventPublisher publisher) {
+            @NotNull WeChatMpProperties weChatMpProperties,
+            @NotNull WeChatMpClient weChatMpClient,
+            @NotNull ApplicationEventPublisher publisher) {
         this.weChatMpProperties = weChatMpProperties;
         this.weChatMpClient = weChatMpClient;
         this.publisher = publisher;
     }
-    
+
     /**
      * 重定向到微信授权地址。
      *
@@ -59,7 +61,7 @@ public class WeChatMpController {
         String redirectUri = WeChatUtils.joinPath(weChatMpProperties.getNotifyAddress(), redirect);
         return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
     }
-    
+
     /**
      * 微信回调接口，提供给微信在授权之后的重定向
      *
@@ -67,8 +69,8 @@ public class WeChatMpController {
      */
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
     public RedirectView authorizeCode(
-        @RequestParam("code") String code,
-        @RequestParam("redirect") String redirect) {
+            @RequestParam("code") String code,
+            @RequestParam("redirect") String redirect) {
         //TODO
 //        Call<WeChatWeChatMpAccessTokenResponse> responseCall
 //            = weChatMpClient.snsOauth2AccessToken(

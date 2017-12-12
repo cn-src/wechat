@@ -17,13 +17,15 @@
 package cn.javaer.wechat.sdk;
 
 /**
+ * 微信异常.
+ *
  * @author zhangpeng
  */
 public class WeChatException extends RuntimeException {
     public WeChatException(String message) {
         super(message);
     }
-    
+
     public WeChatException(Throwable cause) {
         super(cause);
     }

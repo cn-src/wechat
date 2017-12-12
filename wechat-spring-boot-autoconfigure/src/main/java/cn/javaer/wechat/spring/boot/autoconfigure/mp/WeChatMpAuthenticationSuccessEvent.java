@@ -21,10 +21,13 @@ import lombok.Data;
 import lombok.NonNull;
 
 /**
+ * 公众号认证成功事件.
+ *
  * @author zhangpeng
  */
 @Data
 public class WeChatMpAuthenticationSuccessEvent {
-    @NonNull private WeChatWeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
-    private          String                      redirect;
+    @NonNull
+    private WeChatWeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
+    private String redirect;
 }
