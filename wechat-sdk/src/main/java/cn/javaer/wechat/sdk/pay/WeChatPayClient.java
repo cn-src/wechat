@@ -16,6 +16,8 @@
 
 package cn.javaer.wechat.sdk.pay;
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
@@ -30,8 +32,11 @@ public interface WeChatPayClient {
 
     String UNIFIED_ORDER_URL = "/pay/unifiedorder";
     String ORDER_QUERY_URL = "/pay/orderquery";
+    String CLOSE_ORDER_URL = "/pay/closeorder";
 
     WeChatPayUnifiedOrderResponse unifiedOrder(WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
 
     WeChatPayOrderQueryResponse orderQuery(WeChatPayOrderQueryRequest request) throws WeChatPayException;
+
+    WeChatPayCloseOrderResponse closeOrder(WeChatPayCloseOrderRequest request) throws WeChatPayException;
 }
