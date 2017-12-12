@@ -2,6 +2,8 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
@@ -43,6 +45,12 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
 
     @Override
     public WeChatPayOrderQueryResponse orderQuery(WeChatPayOrderQueryRequest request) throws WeChatPayException {
+        return null;
+    }
+
+    @Override
+    public WeChatPayCloseOrderResponse closeOrder(WeChatPayCloseOrderRequest request) throws WeChatPayException {
+        // TODO
         return null;
     }
 }
