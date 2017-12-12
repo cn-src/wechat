@@ -42,7 +42,7 @@ import org.springframework.web.client.RestTemplate;
 public class WeChatPayAutoConfiguration {
     private final WeChatPayProperties weChatPayProperties;
 
-    public WeChatPayAutoConfiguration(WeChatPayProperties weChatPayProperties) {
+    public WeChatPayAutoConfiguration(final WeChatPayProperties weChatPayProperties) {
         this.weChatPayProperties = weChatPayProperties;
     }
 
@@ -58,13 +58,14 @@ public class WeChatPayAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayService weChatPayService(WeChatPayClient weChatPayClient, ApplicationEventPublisher publisher) {
+    public WeChatPayService weChatPayService(
+            final WeChatPayClient weChatPayClient, final ApplicationEventPublisher publisher) {
         return new WeChatPayDefaultService(weChatPayProperties, weChatPayClient, publisher);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayController weChatPayController(ApplicationEventPublisher publisher) {
+    public WeChatPayController weChatPayController(final ApplicationEventPublisher publisher) {
         return new WeChatPayController(publisher, weChatPayProperties);
     }
 }
