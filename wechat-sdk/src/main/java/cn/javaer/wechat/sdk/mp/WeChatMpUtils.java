@@ -32,7 +32,6 @@ public class WeChatMpUtils {
     /**
      * 微信网页授权，生成授权url。<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842">官方文档</a>
      * <p>
-     * <p>
      * 用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。
      *
      * @param appId       公众号的唯一标识
@@ -72,6 +71,12 @@ public class WeChatMpUtils {
                 + "#wechat_redirect";
     }
 
+    /**
+     * 校验 WeChatMpResponse 是否成功.
+     *
+     * @param response WeChatMpResponse
+     * @throws WeChatMpException 不成功时抛出
+     */
     public static void checkResponseBody(WeChatMpResponse response) {
         if (null == response) {
             throw new WeChatMpException("WeChat mp response is null");
