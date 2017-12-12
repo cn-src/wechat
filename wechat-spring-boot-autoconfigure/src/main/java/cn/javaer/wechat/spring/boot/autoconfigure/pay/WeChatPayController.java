@@ -17,8 +17,8 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResultResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResult;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResultResponse;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayNotifyResultEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 微信支付 Controller.
+ *
  * @author zhangpeng
  */
 @RestController
@@ -43,9 +45,10 @@ public class WeChatPayController {
     }
 
     /**
-     * 接收支付结果通知，将其发布为事件。
+     * 接收支付结果通知, 将其发布为事件.
      */
-    @RequestMapping(path = "${wechat.pay.notifyResultPath:" + WeChatPayProperties.NOTIFY_RESULT_PATH + "}", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
+    @RequestMapping(path = "${wechat.pay.notifyResultPath:" + WeChatPayProperties.NOTIFY_RESULT_PATH + "}",
+            consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public WeChatPayNotifyResultResponse notifyResult(@RequestBody WeChatPayNotifyResult weChatPayNotifyResult) {
         WeChatPayUtils.checkResponseBody(weChatPayNotifyResult, weChatPayProperties.getMchKey());
         publisher.publishEvent(new WeChatPayNotifyResultEvent(weChatPayNotifyResult));
