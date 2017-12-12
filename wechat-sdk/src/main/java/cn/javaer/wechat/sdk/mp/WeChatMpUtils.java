@@ -30,7 +30,7 @@ import java.net.URLEncoder;
  */
 public class WeChatMpUtils {
     /**
-     * 微信网页授权，生成授权url。<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842">官方文档</a>
+     * 微信网页授权，生成授权url。<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842">官方文档</a>.
      *
      * <p>用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。
      *
@@ -48,10 +48,10 @@ public class WeChatMpUtils {
      * </ul>
      */
     public static String generateAuthorizeUrl(
-            @NotNull String appId,
-            @NotNull String redirectUri,
-            @NotNull AuthorizeScope scope,
-            @NotNull String state) {
+            @NotNull final String appId,
+            @NotNull final String redirectUri,
+            @NotNull final AuthorizeScope scope,
+            @NotNull final String state) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                 + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                 + "&response_type=code&scope=" + scope.getScope()
@@ -64,9 +64,9 @@ public class WeChatMpUtils {
      * @see #generateAuthorizeUrl(String, String, AuthorizeScope, String)
      */
     public static String generateAuthorizeUrl(
-            @NotNull String appId,
-            @NotNull String redirectUri,
-            @NotNull AuthorizeScope scope) {
+            @NotNull final String appId,
+            @NotNull final String redirectUri,
+            @NotNull final AuthorizeScope scope) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
                 + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
                 + "&response_type=code&scope=" + scope.getScope()
@@ -80,7 +80,7 @@ public class WeChatMpUtils {
      *
      * @throws WeChatMpException 不成功时抛出
      */
-    public static void checkResponseBody(WeChatMpResponse response) {
+    public static void checkResponseBody(final WeChatMpResponse response) {
         if (null == response) {
             throw new WeChatMpException("WeChat mp response is null");
         }

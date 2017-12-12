@@ -21,6 +21,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * 微信公众号获取授权令牌响应.
+ *
  * @author zhangpeng
  */
 @EqualsAndHashCode(callSuper = true)
@@ -28,18 +30,18 @@ import lombok.EqualsAndHashCode;
 public class WeChatWeChatMpAccessTokenResponse extends WeChatMpResponse {
     @JsonProperty("access_token")
     private String accessToken;
-    
+
     @JsonProperty("expires_in")
     private String expiresIn;
-    
+
     @JsonProperty("refresh_token")
     private String refreshToken;
-    
+
     @JsonProperty("openid")
     private String openid;
-    
+
     @JsonProperty("scope")
     private String scope;
-    
+
     private String unionid;
 }

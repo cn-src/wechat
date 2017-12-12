@@ -21,25 +21,27 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * 微信工具类.
+ *
  * @author zhangpeng
  */
 public class WeChatUtils {
     private WeChatUtils() {}
-    
+
     public static String uuid() {
-        StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
+        final StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
         sb.deleteCharAt(8);
         sb.deleteCharAt(12);
         sb.deleteCharAt(16);
         sb.deleteCharAt(20);
         return sb.toString();
     }
-    
-    public static String joinPath(String... pathItems) {
+
+    public static String joinPath(final String... pathItems) {
         if (null == pathItems || pathItems.length <= 0) {
             throw new IllegalArgumentException("'pathItems' must not be empty");
         }
-    
+
         return Stream.of(pathItems).map(pathItem -> {
             if (pathItem.endsWith("/")) {
                 return pathItem.substring(0, pathItem.length() - 1);
@@ -50,5 +52,5 @@ public class WeChatUtils {
             }
         }).collect(Collectors.joining("/"));
     }
-    
+
 }

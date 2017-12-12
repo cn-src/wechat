@@ -20,7 +20,7 @@ import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import lombok.Data;
 
 /**
- * 扫码支付模式二，响应结果
+ * 微信支付-NATIVE支付类型, 响应结果.
  *
  * @author zhangpeng
  */
@@ -28,9 +28,9 @@ import lombok.Data;
 public class WeChatPayUnifiedOrderWithNativeResult {
     private String codeUrl;
 
-    public static WeChatPayUnifiedOrderWithNativeResult createWith(WeChatPayUnifiedOrderResponse response) {
-        WeChatPayUnifiedOrderWithNativeResult weChatPayUnifiedOrderWithNativeResult = new WeChatPayUnifiedOrderWithNativeResult();
-        weChatPayUnifiedOrderWithNativeResult.setCodeUrl(response.getCodeUrl());
-        return weChatPayUnifiedOrderWithNativeResult;
+    public static WeChatPayUnifiedOrderWithNativeResult createWith(final WeChatPayUnifiedOrderResponse response) {
+        final WeChatPayUnifiedOrderWithNativeResult nativeResult = new WeChatPayUnifiedOrderWithNativeResult();
+        nativeResult.setCodeUrl(response.getCodeUrl());
+        return nativeResult;
     }
 }

@@ -32,11 +32,13 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     }
 
     @Override
-    public WeChatPayUnifiedOrderResponse unifiedOrder(final WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
+    public WeChatPayUnifiedOrderResponse unifiedOrder(final WeChatPayUnifiedOrderRequest request)
+            throws WeChatPayException {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_XML);
         final HttpEntity<WeChatPayUnifiedOrderRequest> httpEntity = new HttpEntity<>(request, headers);
-        final String url = WeChatUtils.joinPath(weChatPayProperties.getApiBasePath(), WeChatPayClient.UNIFIED_ORDER_PATH);
+        final String url = WeChatUtils.joinPath(
+                weChatPayProperties.getApiBasePath(), WeChatPayClient.UNIFIED_ORDER_PATH);
         final ResponseEntity<WeChatPayUnifiedOrderResponse> responseEntity = restTemplate.postForEntity(
                 url,
                 httpEntity,
