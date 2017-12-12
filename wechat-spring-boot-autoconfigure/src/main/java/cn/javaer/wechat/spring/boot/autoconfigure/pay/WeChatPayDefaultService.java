@@ -37,10 +37,17 @@ public class WeChatPayDefaultService implements WeChatPayService {
 
     private final ApplicationEventPublisher publisher;
 
+    /**
+     * 创建 WeChatPayDefaultService.
+     *
+     * @param weChatPayProperties WeChatPayProperties
+     * @param weChatPayClient WeChatPayClient
+     * @param publisher ApplicationEventPublisher
+     */
     public WeChatPayDefaultService(
-            @NotNull WeChatPayProperties weChatPayProperties,
-            @NotNull WeChatPayClient weChatPayClient,
-            @NotNull ApplicationEventPublisher publisher) {
+            @NotNull final WeChatPayProperties weChatPayProperties,
+            @NotNull final WeChatPayClient weChatPayClient,
+            @NotNull final ApplicationEventPublisher publisher) {
         this.weChatPayProperties = weChatPayProperties;
         this.weChatPayClient = weChatPayClient;
         this.publisher = publisher;
@@ -48,9 +55,9 @@ public class WeChatPayDefaultService implements WeChatPayService {
 
     @Override
     public WeChatPayUnifiedOrderResponse unifiedOrder(
-            @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
+            @NotNull final WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
 
-        String notifyUrl = WeChatUtils.joinPath(
+        final String notifyUrl = WeChatUtils.joinPath(
                 weChatPayProperties.getNotifyAddress(),
                 weChatPayProperties.getNotifyResultPath());
 
@@ -61,7 +68,7 @@ public class WeChatPayDefaultService implements WeChatPayService {
 
         WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
 
-        WeChatPayUnifiedOrderResponse responseBody = weChatPayClient.unifiedOrder(request);
+        final WeChatPayUnifiedOrderResponse responseBody = weChatPayClient.unifiedOrder(request);
         WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
 
         publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
@@ -72,12 +79,12 @@ public class WeChatPayDefaultService implements WeChatPayService {
 
     @Override
     public WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(
-            @NotNull String body,
-            @NotNull String outTradeNo,
-            @NotNull Integer totalFee,
-            @NotNull String productId) throws WeChatPayException {
+            @NotNull final String body,
+            @NotNull final String outTradeNo,
+            @NotNull final Integer totalFee,
+            @NotNull final String productId) throws WeChatPayException {
 
-        WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
+        final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
                 .body(body)
                 .nonceStr(WeChatUtils.uuid())
                 .outTradeNo(outTradeNo)
@@ -86,20 +93,20 @@ public class WeChatPayDefaultService implements WeChatPayService {
                 .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE)
                 .build();
 
-        WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
+        final WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
 
         return WeChatPayUnifiedOrderWithNativeResult.createWith(weChatPayUnifiedOrderResponse);
     }
 
     @Override
     public void unifiedOrderWithJsApi(
-            @NotNull String openid,
-            @NotNull String body,
-            @NotNull String outTradeNo,
-            @NotNull Integer totalFee,
-            @NotNull String productId) throws WeChatPayException {
+            @NotNull final String openid,
+            @NotNull final String body,
+            @NotNull final String outTradeNo,
+            @NotNull final Integer totalFee,
+            @NotNull final String productId) throws WeChatPayException {
 
-        WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
+        final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
                 .openid(openid)
                 .body(body)
                 .nonceStr(WeChatUtils.uuid())

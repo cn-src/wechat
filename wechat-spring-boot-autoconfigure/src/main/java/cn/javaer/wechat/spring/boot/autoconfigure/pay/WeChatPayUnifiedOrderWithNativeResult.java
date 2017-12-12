@@ -28,6 +28,13 @@ import lombok.Data;
 public class WeChatPayUnifiedOrderWithNativeResult {
     private String codeUrl;
 
+    /**
+     * 创建 WeChatPayUnifiedOrderWithNativeResult 从 WeChatPayUnifiedOrderResponse 中的信息.
+     *
+     * @param response WeChatPayUnifiedOrderResponse
+     *
+     * @return WeChatPayUnifiedOrderWithNativeResult
+     */
     public static WeChatPayUnifiedOrderWithNativeResult createWith(final WeChatPayUnifiedOrderResponse response) {
         final WeChatPayUnifiedOrderWithNativeResult nativeResult = new WeChatPayUnifiedOrderWithNativeResult();
         nativeResult.setCodeUrl(response.getCodeUrl());

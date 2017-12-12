@@ -28,6 +28,11 @@ import java.util.stream.Stream;
 public class WeChatUtils {
     private WeChatUtils() {}
 
+    /**
+     * 生成长度为 32 的 uuid.
+     *
+     * @return uuid String
+     */
     public static String uuid() {
         final StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
         sb.deleteCharAt(8);
@@ -37,6 +42,13 @@ public class WeChatUtils {
         return sb.toString();
     }
 
+    /**
+     * 拼接多个 path.
+     *
+     * @param pathItems Path items
+     *
+     * @return 拼接后的 path.
+     */
     public static String joinPath(final String... pathItems) {
         if (null == pathItems || pathItems.length <= 0) {
             throw new IllegalArgumentException("'pathItems' must not be empty");

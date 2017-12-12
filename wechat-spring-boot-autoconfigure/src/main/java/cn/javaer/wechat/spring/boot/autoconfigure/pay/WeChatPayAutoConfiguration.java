@@ -46,9 +46,17 @@ public class WeChatPayAutoConfiguration {
         this.weChatPayProperties = weChatPayProperties;
     }
 
+    /**
+     * WeChatPayClient 配置.
+     *
+     * @param restTemplate RestTemplate
+     *
+     * @return WeChatPayClient
+     */
     @Bean
     @ConditionalOnMissingBean
     public WeChatPayClient weChatPayClient(
+            @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
             @Autowired(required = false) RestTemplate restTemplate) {
         if (null == restTemplate) {
             restTemplate = new RestTemplate();
