@@ -1,17 +1,17 @@
 /*
- *    Copyright 2017 the original author or authors.
+ * Copyright (c) 2017 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package cn.javaer.wechat.spring.boot.autoconfigure.mp.security;
@@ -41,11 +41,11 @@ public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationC
      *
      * @param messageConverters messageConverters
      */
-    public WeChatMpAuthorizationCodeAccessTokenProvider(List<HttpMessageConverter<?>> messageConverters) {
+    public WeChatMpAuthorizationCodeAccessTokenProvider(final List<HttpMessageConverter<?>> messageConverters) {
         setMessageConverters(messageConverters);
         setTokenRequestEnhancer((request, resource, form, headers) -> {
-            String clientId = form.getFirst("client_id");
-            String clientSecret = form.getFirst("client_secret");
+            final String clientId = form.getFirst("client_id");
+            final String clientSecret = form.getFirst("client_secret");
             form.set("appid", clientId);
             form.set("secret", clientSecret);
             form.remove("client_id");
@@ -54,15 +54,15 @@ public class WeChatMpAuthorizationCodeAccessTokenProvider extends AuthorizationC
     }
 
     @Override
-    public OAuth2AccessToken obtainAccessToken(OAuth2ProtectedResourceDetails details,
-                                               AccessTokenRequest request)
+    public OAuth2AccessToken obtainAccessToken(final OAuth2ProtectedResourceDetails details,
+                                               final AccessTokenRequest request)
             throws UserRedirectRequiredException, UserApprovalRequiredException,
             AccessDeniedException, OAuth2AccessDeniedException {
         try {
             return super.obtainAccessToken(details, request);
-        } catch (UserRedirectRequiredException e) {
-            Map<String, String> params = e.getRequestParams();
-            String clientId = params.get("client_id");
+        } catch (final UserRedirectRequiredException e) {
+            final Map<String, String> params = e.getRequestParams();
+            final String clientId = params.get("client_id");
             params.put("appid", clientId);
             params.remove("client_id");
             throw e;

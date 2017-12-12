@@ -1,17 +1,17 @@
 /*
- *    Copyright 2017 the original author or authors.
+ * Copyright (c) 2017 the original author or authors.
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
@@ -47,9 +47,9 @@ public class WeChatMpController {
      * @param publisher          publisher
      */
     public WeChatMpController(
-            @NotNull WeChatMpProperties weChatMpProperties,
-            @NotNull WeChatMpClient weChatMpClient,
-            @NotNull ApplicationEventPublisher publisher) {
+            @NotNull final WeChatMpProperties weChatMpProperties,
+            @NotNull final WeChatMpClient weChatMpClient,
+            @NotNull final ApplicationEventPublisher publisher) {
         this.weChatMpProperties = weChatMpProperties;
         this.weChatMpClient = weChatMpClient;
         this.publisher = publisher;
@@ -61,11 +61,11 @@ public class WeChatMpController {
      * @param redirect 应用自身回调地址
      */
     @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
-    public RedirectView accessAuthorize(@RequestParam("redirect") String redirect) {
+    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect) {
         // final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
         //     ? this.weChatMpProperties.getAuthorizeCodePath()
         //     : AUTHORIZE_CODE_PATH;
-        String redirectUri = WeChatUtils.joinPath(weChatMpProperties.getNotifyAddress(), redirect);
+        final String redirectUri = WeChatUtils.joinPath(weChatMpProperties.getNotifyAddress(), redirect);
         return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(
                 weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
     }
@@ -77,8 +77,8 @@ public class WeChatMpController {
      */
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
     public RedirectView authorizeCode(
-            @RequestParam("code") String code,
-            @RequestParam("redirect") String redirect) {
+            @RequestParam("code") final String code,
+            @RequestParam("redirect") final String redirect) {
         //TODO
         return new RedirectView(redirect);
     }
