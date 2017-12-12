@@ -19,6 +19,7 @@ package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 import javassist.ClassPool;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -34,15 +35,15 @@ public class WeChatMpAutoConfigurationTest {
             assertThatThrownBy(() -> context.getBean(WeChatMpController.class)).hasMessageStartingWith("No qualifying bean of type");
         }
     }
-    
+
     @Test
     public void weChatMpController() throws Exception {
         ClassPool.getDefault().makeClass("cn.javaer.wechat.spring.boot.starter.mp.ConditionalOnClassTrigger").toClass();
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
+        try (AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext()) {
             context.register(WeChatMpAutoConfiguration.class);
             context.refresh();
             context.getBean(WeChatMpController.class);
         }
     }
-    
+
 }
