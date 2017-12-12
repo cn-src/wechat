@@ -34,7 +34,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_XML);
         HttpEntity<WeChatPayUnifiedOrderRequest> httpEntity = new HttpEntity<>(request, headers);
-        String url = WeChatUtils.joinPath(weChatPayProperties.getApiBasePath(), WeChatPayClient.UNIFIED_ORDER_URL);
+        String url = WeChatUtils.joinPath(weChatPayProperties.getApiBasePath(), WeChatPayClient.UNIFIED_ORDER_PATH);
         ResponseEntity<WeChatPayUnifiedOrderResponse> responseEntity = restTemplate.postForEntity(
                 url,
                 httpEntity,

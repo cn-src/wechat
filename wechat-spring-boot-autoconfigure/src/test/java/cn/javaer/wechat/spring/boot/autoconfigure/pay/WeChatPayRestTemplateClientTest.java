@@ -19,10 +19,9 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
  */
 public class WeChatPayRestTemplateClientTest {
 
-    private WeChatPayRestTemplateClient weChatPayClient;
-
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().dynamicPort()); // No-args constructor defaults to port 8080
+    private WeChatPayRestTemplateClient weChatPayClient;
 
     @Before
     public void setUp() throws Exception {
@@ -34,7 +33,7 @@ public class WeChatPayRestTemplateClientTest {
     @Test
     public void unifiedOrder() {
 
-        stubFor(post(urlEqualTo(WeChatPayClient.UNIFIED_ORDER_URL))
+        stubFor(post(urlEqualTo(WeChatPayClient.UNIFIED_ORDER_PATH))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", MediaType.APPLICATION_XML_VALUE)

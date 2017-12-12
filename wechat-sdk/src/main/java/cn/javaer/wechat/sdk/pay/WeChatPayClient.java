@@ -32,15 +32,18 @@ public interface WeChatPayClient {
 
     String BASE_PATH = "https://api.mch.weixin.qq.com";
 
-    String UNIFIED_ORDER_URL = "/pay/unifiedorder";
-    String ORDER_QUERY_URL = "/pay/orderquery";
-    String CLOSE_ORDER_URL = "/pay/closeorder";
+    String UNIFIED_ORDER_PATH = "/pay/unifiedorder";
+    String ORDER_QUERY_PATH = "/pay/orderquery";
+    String CLOSE_ORDER_PATH = "/pay/closeorder";
+    String PAY_REFUND_PATH = "/secapi/pay/refund";
 
     /**
      * 统一下单.
      *
      * @param request request
+     *
      * @return response
+     *
      * @throws WeChatPayException WeChatPayException
      */
     WeChatPayUnifiedOrderResponse unifiedOrder(WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
@@ -49,7 +52,9 @@ public interface WeChatPayClient {
      * 查询订单.
      *
      * @param request request
+     *
      * @return response
+     *
      * @throws WeChatPayException WeChatPayException
      */
     WeChatPayOrderQueryResponse orderQuery(WeChatPayOrderQueryRequest request) throws WeChatPayException;
@@ -58,7 +63,9 @@ public interface WeChatPayClient {
      * 关闭订单.
      *
      * @param request request
+     *
      * @return response
+     *
      * @throws WeChatPayException WeChatPayException
      */
     WeChatPayCloseOrderResponse closeOrder(WeChatPayCloseOrderRequest request) throws WeChatPayException;
