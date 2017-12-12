@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * 微信支付-查询订单-请求.
+ *
  * @author zhangpeng
  */
 @Getter
@@ -24,25 +26,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class WeChatPayOrderQueryRequest {
 
     /**
-     * 公众账号ID
+     * 公众账号ID.
      */
     @XmlElement(name = "appid")
     private String appid;
 
     /**
-     * 商户号
+     * 商户号.
      */
     @XmlElement(name = "mch_id")
     private String mchId;
 
     /**
-     * 子商户公众账号ID
+     * 子商户公众账号ID.
      */
     @XmlElement(name = "sub_appid")
     private String subAppId;
 
     /**
-     * 子商户号
+     * 子商户号.
      */
     @XmlElement(name = "sub_mch_id")
     private String subMchId;
@@ -54,13 +56,13 @@ public class WeChatPayOrderQueryRequest {
     private String outTradeNo;
 
     /**
-     * 随机字符串
+     * 随机字符串.
      */
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
     /**
-     * 签名
+     * 签名.
      */
     @XmlElement(name = "sign")
     private String sign;

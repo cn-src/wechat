@@ -19,13 +19,15 @@ package cn.javaer.wechat.sdk.pay;
 import cn.javaer.wechat.sdk.WeChatException;
 
 /**
+ * 微信支付异常.
+ *
  * @author zhangpeng
  */
 public class WeChatPayException extends WeChatException {
     public WeChatPayException(String message) {
         super(message);
     }
-    
+
     public WeChatPayException(Throwable cause) {
         super(cause);
     }

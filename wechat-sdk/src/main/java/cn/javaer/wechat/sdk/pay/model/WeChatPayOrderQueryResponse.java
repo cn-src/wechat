@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * 微信支付-查询订单-响应.
+ *
  * @author zhangpeng
  */
 @EqualsAndHashCode(callSuper = true)

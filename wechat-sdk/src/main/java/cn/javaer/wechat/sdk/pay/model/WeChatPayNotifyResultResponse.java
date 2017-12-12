@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 微信支付接收通知结果后返回给微信服务的响应。
+ * 微信支付-支付通知结果-返回给微信服务的响应.
  *
  * @author zhangpeng
  */
