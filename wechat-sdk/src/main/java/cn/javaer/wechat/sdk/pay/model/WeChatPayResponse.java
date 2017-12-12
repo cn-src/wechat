@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
+ * 微信支付-基本响应信息.
+ *
  * @author zhangpeng
  */
 @Getter

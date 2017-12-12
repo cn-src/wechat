@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 微信支付原生统一下单API的参数。
+ * 微信支付-统一下单-请求.
  *
  * @author zhangpeng
  */
@@ -44,151 +44,151 @@ public class WeChatPayUnifiedOrderRequest {
     public static final String TRADE_TYPE_APP = "APP";
 
     /**
-     * 公众账号ID
+     * 公众账号ID.
      */
     @XmlElement(name = "appid")
     private String appid;
 
     /**
-     * 商户号
+     * 商户号.
      */
     @XmlElement(name = "mch_id")
     private String mchId;
 
     /**
-     * 子商户公众账号ID
+     * 子商户公众账号ID.
      */
     @XmlElement(name = "sub_appid")
     private String subAppId;
 
     /**
-     * 子商户号
+     * 子商户号.
      */
     @XmlElement(name = "sub_mch_id")
     private String subMchId;
 
     /**
-     * 设备号
+     * 设备号.
      */
     @XmlElement(name = "device_info")
     private String deviceInfo;
 
     /**
-     * 随机字符串
+     * 随机字符串.
      */
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
     /**
-     * 签名
+     * 签名.
      */
     @XmlElement(name = "sign")
     private String sign;
 
     /**
-     * 签名类型
+     * 签名类型.
      */
     @XmlElement(name = "sign_type")
     private String signType;
 
     /**
-     * 商品描述
+     * 商品描述.
      */
     @XmlElement(name = "body")
     private String body;
 
     /**
-     * 商品详情
+     * 商品详情.
      */
     @XmlElement(name = "detail")
     private String detail;
 
     /**
-     * 附加数据
+     * 附加数据.
      */
     @XmlElement(name = "attach")
     private String attach;
 
     /**
-     * 商户订单号
+     * 商户订单号.
      */
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
     /**
-     * 货币类型
+     * 货币类型.
      */
     @XmlElement(name = "fee_type")
     private String feeType;
 
     /**
-     * 总金额
+     * 总金额.
      */
     @XmlElement(name = "total_fee")
     private Integer totalFee;
 
     /**
-     * 终端IP
+     * 终端IP.
      */
     @XmlElement(name = "spbill_create_ip")
     private String spbillCreateIp;
 
     /**
-     * 交易起始时间
+     * 交易起始时间.
      */
     @XmlElement(name = "time_start")
     private String timeStart;
 
     /**
-     * 交易结束时间
+     * 交易结束时间.
      */
     @XmlElement(name = "time_expire")
     private String timeExpire;
 
     /**
-     * 订单优惠标记
+     * 订单优惠标记.
      */
     @XmlElement(name = "goods_tag")
     private String goodsTag;
 
     /**
-     * 通知地址
+     * 通知地址.
      */
     @XmlElement(name = "notify_url")
     private String notifyUrl;
 
     /**
-     * 交易类型
+     * 交易类型.
      */
     @XmlElement(name = "trade_type")
     private String tradeType;
 
     /**
-     * 商品ID
+     * 商品ID.
      */
     @XmlElement(name = "product_id")
     private String productId;
 
     /**
-     * 指定支付方式
+     * 指定支付方式.
      */
     @XmlElement(name = "limit_pay")
     private String limitPay;
 
     /**
-     * 用户标识
+     * 用户标识.
      */
     @XmlElement(name = "openid")
     private String openid;
 
     /**
-     * 用户子标识
+     * 用户子标识.
      */
     @XmlElement(name = "sub_openid")
     private String subOpenid;
 
     /**
-     * 场景信息
+     * 场景信息.
      */
     @XmlElement(name = "scene_info")
     private String sceneInfo;
