@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -75,7 +76,7 @@ public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
      */
     private String notifyResultPath = NOTIFY_RESULT_PATH;
 
-    private String apiBasePath = "https://api.mch.weixin.qq.com";
+    private String apiBasePath = WeChatPayClient.BASE_PATH;
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -84,14 +85,14 @@ public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        final String mpAppId = environment.getProperty("wechat.mp.appId");
-        if (!StringUtils.hasText(this.appId) && StringUtils.hasText(mpAppId)) {
-            this.appId = mpAppId;
+        String mpAppId = environment.getProperty("wechat.mp.appId");
+        if (!StringUtils.hasText(appId) && StringUtils.hasText(mpAppId)) {
+            appId = mpAppId;
         }
 
-        final String mpNotifyAddress = environment.getProperty("wechat.mp.notifyAddress");
-        if (!StringUtils.hasText(this.notifyAddress) && StringUtils.hasText(mpNotifyAddress)) {
-            this.notifyAddress = mpNotifyAddress;
+        String mpNotifyAddress = environment.getProperty("wechat.mp.notifyAddress");
+        if (!StringUtils.hasText(notifyAddress) && StringUtils.hasText(mpNotifyAddress)) {
+            notifyAddress = mpNotifyAddress;
         }
     }
 }

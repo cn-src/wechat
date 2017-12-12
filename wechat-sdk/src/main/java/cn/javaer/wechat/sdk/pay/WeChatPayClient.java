@@ -30,6 +30,8 @@ import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
  */
 public interface WeChatPayClient {
 
+    String BASE_PATH = "https://api.mch.weixin.qq.com";
+
     String UNIFIED_ORDER_URL = "/pay/unifiedorder";
     String ORDER_QUERY_URL = "/pay/orderquery";
     String CLOSE_ORDER_URL = "/pay/closeorder";
