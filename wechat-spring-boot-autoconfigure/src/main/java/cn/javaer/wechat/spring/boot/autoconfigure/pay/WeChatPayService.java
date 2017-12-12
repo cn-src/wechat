@@ -22,20 +22,20 @@ import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 微信支付服务
+ * 微信支付服务.
  *
  * @author zhangpeng
  */
 public interface WeChatPayService {
 
     /**
-     * 微信统一下单，除配置参数外，其它参数自行决定使用。
+     * 微信统一下单，除配置参数外，其它参数自行决定使用.
      */
     WeChatPayUnifiedOrderResponse unifiedOrder(
             @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
 
     /**
-     * 微信统一下单 NATIVE 类型简化。
+     * 微信统一下单 NATIVE 类型简化.
      */
     WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(@NotNull String body,
                                                                  @NotNull String outTradeNo,
@@ -43,7 +43,7 @@ public interface WeChatPayService {
                                                                  @NotNull String productId) throws WeChatPayException;
 
     /**
-     * 微信统一下单 JSAPI 类型简化。
+     * 微信统一下单 JSAPI 类型简化.
      */
     void unifiedOrderWithJsApi(
             @NotNull String openid,
