@@ -31,13 +31,13 @@ import org.springframework.context.ApplicationEventPublisher;
  *
  * @author zhangpeng
  */
-public class DefaultWeChatPayService implements WeChatPayService {
+public class WeChatPayDefaultService implements WeChatPayService {
     private final WeChatPayProperties weChatPayProperties;
     private final WeChatPayClient weChatPayClient;
 
     private final ApplicationEventPublisher publisher;
 
-    public DefaultWeChatPayService(
+    public WeChatPayDefaultService(
             @NotNull WeChatPayProperties weChatPayProperties,
             @NotNull WeChatPayClient weChatPayClient,
             @NotNull ApplicationEventPublisher publisher) {
@@ -69,7 +69,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
 
 
     @Override
-    public UnifiedOrderWithNativeResponse unifiedOrderWithNative(
+    public WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(
             @NotNull String body,
             @NotNull String outTradeNo,
             @NotNull Integer totalFee,
@@ -86,7 +86,7 @@ public class DefaultWeChatPayService implements WeChatPayService {
 
         WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
 
-        return UnifiedOrderWithNativeResponse.createWith(weChatPayUnifiedOrderResponse);
+        return WeChatPayUnifiedOrderWithNativeResult.createWith(weChatPayUnifiedOrderResponse);
     }
 
     @Override

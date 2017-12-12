@@ -16,7 +16,7 @@
 
 package sample.pay;
 
-import cn.javaer.wechat.spring.boot.autoconfigure.pay.UnifiedOrderWithNativeResponse;
+import cn.javaer.wechat.spring.boot.autoconfigure.pay.WeChatPayUnifiedOrderWithNativeResult;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.WeChatPayService;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayNotifyResultEvent;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderEvent;
@@ -39,7 +39,7 @@ public class SamplePayController {
     }
 
     @GetMapping("/unifiedOrderWithNative")
-    public UnifiedOrderWithNativeResponse index() {
+    public WeChatPayUnifiedOrderWithNativeResult index() {
         return payService.unifiedOrderWithNative("body", "outTradeNo", 1, "productId");
     }
 

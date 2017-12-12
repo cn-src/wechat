@@ -16,7 +16,7 @@
 
 package sample.mp;
 
-import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
+import cn.javaer.wechat.sdk.mp.model.WeChatWeChatMpAccessTokenResponse;
 import cn.javaer.wechat.spring.boot.autoconfigure.mp.WeChatMpAuthenticationSuccessEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SampleMpController
 {
-    private WeChatMpAccessTokenResponse tokenResponse;
+    private WeChatWeChatMpAccessTokenResponse tokenResponse;
     
     @GetMapping("/demo")
     public Object index()

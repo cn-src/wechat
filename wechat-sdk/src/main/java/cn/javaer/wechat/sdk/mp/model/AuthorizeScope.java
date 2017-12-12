@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.sdk.mp;
+package cn.javaer.wechat.sdk.mp.model;
 
 /**
  * @author zhangpeng

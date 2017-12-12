@@ -16,13 +16,13 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author zhangpeng
  */
-public class RestTemplateWeChatPayClient implements WeChatPayClient {
+public class WeChatPayRestTemplateClient implements WeChatPayClient {
 
     private final RestTemplate restTemplate;
 
     private final WeChatPayProperties weChatPayProperties;
 
-    public RestTemplateWeChatPayClient(RestTemplate restTemplate, WeChatPayProperties weChatPayProperties) {
+    public WeChatPayRestTemplateClient(RestTemplate restTemplate, WeChatPayProperties weChatPayProperties) {
         this.restTemplate = restTemplate;
         this.weChatPayProperties = weChatPayProperties;
     }

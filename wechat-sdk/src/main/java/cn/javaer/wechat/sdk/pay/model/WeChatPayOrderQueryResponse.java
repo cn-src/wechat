@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayOrderQueryResponse extends AbstractWeChatPayResponse {
+public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
 
     @XmlElement(name = "openid")
     private String openid;

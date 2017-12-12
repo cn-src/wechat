@@ -16,7 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
-import cn.javaer.wechat.sdk.mp.AuthorizeScope;
+import cn.javaer.wechat.sdk.mp.model.AuthorizeScope;
 import cn.javaer.wechat.sdk.mp.WeChatMpClient;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
@@ -70,13 +70,13 @@ public class WeChatMpController {
         @RequestParam("code") String code,
         @RequestParam("redirect") String redirect) {
         //TODO
-//        Call<WeChatMpAccessTokenResponse> responseCall
+//        Call<WeChatWeChatMpAccessTokenResponse> responseCall
 //            = weChatMpClient.snsOauth2AccessToken(
 //            weChatMpProperties.getAppId(), weChatMpProperties.getAppSecret(), code, "authorization_code");
 //
-//        Response<WeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
+//        Response<WeChatWeChatMpAccessTokenResponse> response = Try.of(responseCall::execute).getOrElseThrow(WeChatMpException::new);
 //        WeChatMpUtils.checkResponse(response);
-//        WeChatMpAccessTokenResponse body = response.body();
+//        WeChatWeChatMpAccessTokenResponse body = response.body();
 //        WeChatMpUtils.checkResponseBody(body);
 //
 //        WeChatMpAuthenticationSuccessEvent successEvent = new WeChatMpAuthenticationSuccessEvent(body);

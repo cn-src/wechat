@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayNotifyResult extends AbstractWeChatPayResponse {
+public class WeChatPayNotifyResult extends WeChatPayResponse {
 
     @XmlElement(name = "sign_type")
     private String signType;

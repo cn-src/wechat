@@ -1,5 +1,6 @@
 package cn.javaer.wechat.sdk.mp;
 
+import cn.javaer.wechat.sdk.mp.model.AuthorizeScope;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -37,10 +37,10 @@ public interface WeChatPayService {
     /**
      * 微信统一下单 NATIVE 类型简化。
      */
-    UnifiedOrderWithNativeResponse unifiedOrderWithNative(@NotNull String body,
-                                                          @NotNull String outTradeNo,
-                                                          @NotNull Integer totalFee,
-                                                          @NotNull String productId) throws WeChatPayException;
+    WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(@NotNull String body,
+                                                                 @NotNull String outTradeNo,
+                                                                 @NotNull Integer totalFee,
+                                                                 @NotNull String productId) throws WeChatPayException;
 
     /**
      * 微信统一下单 JSAPI 类型简化。

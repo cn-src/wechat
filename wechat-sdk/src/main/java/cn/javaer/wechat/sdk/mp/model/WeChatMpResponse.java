@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.sdk.mp;
+package cn.javaer.wechat.sdk.mp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -25,7 +25,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public abstract class AbstractWeChatMpResponse {
+public abstract class WeChatMpResponse {
     @JsonProperty("errcode")
     protected String errcode;
     

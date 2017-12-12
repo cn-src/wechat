@@ -16,7 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay;
 
-import cn.javaer.wechat.sdk.pay.model.AbstractWeChatPayResponse;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -125,26 +125,26 @@ public class WeChatPayUtils {
         return DigestUtils.md5Hex(sb.toString()).toUpperCase();
     }
 
-    public static void checkResponseBody(AbstractWeChatPayResponse response, @NotNull String mchKey) {
+    public static void checkResponseBody(WeChatPayResponse response, @NotNull String mchKey) {
         if (null == response) {
             throw new WeChatPayException("WeChat pay response is null");
         }
         if (!response.getSign().equals(WeChatPayUtils.sign(response, mchKey))) {
             throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
         }
-        if (!AbstractWeChatPayResponse.SUCCESS.equals(response.getReturnCode())) {
+        if (!WeChatPayResponse.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
         }
-        if (!AbstractWeChatPayResponse.SUCCESS.equals(response.getResultCode())) {
+        if (!WeChatPayResponse.SUCCESS.equals(response.getResultCode())) {
             throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
         }
     }
 
-    public static boolean isSuccessfulResponseBody(AbstractWeChatPayResponse response) {
+    public static boolean isSuccessfulResponseBody(WeChatPayResponse response) {
 
         return (null != response) &&
-                (AbstractWeChatPayResponse.SUCCESS.equals(response.getReturnCode())) &&
-                (AbstractWeChatPayResponse.SUCCESS.equals(response.getResultCode()));
+                (WeChatPayResponse.SUCCESS.equals(response.getReturnCode())) &&
+                (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
     private static String beanMethodNameToFieldName(final String methodName, final Class returnType) {

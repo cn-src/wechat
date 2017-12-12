@@ -14,32 +14,23 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.sdk.mp;
+package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
+ * 扫码支付模式二，响应结果
+ *
  * @author zhangpeng
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class WeChatMpAccessTokenResponse extends AbstractWeChatMpResponse {
-    @JsonProperty("access_token")
-    private String accessToken;
-    
-    @JsonProperty("expires_in")
-    private String expiresIn;
-    
-    @JsonProperty("refresh_token")
-    private String refreshToken;
-    
-    @JsonProperty("openid")
-    private String openid;
-    
-    @JsonProperty("scope")
-    private String scope;
-    
-    private String unionid;
+public class WeChatPayUnifiedOrderWithNativeResult {
+    private String codeUrl;
+
+    public static WeChatPayUnifiedOrderWithNativeResult createWith(WeChatPayUnifiedOrderResponse response) {
+        WeChatPayUnifiedOrderWithNativeResult weChatPayUnifiedOrderWithNativeResult = new WeChatPayUnifiedOrderWithNativeResult();
+        weChatPayUnifiedOrderWithNativeResult.setCodeUrl(response.getCodeUrl());
+        return weChatPayUnifiedOrderWithNativeResult;
+    }
 }

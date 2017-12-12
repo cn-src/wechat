@@ -16,6 +16,8 @@
 
 package cn.javaer.wechat.sdk.mp;
 
+import cn.javaer.wechat.sdk.mp.model.AuthorizeScope;
+import cn.javaer.wechat.sdk.mp.model.WeChatMpResponse;
 import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 
@@ -64,7 +66,7 @@ public class WeChatMpUtils {
                + "#wechat_redirect";
     }
 
-    public static void checkResponseBody(AbstractWeChatMpResponse response) {
+    public static void checkResponseBody(WeChatMpResponse response) {
         if (null == response) {
             throw new WeChatMpException("WeChat mp response is null");
         }

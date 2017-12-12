@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlElement;
 @Getter
 @Setter
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class AbstractWeChatPayResponse {
+public abstract class WeChatPayResponse {
     public static final String SUCCESS = "SUCCESS";
 
     @XmlElement(name = "return_code")

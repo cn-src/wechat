@@ -17,9 +17,9 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 /**
  * @author zhangpeng
  */
-public class RestTemplateWeChatPayClientTest {
+public class WeChatPayRestTemplateClientTest {
 
-    private RestTemplateWeChatPayClient weChatPayClient;
+    private WeChatPayRestTemplateClient weChatPayClient;
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().dynamicPort()); // No-args constructor defaults to port 8080
@@ -28,7 +28,7 @@ public class RestTemplateWeChatPayClientTest {
     public void setUp() throws Exception {
         final WeChatPayProperties weChatPayProperties = new WeChatPayProperties();
         weChatPayProperties.setApiBasePath("http://localhost:" + wireMockRule.port());
-        this.weChatPayClient = new RestTemplateWeChatPayClient(new RestTemplate(), weChatPayProperties);
+        this.weChatPayClient = new WeChatPayRestTemplateClient(new RestTemplate(), weChatPayProperties);
     }
 
     @Test

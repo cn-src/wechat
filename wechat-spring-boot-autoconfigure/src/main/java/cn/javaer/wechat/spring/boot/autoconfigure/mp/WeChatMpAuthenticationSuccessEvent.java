@@ -16,7 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
-import cn.javaer.wechat.sdk.mp.WeChatMpAccessTokenResponse;
+import cn.javaer.wechat.sdk.mp.model.WeChatWeChatMpAccessTokenResponse;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -25,6 +25,6 @@ import lombok.NonNull;
  */
 @Data
 public class WeChatMpAuthenticationSuccessEvent {
-    @NonNull private WeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
+    @NonNull private WeChatWeChatMpAccessTokenResponse weChatMpAccessTokenResponse;
     private          String                      redirect;
 }

@@ -51,13 +51,13 @@ public class WeChatPayAutoConfiguration {
         if (null == restTemplate) {
             restTemplate = new RestTemplate();
         }
-        return new RestTemplateWeChatPayClient(restTemplate, weChatPayProperties);
+        return new WeChatPayRestTemplateClient(restTemplate, weChatPayProperties);
     }
 
     @Bean
     @ConditionalOnMissingBean
     public WeChatPayService weChatPayService(WeChatPayClient weChatPayClient, ApplicationEventPublisher publisher) {
-        return new DefaultWeChatPayService(weChatPayProperties, weChatPayClient, publisher);
+        return new WeChatPayDefaultService(weChatPayProperties, weChatPayClient, publisher);
     }
 
     @Bean
