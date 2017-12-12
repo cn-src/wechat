@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package cn.javaer.wechat.spring.boot.autoconfigure.pay;
+package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,8 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class NotifyResultResponse {
-    public static final NotifyResultResponse SUCCESS = new NotifyResultResponse("SUCCESS", "OK");
+public class WeChatPayNotifyResultResponse {
+    public static final WeChatPayNotifyResultResponse SUCCESS = new WeChatPayNotifyResultResponse("SUCCESS", "OK");
 
     @XmlElement(name = "return_code")
     private String returnCode;
