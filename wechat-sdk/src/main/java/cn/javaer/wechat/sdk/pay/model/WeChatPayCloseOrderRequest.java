@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * 微信支付-关闭订单-请求.
+ *
  * @author zhangpeng
  */
 @Getter
@@ -24,13 +26,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class WeChatPayCloseOrderRequest {
 
     /**
-     * 公众账号ID
+     * 公众账号ID.
      */
     @XmlElement(name = "appid")
     private String appid;
 
     /**
-     * 商户号
+     * 商户号.
      */
     @XmlElement(name = "mch_id")
     private String mchId;
@@ -39,19 +41,19 @@ public class WeChatPayCloseOrderRequest {
     private String outTradeNo;
 
     /**
-     * 随机字符串
+     * 随机字符串.
      */
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
     /**
-     * 签名
+     * 签名.
      */
     @XmlElement(name = "sign")
     private String sign;
 
     /**
-     * 签名
+     * 签名类型.
      */
     @XmlElement(name = "sign_type")
     private String signType;
