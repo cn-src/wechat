@@ -16,12 +16,9 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Value;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,10 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Data
+@Value
 @Builder
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayCloseOrderRequest {
