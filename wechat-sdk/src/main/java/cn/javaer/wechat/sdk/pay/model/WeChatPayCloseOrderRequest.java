@@ -64,7 +64,6 @@ public class WeChatPayCloseOrderRequest {
     /**
      * 签名.
      */
-    @NonNull
     @XmlElement(name = "sign")
     private String sign;
 
