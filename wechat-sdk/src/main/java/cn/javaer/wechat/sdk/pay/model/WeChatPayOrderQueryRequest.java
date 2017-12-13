@@ -18,6 +18,7 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -38,26 +39,16 @@ public class WeChatPayOrderQueryRequest {
     /**
      * 公众账号ID.
      */
+    @NonNull
     @XmlElement(name = "appid")
     private String appid;
 
     /**
      * 商户号.
      */
+    @NonNull
     @XmlElement(name = "mch_id")
     private String mchId;
-
-    /**
-     * 子商户公众账号ID.
-     */
-    @XmlElement(name = "sub_appid")
-    private String subAppId;
-
-    /**
-     * 子商户号.
-     */
-    @XmlElement(name = "sub_mch_id")
-    private String subMchId;
 
     @XmlElement(name = "transaction_id")
     private String transactionId;
@@ -68,6 +59,7 @@ public class WeChatPayOrderQueryRequest {
     /**
      * 随机字符串.
      */
+    @NonNull
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
