@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author zhangpeng
  */
 @Value
-@Builder
+@Builder(builderClassName = "Builder")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayOrderQueryRequest {
