@@ -82,7 +82,7 @@ public class WeChatPayUtils {
 
             for (final Map.Entry<String, NameIndex> entry : cache.entrySet()) {
                 final NameIndex nameIndex = entry.getValue();
-                final Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex(), nameIndex.getMethodName());
+                final Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex());
                 if (null != value && !value.toString().isEmpty()) {
                     sb.append(entry.getKey()).append('=').append(value).append('&');
                 }
@@ -126,7 +126,7 @@ public class WeChatPayUtils {
                     }
                 }
 
-                final Object value = methodAccess.invoke(obj, i, methodName);
+                final Object value = methodAccess.invoke(obj, i);
                 if (null != value && !value.toString().isEmpty()) {
                     sortedMap.put(k, value);
                 }
