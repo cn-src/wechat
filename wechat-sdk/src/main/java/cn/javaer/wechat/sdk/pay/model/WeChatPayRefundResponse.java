@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 微信支付-查询订单-响应.
+ * 微信支付-申请退款-响应.
  *
  * @author zhangpeng
  */
