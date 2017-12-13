@@ -98,9 +98,15 @@ public class WeChatPayRefundRequest {
     @XmlElement(name = "refund_fee_type")
     private String refundFeeType;
 
+    /**
+     * 退款原因.
+     */
     @XmlElement(name = "refund_desc")
     private String refundDesc;
 
+    /**
+     * 退款资金来源.
+     */
     @XmlElement(name = "refund_account")
     private String refundAccount;
 }
