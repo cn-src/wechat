@@ -85,5 +85,5 @@ public class WeChatPayRefundQueryRequest {
     private String refundId;
 
     @XmlElement(name = "offset")
-    private String offset;
+    private Integer offset;
 }
