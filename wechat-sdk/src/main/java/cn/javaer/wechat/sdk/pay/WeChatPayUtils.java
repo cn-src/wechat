@@ -17,7 +17,6 @@
 package cn.javaer.wechat.sdk.pay;
 
 import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import com.esotericsoftware.reflectasm.MethodAccess;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -44,20 +43,6 @@ public class WeChatPayUtils {
     private static final Logger log = LoggerFactory.getLogger(WeChatPayUtils.class);
 
     private static final Map<Class, Map<String, NameIndex>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
-
-    /**
-     * 根据 TradeType 校验参数, 并签名.
-     *
-     * @param request WeChatPayUnifiedOrderRequest
-     * @param mchKey 商户key
-     */
-    public static void checkAndSignRequest(final WeChatPayUnifiedOrderRequest request, final String mchKey) {
-        if (WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE.equals(request.getTradeType())
-                && (request.getProductId() == null || request.getProductId().isEmpty())) {
-            throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'ProductId' must has value.");
-        }
-        request.setSign(WeChatPayUtils.sign(request, mchKey));
-    }
 
     /**
      * 微信支付-签名.
@@ -201,11 +186,11 @@ public class WeChatPayUtils {
         }
 
         public String getMethodName() {
-            return methodName;
+            return this.methodName;
         }
 
         public int getMethodIndex() {
-            return methodIndex;
+            return this.methodIndex;
         }
     }
 }

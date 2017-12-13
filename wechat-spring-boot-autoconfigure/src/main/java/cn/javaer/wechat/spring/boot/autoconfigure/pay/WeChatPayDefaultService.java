@@ -58,20 +58,20 @@ public class WeChatPayDefaultService implements WeChatPayService {
             @NotNull final WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
 
         final String notifyUrl = WeChatUtils.joinPath(
-                weChatPayProperties.getNotifyAddress(),
-                weChatPayProperties.getNotifyResultPath());
+                this.weChatPayProperties.getNotifyAddress(),
+                this.weChatPayProperties.getNotifyResultPath());
 
         request.setNotifyUrl(notifyUrl);
-        request.setAppid(weChatPayProperties.getAppId());
-        request.setMchId(weChatPayProperties.getMchId());
-        request.setSpbillCreateIp(weChatPayProperties.getClientIp());
+        request.setAppid(this.weChatPayProperties.getAppId());
+        request.setMchId(this.weChatPayProperties.getMchId());
+        request.setSpbillCreateIp(this.weChatPayProperties.getClientIp());
 
-        WeChatPayUtils.checkAndSignRequest(request, weChatPayProperties.getMchKey());
+        request.checkAndSign(this.weChatPayProperties.getMchKey());
 
-        final WeChatPayUnifiedOrderResponse responseBody = weChatPayClient.unifiedOrder(request);
-        WeChatPayUtils.checkResponseBody(responseBody, weChatPayProperties.getMchKey());
+        final WeChatPayUnifiedOrderResponse responseBody = this.weChatPayClient.unifiedOrder(request);
+        WeChatPayUtils.checkResponseBody(responseBody, this.weChatPayProperties.getMchKey());
 
-        publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
+        this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
 
         return responseBody;
     }

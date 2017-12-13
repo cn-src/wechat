@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -180,4 +181,18 @@ public class WeChatPayUnifiedOrderRequest {
      */
     @XmlElement(name = "scene_info")
     private String sceneInfo;
+
+    public void checkAndSign(final String mchKey) {
+        this.sign = WeChatPayUtils.sign(this, mchKey);
+
+        if (TRADE_TYPE_NATIVE.equals(this.tradeType)
+                && (this.productId == null || this.productId.isEmpty())) {
+            throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'productId' must has value");
+        }
+
+        if (TRADE_TYPE_JSAPI.equals(this.tradeType)
+                && (this.openid == null || this.openid.isEmpty())) {
+            throw new IllegalArgumentException("When 'TradeType' is 'JSAPI', 'openid' must has value");
+        }
+    }
 }
