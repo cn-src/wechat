@@ -16,11 +16,12 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.NonNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -32,11 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Data
+@Builder
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayCloseOrderRequest {
@@ -45,27 +45,32 @@ public class WeChatPayCloseOrderRequest {
      * 公众账号ID.
      */
     @XmlElement(name = "appid")
+    @NonNull
     private String appid;
 
     /**
      * 商户号.
      */
     @XmlElement(name = "mch_id")
+    @NonNull
     private String mchId;
 
     @XmlElement(name = "out_trade_no")
+    @NonNull
     private String outTradeNo;
 
     /**
      * 随机字符串.
      */
     @XmlElement(name = "nonce_str")
+    @NonNull
     private String nonceStr;
 
     /**
      * 签名.
      */
     @XmlElement(name = "sign")
+    @NonNull
     private String sign;
 
     /**
