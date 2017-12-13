@@ -17,7 +17,7 @@
 package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Value
+@Data
 @Builder(builderClassName = "Builder")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
