@@ -16,8 +16,10 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,7 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author zhangpeng
  */
 @EqualsAndHashCode(callSuper = true)
-@Data
+@ToString(callSuper = true)
+@Setter
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayRefundResponse extends WeChatPayResponse {
