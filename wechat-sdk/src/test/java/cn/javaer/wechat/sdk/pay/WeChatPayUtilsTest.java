@@ -27,7 +27,7 @@ public class WeChatPayUtilsTest {
                 .sign("") // 不参与签名算法
                 .signType("MD5") // 参与签名算法
                 .build();
-        request.setSign(WeChatPayUtils.sign(request, "key"));
+        request.checkAndSign("key");
 
         assertEquals("EFAF8A5CD089B3749AF9EAEE6C6B4156", request.getSign());
     }
