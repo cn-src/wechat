@@ -30,9 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayUnifiedOrderResponse extends WeChatPayResponse {
