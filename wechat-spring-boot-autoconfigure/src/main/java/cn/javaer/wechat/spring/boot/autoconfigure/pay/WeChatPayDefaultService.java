@@ -81,14 +81,13 @@ public class WeChatPayDefaultService implements WeChatPayService {
     public WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(
             @NotNull final String body,
             @NotNull final String outTradeNo,
-            @NotNull final Integer totalFee,
-            @NotNull final String productId) throws WeChatPayException {
+            @NotNull final Integer totalFee) throws WeChatPayException {
 
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
                 .body(body)
                 .nonceStr(WeChatUtils.uuid())
                 .outTradeNo(outTradeNo)
-                .productId(productId)
+                .productId(WeChatUtils.uuid())
                 .totalFee(totalFee)
                 .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE)
                 .build();
@@ -103,15 +102,13 @@ public class WeChatPayDefaultService implements WeChatPayService {
             @NotNull final String openid,
             @NotNull final String body,
             @NotNull final String outTradeNo,
-            @NotNull final Integer totalFee,
-            @NotNull final String productId) throws WeChatPayException {
+            @NotNull final Integer totalFee) throws WeChatPayException {
 
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
                 .openid(openid)
                 .body(body)
                 .nonceStr(WeChatUtils.uuid())
                 .outTradeNo(outTradeNo)
-                .productId(productId)
                 .totalFee(totalFee)
                 .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_JSAPI)
                 .build();
