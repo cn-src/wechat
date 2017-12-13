@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Data
 @Builder
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayCloseOrderRequest {
@@ -44,33 +44,33 @@ public class WeChatPayCloseOrderRequest {
     /**
      * 公众账号ID.
      */
-    @XmlElement(name = "appid")
     @NonNull
+    @XmlElement(name = "appid")
     private String appid;
 
     /**
      * 商户号.
      */
-    @XmlElement(name = "mch_id")
     @NonNull
+    @XmlElement(name = "mch_id")
     private String mchId;
 
-    @XmlElement(name = "out_trade_no")
     @NonNull
+    @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
     /**
      * 随机字符串.
      */
-    @XmlElement(name = "nonce_str")
     @NonNull
+    @XmlElement(name = "nonce_str")
     private String nonceStr;
 
     /**
      * 签名.
      */
-    @XmlElement(name = "sign")
     @NonNull
+    @XmlElement(name = "sign")
     private String sign;
 
     /**

@@ -16,10 +16,12 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,8 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayUnifiedOrderRequest {
@@ -46,26 +48,16 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 公众账号ID.
      */
+    @NonNull
     @XmlElement(name = "appid")
     private String appid;
 
     /**
      * 商户号.
      */
+    @NonNull
     @XmlElement(name = "mch_id")
     private String mchId;
-
-    /**
-     * 子商户公众账号ID.
-     */
-    @XmlElement(name = "sub_appid")
-    private String subAppId;
-
-    /**
-     * 子商户号.
-     */
-    @XmlElement(name = "sub_mch_id")
-    private String subMchId;
 
     /**
      * 设备号.
@@ -76,12 +68,14 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 随机字符串.
      */
+    @NonNull
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
     /**
      * 签名.
      */
+    @NonNull
     @XmlElement(name = "sign")
     private String sign;
 
@@ -94,6 +88,7 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 商品描述.
      */
+    @NonNull
     @XmlElement(name = "body")
     private String body;
 
@@ -112,6 +107,7 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 商户订单号.
      */
+    @NonNull
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
@@ -124,12 +120,14 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 总金额.
      */
+    @NonNull
     @XmlElement(name = "total_fee")
     private Integer totalFee;
 
     /**
      * 终端IP.
      */
+    @NonNull
     @XmlElement(name = "spbill_create_ip")
     private String spbillCreateIp;
 
@@ -154,12 +152,14 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 通知地址.
      */
+    @NonNull
     @XmlElement(name = "notify_url")
     private String notifyUrl;
 
     /**
      * 交易类型.
      */
+    @NonNull
     @XmlElement(name = "trade_type")
     private String tradeType;
 
@@ -180,12 +180,6 @@ public class WeChatPayUnifiedOrderRequest {
      */
     @XmlElement(name = "openid")
     private String openid;
-
-    /**
-     * 用户子标识.
-     */
-    @XmlElement(name = "sub_openid")
-    private String subOpenid;
 
     /**
      * 场景信息.
