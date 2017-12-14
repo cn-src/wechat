@@ -18,6 +18,7 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.NonNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -81,7 +82,7 @@ public class WeChatPayRequest {
 
     public String getNonceStr() {
         if (null == this.nonceStr) {
-            this.nonceStr = WeChatPayConfigurator.INSTANCE.getNotifyUrl();
+            this.nonceStr = WeChatUtils.uuid();
         }
         return this.nonceStr;
     }
