@@ -1,6 +1,5 @@
 package cn.javaer.wechat.sdk.pay;
 
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import org.junit.Test;
 
@@ -12,14 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class WeChatPayUtilsTest {
 
     @Test
-    public void sign1() {
-        final WeChatPayUnifiedOrderRequest request =
-                WeChatPayUnifiedOrderRequest.createWithNative("body", "outTradeNo", 100);
-//        assertEquals("EFAF8A5CD089B3749AF9EAEE6C6B4156", request.getSign());
-    }
-
-    @Test
-    public void sign2() {
+    public void sign() {
         final WeChatPayUnifiedOrderResponse response = new WeChatPayUnifiedOrderResponse();
         response.setReturnCode("SUCCESS");
         response.setReturnMsg("OK");
