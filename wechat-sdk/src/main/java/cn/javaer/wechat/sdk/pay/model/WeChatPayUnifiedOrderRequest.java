@@ -185,26 +185,6 @@ public class WeChatPayUnifiedOrderRequest {
     @XmlElement(name = "scene_info")
     private String sceneInfo;
 
-    /**
-     * 参数检查及签名.
-     *
-     * @param mchKey 商户 key
-     */
-    public void checkAndSign(final String mchKey) {
-
-        if (TRADE_TYPE_NATIVE.equals(this.tradeType)
-                && (this.productId == null || this.productId.isEmpty())) {
-            throw new IllegalArgumentException("When 'TradeType' is 'NATIVE', 'productId' must has value");
-        }
-
-        if (TRADE_TYPE_JSAPI.equals(this.tradeType)
-                && (this.openid == null || this.openid.isEmpty())) {
-            throw new IllegalArgumentException("When 'TradeType' is 'JSAPI', 'openid' must has value");
-        }
-
-        this.sign = WeChatPayUtils.sign(this, mchKey);
-    }
-
     public static WeChatPayUnifiedOrderRequest createWithNative(
             @NotNull final String body,
             @NotNull final String outTradeNo,

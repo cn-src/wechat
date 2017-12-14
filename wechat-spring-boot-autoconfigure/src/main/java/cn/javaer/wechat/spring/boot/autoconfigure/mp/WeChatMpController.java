@@ -65,9 +65,9 @@ public class WeChatMpController {
         // final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
         //     ? this.weChatMpProperties.getAuthorizeCodePath()
         //     : AUTHORIZE_CODE_PATH;
-        final String redirectUri = WeChatUtils.joinPath(weChatMpProperties.getNotifyAddress(), redirect);
+        final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), redirect);
         return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(
-                weChatMpProperties.getAppId(), redirectUri, AuthorizeScope.BASE));
+                this.weChatMpProperties.getAppid(), redirectUri, AuthorizeScope.BASE));
     }
 
     /**
