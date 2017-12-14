@@ -34,7 +34,7 @@ public class WeChatMpProperties {
      * 公众号的唯一标识.
      */
     @NonNull
-    private String appId;
+    private String appid;
 
     @NonNull
     private String appSecret;

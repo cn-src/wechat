@@ -43,7 +43,7 @@ public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
      * 公众号的唯一标识.
      */
     @NonNull
-    private String appId;
+    private String appid;
 
     /**
      * 商户号.
@@ -85,14 +85,14 @@ public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        final String mpAppId = environment.getProperty("wechat.mp.appId");
-        if (!StringUtils.hasText(appId) && StringUtils.hasText(mpAppId)) {
-            appId = mpAppId;
+        final String mpAppId = this.environment.getProperty("wechat.mp.appid");
+        if (!StringUtils.hasText(this.appid) && StringUtils.hasText(mpAppId)) {
+            this.appid = mpAppId;
         }
 
-        final String mpNotifyAddress = environment.getProperty("wechat.mp.notifyAddress");
-        if (!StringUtils.hasText(notifyAddress) && StringUtils.hasText(mpNotifyAddress)) {
-            notifyAddress = mpNotifyAddress;
+        final String mpNotifyAddress = this.environment.getProperty("wechat.mp.notifyAddress");
+        if (!StringUtils.hasText(this.notifyAddress) && StringUtils.hasText(mpNotifyAddress)) {
+            this.notifyAddress = mpNotifyAddress;
         }
     }
 }
