@@ -63,14 +63,17 @@ public class WeChatPayUtils {
         if (null != cache) {
             log.debug("Sign '{}' from cache", clazz.getName());
 
-            final StringBuilder sb = new StringBuilder();
+            final Map<String, String> sortedMap = new TreeMap<>();
 
             for (final Map.Entry<String, NameIndex> entry : cache.entrySet()) {
                 final NameIndex nameIndex = entry.getValue();
                 final Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex());
-                if (null != value && !value.toString().isEmpty()) {
-                    sb.append(entry.getKey()).append('=').append(value).append('&');
-                }
+                putNonNullValueAsString(sortedMap, entry.getKey(), value);
+            }
+            final StringBuilder sb = new StringBuilder();
+
+            for (final Map.Entry<String, String> entry : sortedMap.entrySet()) {
+                sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
             }
             sb.append("key").append('=').append(key);
             return DigestUtils.md5Hex(sb.toString()).toUpperCase();
@@ -85,7 +88,7 @@ public class WeChatPayUtils {
 
         final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
 
-        final Map<String, Object> sortedMap = new TreeMap<>();
+        final Map<String, String> sortedMap = new TreeMap<>();
 
         for (int i = 0; i < methodNames.length; i++) {
             final String methodName = methodNames[i];
@@ -97,30 +100,16 @@ public class WeChatPayUtils {
             final boolean notIgnoreMethod = !"getSign".equals(methodName) && !"getClass".equals(methodName);
 
             if (readMethod && readMethodNonParam && notIgnoreMethod) {
-                String k = methodName;
-                for (final Field field : fields) {
-                    if (field.getName().equals(beanMethodNameToFieldName(methodName, returnTypes[i]))) {
-                        final XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
-                        if (null != xmlElements && xmlElements.length > 0) {
-                            final String xmlElementName = xmlElements[0].name();
-                            if (StringUtils.isNotEmpty(xmlElementName)) {
-                                k = xmlElementName;
-                                cache.put(k, new NameIndex(methodName, i));
-                            }
-                        }
-                    }
-                }
-
+                final String k = keyFromXmlElementName(methodName, fields);
                 final Object value = methodAccess.invoke(obj, i);
-                if (null != value && !value.toString().isEmpty()) {
-                    sortedMap.put(k, value);
-                }
+                putNonNullValueAsString(sortedMap, k, value);
+                cache.put(k, new NameIndex(methodName, i));
             }
         }
 
         final StringBuilder sb = new StringBuilder();
 
-        for (final Map.Entry<String, Object> entry : sortedMap.entrySet()) {
+        for (final Map.Entry<String, String> entry : sortedMap.entrySet()) {
             sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
         }
         sb.append("key").append('=').append(key);
@@ -164,15 +153,36 @@ public class WeChatPayUtils {
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
-    private static String beanMethodNameToFieldName(final String methodName, final Class returnType) {
-        if (methodName.startsWith("is") && (returnType == boolean.class || returnType == Boolean.class)) {
-            return WordUtils.uncapitalize(methodName.substring(2));
-        }
+    private static String beanMethodNameToFieldName(final String methodName) {
 
         if (methodName.startsWith("get")) {
             return WordUtils.uncapitalize(methodName.substring(3));
         }
 
+        return methodName;
+    }
+
+    private static void putNonNullValueAsString(final Map<String, String> sortedMap, final String key, final Object value) {
+        if (null != value) {
+            final String valStr = value.toString();
+            if (!valStr.isEmpty()) {
+                sortedMap.put(key, valStr);
+            }
+        }
+    }
+
+    private static String keyFromXmlElementName(final String methodName, final List<Field> fields) {
+        for (final Field field : fields) {
+            if (field.getName().equals(beanMethodNameToFieldName(methodName))) {
+                final XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
+                if (null != xmlElements && xmlElements.length > 0) {
+                    final String xmlElementName = xmlElements[0].name();
+                    if (StringUtils.isNotEmpty(xmlElementName)) {
+                        return xmlElementName;
+                    }
+                }
+            }
+        }
         return methodName;
     }
 

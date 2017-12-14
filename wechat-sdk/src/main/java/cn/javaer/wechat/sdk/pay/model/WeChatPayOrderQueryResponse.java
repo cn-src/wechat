@@ -16,14 +16,22 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.util.WeChatUtils;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 微信支付-查询订单-响应.
@@ -155,4 +163,30 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
 
     @XmlElement(name = "coupon_fee_4")
     private String couponFee4;
+
+    @XmlAnyElement
+    @Setter(AccessLevel.PACKAGE)
+    @Getter(AccessLevel.PACKAGE)
+    private List<Element> other;
+
+    @Setter(AccessLevel.PACKAGE)
+    @Getter(AccessLevel.PACKAGE)
+    private Map<String, String> otherMap;
+
+    /**
+     * 代金券.
+     */
+    private List<Coupon> coupons;
+
+    public void afterCreated() {
+        final Map<String, String> map = WeChatUtils.elementsToMap(this.other);
+
+    }
+
+    @Data
+    public static class Coupon {
+        private String id;
+        private String type;
+        private Integer fee;
+    }
 }
