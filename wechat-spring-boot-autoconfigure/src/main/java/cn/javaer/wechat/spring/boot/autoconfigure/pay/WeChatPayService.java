@@ -17,8 +17,6 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -29,13 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public interface WeChatPayService {
 
     /**
-     * 微信统一下单，除配置参数外，其它参数自行决定使用.
-     */
-    WeChatPayUnifiedOrderResponse unifiedOrder(
-            @NotNull WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
-
-    /**
-     * 微信统一下单 NATIVE 类型简化.
+     * 微信统一下单 NATIVE 类型, 参数简化.
      */
     WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(
             @NotNull String body,
@@ -43,7 +35,7 @@ public interface WeChatPayService {
             @NotNull Integer totalFee) throws WeChatPayException;
 
     /**
-     * 微信统一下单 JSAPI 类型简化.
+     * 微信统一下单 JSAPI 类型, 参数简化.
      */
     void unifiedOrderWithJsApi(
             @NotNull String openid,

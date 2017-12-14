@@ -17,11 +17,11 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
-import cn.javaer.wechat.sdk.util.WeChatUtils;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,7 +32,7 @@ import org.springframework.context.ApplicationEventPublisher;
  * @author zhangpeng
  */
 public class WeChatPayDefaultService implements WeChatPayService {
-    private final WeChatPayProperties weChatPayProperties;
+
     private final WeChatPayClient weChatPayClient;
 
     private final ApplicationEventPublisher publisher;
@@ -40,42 +40,15 @@ public class WeChatPayDefaultService implements WeChatPayService {
     /**
      * 创建 WeChatPayDefaultService.
      *
-     * @param weChatPayProperties WeChatPayProperties
      * @param weChatPayClient WeChatPayClient
      * @param publisher ApplicationEventPublisher
      */
     public WeChatPayDefaultService(
-            @NotNull final WeChatPayProperties weChatPayProperties,
             @NotNull final WeChatPayClient weChatPayClient,
             @NotNull final ApplicationEventPublisher publisher) {
-        this.weChatPayProperties = weChatPayProperties;
         this.weChatPayClient = weChatPayClient;
         this.publisher = publisher;
     }
-
-    @Override
-    public WeChatPayUnifiedOrderResponse unifiedOrder(
-            @NotNull final WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
-
-        final String notifyUrl = WeChatUtils.joinPath(
-                this.weChatPayProperties.getNotifyAddress(),
-                this.weChatPayProperties.getNotifyResultPath());
-
-        request.setNotifyUrl(notifyUrl);
-        request.setAppid(this.weChatPayProperties.getAppId());
-        request.setMchId(this.weChatPayProperties.getMchId());
-        request.setSpbillCreateIp(this.weChatPayProperties.getClientIp());
-
-        request.checkAndSign(this.weChatPayProperties.getMchKey());
-
-        final WeChatPayUnifiedOrderResponse responseBody = this.weChatPayClient.unifiedOrder(request);
-        WeChatPayUtils.checkResponseBody(responseBody, this.weChatPayProperties.getMchKey());
-
-        this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
-
-        return responseBody;
-    }
-
 
     @Override
     public WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(
@@ -83,18 +56,12 @@ public class WeChatPayDefaultService implements WeChatPayService {
             @NotNull final String outTradeNo,
             @NotNull final Integer totalFee) throws WeChatPayException {
 
-        final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
-                .body(body)
-                .nonceStr(WeChatUtils.uuid())
-                .outTradeNo(outTradeNo)
-                .productId(WeChatUtils.uuid())
-                .totalFee(totalFee)
-                .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_NATIVE)
-                .build();
+        final WeChatPayUnifiedOrderRequest request
+                = WeChatPayUnifiedOrderRequest.createWithNative(body, outTradeNo, totalFee);
 
-        final WeChatPayUnifiedOrderResponse weChatPayUnifiedOrderResponse = unifiedOrder(request);
+        final WeChatPayUnifiedOrderResponse responseBody = requestAndPublishEvent(request);
 
-        return WeChatPayUnifiedOrderWithNativeResult.createWith(weChatPayUnifiedOrderResponse);
+        return WeChatPayUnifiedOrderWithNativeResult.createWith(responseBody);
     }
 
     @Override
@@ -104,15 +71,21 @@ public class WeChatPayDefaultService implements WeChatPayService {
             @NotNull final String outTradeNo,
             @NotNull final Integer totalFee) throws WeChatPayException {
 
-        final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder()
-                .openid(openid)
-                .body(body)
-                .nonceStr(WeChatUtils.uuid())
-                .outTradeNo(outTradeNo)
-                .totalFee(totalFee)
-                .tradeType(WeChatPayUnifiedOrderRequest.TRADE_TYPE_JSAPI)
-                .build();
+        final WeChatPayUnifiedOrderRequest request
+                = WeChatPayUnifiedOrderRequest.createWithJsApi(openid, body, outTradeNo, totalFee);
 
-        unifiedOrder(request);
+        requestAndPublishEvent(request);
+    }
+
+    private WeChatPayUnifiedOrderResponse requestAndPublishEvent(final WeChatPayUnifiedOrderRequest request) {
+
+        final WeChatPayUnifiedOrderResponse responseBody
+                = this.weChatPayClient.unifiedOrder(request);
+
+        WeChatPayUtils.checkResponseBody(responseBody, WeChatPayConfigurator.INSTANCE.getMchKey());
+
+        this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
+
+        return responseBody;
     }
 }

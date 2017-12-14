@@ -16,10 +16,12 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
-import lombok.Builder;
-import lombok.Data;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
+import lombok.Getter;
 import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -31,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Data
-@Builder(builderClassName = "Builder")
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayUnifiedOrderRequest {
@@ -40,6 +41,8 @@ public class WeChatPayUnifiedOrderRequest {
     public static final String TRADE_TYPE_JSAPI = "JSAPI";
     public static final String TRADE_TYPE_NATIVE = "NATIVE";
     public static final String TRADE_TYPE_APP = "APP";
+
+    private WeChatPayUnifiedOrderRequest() {}
 
     /**
      * 公众账号ID.
@@ -200,5 +203,56 @@ public class WeChatPayUnifiedOrderRequest {
         }
 
         this.sign = WeChatPayUtils.sign(this, mchKey);
+    }
+
+    public static WeChatPayUnifiedOrderRequest createWithNative(
+            @NotNull final String body,
+            @NotNull final String outTradeNo,
+            @NotNull final Integer totalFee) {
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+
+        final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
+
+        request.nonceStr = WeChatUtils.uuid();
+        request.productId = WeChatUtils.uuid();
+        request.tradeType = TRADE_TYPE_NATIVE;
+
+        request.appid = configurator.getAppid();
+        request.mchId = configurator.getMchId();
+        request.notifyUrl = configurator.getNotifyUrl();
+        request.spbillCreateIp = configurator.getSpbillCreateIp();
+
+        request.body = body;
+        request.outTradeNo = outTradeNo;
+        request.totalFee = totalFee;
+
+        request.sign = WeChatPayUtils.sign(request, configurator.getMchKey());
+        return request;
+    }
+
+    public static WeChatPayUnifiedOrderRequest createWithJsApi(
+            @NotNull final String openid,
+            @NotNull final String body,
+            @NotNull final String outTradeNo,
+            @NotNull final Integer totalFee) {
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+
+        final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
+
+        request.nonceStr = WeChatUtils.uuid();
+        request.tradeType = TRADE_TYPE_JSAPI;
+
+        request.appid = configurator.getAppid();
+        request.mchId = configurator.getMchId();
+        request.notifyUrl = configurator.getNotifyUrl();
+        request.spbillCreateIp = configurator.getSpbillCreateIp();
+
+        request.openid = openid;
+        request.body = body;
+        request.outTradeNo = outTradeNo;
+        request.totalFee = totalFee;
+
+        request.sign = WeChatPayUtils.sign(request, configurator.getMchKey());
+        return request;
     }
 }

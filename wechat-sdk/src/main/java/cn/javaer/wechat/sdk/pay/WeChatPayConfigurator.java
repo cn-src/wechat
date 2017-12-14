@@ -36,6 +36,8 @@ public class WeChatPayConfigurator {
 
     private String notifyUrl;
 
+    private String spbillCreateIp;
+
     private WeChatPayConfigurator() {}
 
 }
