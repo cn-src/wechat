@@ -26,7 +26,7 @@ public class WeChatPayRestTemplateClientTest {
     @Before
     public void setUp() throws Exception {
         final WeChatPayProperties weChatPayProperties = new WeChatPayProperties();
-        weChatPayProperties.setApiBasePath("http://localhost:" + wireMockRule.port());
+        weChatPayProperties.setApiBasePath("http://localhost:" + this.wireMockRule.port());
         this.weChatPayClient = new WeChatPayRestTemplateClient(new RestTemplate(), weChatPayProperties);
     }
 
@@ -39,8 +39,8 @@ public class WeChatPayRestTemplateClientTest {
                         .withHeader("Content-Type", MediaType.APPLICATION_XML_VALUE)
                         .withBody("<xml><return_code>SUCCESS</return_code><result_code>SUCCESS</result_code></xml>")));
 
-        WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.builder().build();
-        final WeChatPayUnifiedOrderResponse unifiedOrderResponse = weChatPayClient.unifiedOrder(request);
+        final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.createWithNative("body", "outTradeNo", 100);
+        final WeChatPayUnifiedOrderResponse unifiedOrderResponse = this.weChatPayClient.unifiedOrder(request);
 
         assertThat(unifiedOrderResponse)
                 .hasReturnCode("SUCCESS")
