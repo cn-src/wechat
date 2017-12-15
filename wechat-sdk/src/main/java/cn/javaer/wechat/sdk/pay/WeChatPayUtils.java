@@ -176,6 +176,27 @@ public class WeChatPayUtils {
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
+    /**
+     * 动态数据的映射转换.
+     *
+     * <p>针对如: coupon_id_$n, coupon_type_$n, coupon_fee_$n 等.
+     *
+     * <h3>样例:</h3>
+     * <pre>
+     * final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();
+     * mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
+     * mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
+     * mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+     * WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, Coupon::new);
+     * </pre>
+     *
+     * @param otherMap 已存放的动态数据
+     * @param mappingMap 转换函数的Map, 每一个 entry, 的 key 为不带数字部分的前缀, 如 coupon_id_. value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
+     * @param newT 新对象的创建函数
+     * @param <T> 要转换的目标对象的类型
+     *
+     * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
+     */
     public static <T> Map<String, T> dynamicMapping(final Map<String, String> otherMap, final Map<String, BiConsumer<String, T>> mappingMap, final Supplier<T> newT) {
         final Map<String, T> rtMap = new TreeMap<>();
         for (final Map.Entry<String, String> entry : otherMap.entrySet()) {
