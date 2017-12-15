@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -51,7 +52,22 @@ public class WeChatPayUtils {
      *
      * @return 返回签名 String
      */
-    public static String sign(final Object obj, final String key) {
+    @NotNull
+    public static String sign(@NotNull final Object obj, @NotNull final String key) {
+        return sign(obj, key, Collections.emptyMap());
+    }
+
+    /**
+     * 微信支付-签名.
+     *
+     * @param obj 要签名的数据对象.
+     * @param key key
+     * @param otherMap 额外参与签名的数据, 一般是动态字段.
+     *
+     * @return 返回签名 String
+     */
+    @NotNull
+    public static String sign(@NotNull final Object obj, @NotNull final String key, final Map<String, String> otherMap) {
 
         final Class<?> clazz = obj.getClass();
 
@@ -62,7 +78,7 @@ public class WeChatPayUtils {
         if (null != cache) {
             log.debug("Sign '{}' from cache", clazz.getName());
 
-            final Map<String, String> sortedMap = new TreeMap<>();
+            final Map<String, String> sortedMap = new TreeMap<>(otherMap);
 
             for (final Map.Entry<String, NameIndex> entry : cache.entrySet()) {
                 final NameIndex nameIndex = entry.getValue();
@@ -87,7 +103,7 @@ public class WeChatPayUtils {
 
         final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
 
-        final Map<String, String> sortedMap = new TreeMap<>();
+        final Map<String, String> sortedMap = new TreeMap<>(otherMap);
 
         for (int i = 0; i < methodNames.length; i++) {
             final String methodName = methodNames[i];
