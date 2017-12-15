@@ -60,7 +60,7 @@ public class WeChatPayRefundQueryRequest {
     /**
      * 签名.
      */
-    @XmlElement(name = "sign")
+    @XmlElement(name = "generateSign")
     private String sign;
 
     /**

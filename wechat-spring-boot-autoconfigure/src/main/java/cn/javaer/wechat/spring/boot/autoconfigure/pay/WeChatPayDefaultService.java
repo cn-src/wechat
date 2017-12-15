@@ -17,9 +17,7 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
-import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
-import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderEvent;
@@ -82,9 +80,9 @@ public class WeChatPayDefaultService implements WeChatPayService {
         final WeChatPayUnifiedOrderResponse responseBody
                 = this.weChatPayClient.unifiedOrder(request);
 
-        WeChatPayUtils.checkSuccessful(responseBody, WeChatPayConfigurator.INSTANCE.getMchKey());
-
         this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
+
+        responseBody.check();
 
         return responseBody;
     }

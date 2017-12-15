@@ -59,7 +59,7 @@ public class WeChatPayOrderQueryRequest {
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
-    @XmlElement(name = "sign")
+    @XmlElement(name = "generateSign")
     private String sign;
 
     @XmlElement(name = "sign_type")
@@ -83,7 +83,7 @@ public class WeChatPayOrderQueryRequest {
 
         request.nonceStr = WeChatUtils.uuid32();
 
-        request.sign = WeChatPayUtils.sign(request, configurator.getMchKey());
+        request.sign = WeChatPayUtils.generateSign(request, configurator.getMchKey());
         return request;
     }
 }

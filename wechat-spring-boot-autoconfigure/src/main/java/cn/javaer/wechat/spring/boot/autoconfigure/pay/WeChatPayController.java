@@ -50,7 +50,7 @@ public class WeChatPayController {
     @RequestMapping(path = "${wechat.pay.notifyResultPath:" + WeChatPayProperties.NOTIFY_RESULT_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public WeChatPayNotifyResultResponse notifyResult(@RequestBody final WeChatPayNotifyResult weChatPayNotifyResult) {
-        WeChatPayUtils.checkSuccessful(weChatPayNotifyResult, this.weChatPayProperties.getMchKey());
+        WeChatPayUtils.checkSuccess(weChatPayNotifyResult, this.weChatPayProperties.getMchKey());
         this.publisher.publishEvent(new WeChatPayNotifyResultEvent(weChatPayNotifyResult));
         return WeChatPayNotifyResultResponse.SUCCESS;
     }

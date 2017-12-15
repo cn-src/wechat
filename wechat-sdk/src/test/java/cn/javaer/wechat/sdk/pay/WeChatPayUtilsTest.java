@@ -23,7 +23,7 @@ public class WeChatPayUtilsTest {
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
         response.setTradeType("JSAPI");
 
-        response.setSign(WeChatPayUtils.sign(response, "key"));
+        response.setSign(WeChatPayUtils.generateSign(response, "key"));
 
         assertEquals("BC884153761883FE608EA956BD05A6F5", response.getSign());
     }
@@ -41,8 +41,8 @@ public class WeChatPayUtilsTest {
         response.setTradeType("JSAPI");
 
         // 2次调用测试缓存
-        response.setSign(WeChatPayUtils.sign(response, "key"));
-        response.setSign(WeChatPayUtils.sign(response, "key"));
+        response.setSign(WeChatPayUtils.generateSign(response, "key"));
+        response.setSign(WeChatPayUtils.generateSign(response, "key"));
 
         assertEquals("BC884153761883FE608EA956BD05A6F5", response.getSign());
     }

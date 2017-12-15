@@ -16,6 +16,8 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -55,7 +57,7 @@ public abstract class WeChatPayResponse {
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
-    @XmlElement(name = "sign")
+    @XmlElement(name = "generateSign")
     private String sign;
 
     @XmlElement(name = "result_code")
@@ -67,4 +69,8 @@ public abstract class WeChatPayResponse {
     @XmlElement(name = "err_code_des")
     private String errCodeDes;
 
+    public void check() {
+        WeChatPayUtils.checkSign(this, WeChatPayConfigurator.INSTANCE.getMchKey());
+        WeChatPayUtils.checkSuccess(this);
+    }
 }

@@ -76,7 +76,7 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 签名.
      */
-    @XmlElement(name = "sign")
+    @XmlElement(name = "generateSign")
     private String sign;
 
     /**
@@ -217,7 +217,7 @@ public class WeChatPayUnifiedOrderRequest {
         request.outTradeNo = outTradeNo;
         request.totalFee = totalFee;
 
-        request.sign = WeChatPayUtils.sign(request, configurator.getMchKey());
+        request.sign = WeChatPayUtils.generateSign(request, configurator.getMchKey());
         return request;
     }
 
@@ -253,7 +253,7 @@ public class WeChatPayUnifiedOrderRequest {
         request.outTradeNo = outTradeNo;
         request.totalFee = totalFee;
 
-        request.sign = WeChatPayUtils.sign(request, configurator.getMchKey());
+        request.sign = WeChatPayUtils.generateSign(request, configurator.getMchKey());
         return request;
     }
 }

@@ -53,8 +53,8 @@ public class WeChatPayUtils {
      * @return 返回签名 String
      */
     @NotNull
-    public static String sign(@NotNull final Object obj, @NotNull final String key) {
-        return sign(obj, key, Collections.emptyMap());
+    public static String generateSign(@NotNull final Object obj, @NotNull final String key) {
+        return generateSign(obj, key, Collections.emptyMap());
     }
 
     /**
@@ -67,7 +67,7 @@ public class WeChatPayUtils {
      * @return 返回签名 String
      */
     @NotNull
-    public static String sign(@NotNull final Object obj, @NotNull final String key, final Map<String, String> otherMap) {
+    public static String generateSign(@NotNull final Object obj, @NotNull final String key, final Map<String, String> otherMap) {
 
         final Class<?> clazz = obj.getClass();
 
@@ -135,22 +135,28 @@ public class WeChatPayUtils {
      * 校验响应信息是否为成功.
      *
      * @param response WeChatPayResponse
-     * @param mchKey 商户key
      *
-     * @throws WeChatPayException 没有响应信息, 签名错误, 响应信息标示不成功时抛出此异常.
+     * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
      */
-    public static void checkSuccessful(final WeChatPayResponse response, @NotNull final String mchKey) {
-        if (null == response) {
-            throw new WeChatPayException("WeChat pay response is null");
-        }
-        if (!response.getSign().equals(WeChatPayUtils.sign(response, mchKey))) {
-            throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
-        }
+    public static void checkSuccess(@NotNull final WeChatPayResponse response) {
         if (!WeChatPayResponse.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
         }
         if (!WeChatPayResponse.SUCCESS.equals(response.getResultCode())) {
             throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
+        }
+    }
+
+    /**
+     * 校验响应信息的签名.
+     *
+     * @param response WeChatPayResponse
+     *
+     * @throws WeChatPayException 签名错误时抛出此异常.
+     */
+    public static void checkSign(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
+        if (!response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))) {
+            throw new WeChatPayException("WeChat pay response 'generateSign' error, response:" + response.toString());
         }
     }
 
@@ -161,9 +167,9 @@ public class WeChatPayUtils {
      *
      * @return 有响应信息, 并且完全成功返回 true
      */
-    public static boolean isSuccessful(final WeChatPayResponse response) {
+    public static boolean isSuccessful(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
 
-        return (null != response)
+        return response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))
                 && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
