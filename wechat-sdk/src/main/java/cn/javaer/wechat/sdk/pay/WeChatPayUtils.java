@@ -191,7 +191,7 @@ public class WeChatPayUtils {
      * </pre>
      *
      * @param otherMap 已存放的动态数据
-     * @param mappingMap 转换函数的Map, 每一个 entry, 的 key 为不带数字部分的前缀, 如 coupon_id_. value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
+     * @param mappingMap 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.  value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
      * @param newT 新对象的创建函数
      * @param <T> 要转换的目标对象的类型
      *
