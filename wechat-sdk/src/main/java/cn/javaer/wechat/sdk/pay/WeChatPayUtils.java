@@ -260,7 +260,7 @@ public class WeChatPayUtils {
             }
             if (field.getName().equals(fieldName)) {
                 final SignIgnore signIgnore = field.getAnnotation(SignIgnore.class);
-                if (null == signIgnore) {
+                if (null != signIgnore) {
                     return null;
                 }
                 final XmlElement xmlElement = field.getAnnotation(XmlElement.class);
