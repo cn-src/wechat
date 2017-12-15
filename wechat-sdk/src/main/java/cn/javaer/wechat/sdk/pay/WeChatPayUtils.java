@@ -162,7 +162,8 @@ public class WeChatPayUtils {
         return methodName;
     }
 
-    private static void putNonNullValueAsString(final Map<String, String> sortedMap, final String key, final Object value) {
+    private static void putNonNullValueAsString(
+            final Map<String, String> sortedMap, final String key, final Object value) {
         if (null != value) {
             final String valStr = value.toString();
             if (!valStr.isEmpty()) {
