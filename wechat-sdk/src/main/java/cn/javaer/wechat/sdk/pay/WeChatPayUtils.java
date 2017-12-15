@@ -216,8 +216,8 @@ public class WeChatPayUtils {
 
         if (methodName.startsWith("is") && (fieldType == boolean.class || fieldType == Boolean.class)) {
             final char[] chars = methodName.toCharArray();
-            if (chars[3] >= 'A' && chars[3] <= 'Z') {
-                chars[3] += 32;
+            if (chars[2] >= 'A' && chars[2] <= 'Z') {
+                chars[2] += 32;
             }
             return String.copyValueOf(chars, 2, chars.length - 2);
         }
