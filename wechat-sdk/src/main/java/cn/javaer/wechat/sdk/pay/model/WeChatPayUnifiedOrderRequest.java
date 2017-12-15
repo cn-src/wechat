@@ -76,7 +76,7 @@ public class WeChatPayUnifiedOrderRequest {
     /**
      * 签名.
      */
-    @XmlElement(name = "generateSign")
+    @XmlElement(name = "sign")
     private String sign;
 
     /**

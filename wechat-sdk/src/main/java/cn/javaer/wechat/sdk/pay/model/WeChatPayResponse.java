@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.SignIgnore;
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
@@ -63,7 +64,8 @@ public abstract class WeChatPayResponse {
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
-    @XmlElement(name = "generateSign")
+    @SignIgnore
+    @XmlElement(name = "sign")
     private String sign;
 
     @XmlElement(name = "result_code")
@@ -78,7 +80,8 @@ public abstract class WeChatPayResponse {
     @XmlAnyElement
     @Setter(AccessLevel.PACKAGE)
     @Getter(AccessLevel.PACKAGE)
-    private List<Element> other;
+    @SignIgnore
+    private List<Element> otherElements;
 
     @Setter(AccessLevel.PACKAGE)
     protected Map<String, String> otherMap;
@@ -87,7 +90,7 @@ public abstract class WeChatPayResponse {
      * 校验 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
      */
     public void check() {
-        this.otherMap = WeChatUtils.elementsToMap(this.other);
+        this.otherMap = WeChatUtils.elementsToMap(this.otherElements);
 
         WeChatPayUtils.checkSign(this, WeChatPayConfigurator.INSTANCE.getMchKey());
         WeChatPayUtils.checkSuccess(this);

@@ -59,7 +59,7 @@ public class WeChatPayOrderQueryRequest {
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
-    @XmlElement(name = "generateSign")
+    @XmlElement(name = "sign")
     private String sign;
 
     @XmlElement(name = "sign_type")
