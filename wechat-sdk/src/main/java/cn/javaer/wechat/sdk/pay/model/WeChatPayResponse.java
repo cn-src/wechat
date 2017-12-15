@@ -73,4 +73,8 @@ public abstract class WeChatPayResponse {
         WeChatPayUtils.checkSign(this, WeChatPayConfigurator.INSTANCE.getMchKey());
         WeChatPayUtils.checkSuccess(this);
     }
+
+    public boolean isSuccessful() {
+        return WeChatPayUtils.isSuccessful(this, WeChatPayConfigurator.INSTANCE.getMchKey());
+    }
 }
