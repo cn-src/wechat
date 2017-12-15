@@ -78,7 +78,7 @@ public class WeChatUtils {
      *
      * @param elements elements
      *
-     * @return <code>Map<String, String></code>
+     * @return <code>Map&lt;String, String&gt;</code>
      */
     public static Map<String, String> elementsToMap(final List<Element> elements) {
         if (null == elements || elements.isEmpty()) {
