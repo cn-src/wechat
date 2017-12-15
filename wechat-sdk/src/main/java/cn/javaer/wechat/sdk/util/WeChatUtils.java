@@ -18,6 +18,8 @@ package cn.javaer.wechat.sdk.util;
 
 import org.w3c.dom.Element;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -81,5 +83,13 @@ public class WeChatUtils {
             map.put(element.getNodeName(), element.getTextContent());
         }
         return map;
+    }
+
+    public static String urlEncode(final String urlStr) {
+        try {
+            return URLEncoder.encode(urlStr, "UTF-8");
+        } catch (final UnsupportedEncodingException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 }

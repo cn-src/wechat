@@ -18,10 +18,8 @@ package cn.javaer.wechat.sdk.mp;
 
 import cn.javaer.wechat.sdk.mp.model.AuthorizeScope;
 import cn.javaer.wechat.sdk.mp.model.WeChatMpResponse;
-import io.vavr.control.Try;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
 import org.jetbrains.annotations.NotNull;
-
-import java.net.URLEncoder;
 
 /**
  * 微信公众号工具类.
@@ -53,7 +51,7 @@ public class WeChatMpUtils {
             @NotNull final AuthorizeScope scope,
             @NotNull final String state) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
-                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
+                + "&redirect_uri=" + WeChatUtils.urlEncode(redirectUri)
                 + "&response_type=code&scope=" + scope.getScope()
                 + "&state=" + state + "#wechat_redirect";
     }
@@ -68,7 +66,7 @@ public class WeChatMpUtils {
             @NotNull final String redirectUri,
             @NotNull final AuthorizeScope scope) {
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId
-                + "&redirect_uri=" + Try.of(() -> URLEncoder.encode(redirectUri, "UTF-8")).get()
+                + "&redirect_uri=" + WeChatUtils.urlEncode(redirectUri)
                 + "&response_type=code&scope=" + scope.getScope()
                 + "#wechat_redirect";
     }
