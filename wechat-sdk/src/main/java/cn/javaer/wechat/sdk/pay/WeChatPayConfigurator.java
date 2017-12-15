@@ -20,12 +20,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * 微信支付-配置.
+ *
  * @author zhangpeng
  */
 @Getter
 @Setter
 public class WeChatPayConfigurator {
 
+    /**
+     * 默认的全局配置实例.
+     */
     public static final WeChatPayConfigurator INSTANCE = new WeChatPayConfigurator();
 
     private String appid;

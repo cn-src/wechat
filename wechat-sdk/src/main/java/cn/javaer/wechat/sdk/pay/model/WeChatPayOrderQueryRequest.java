@@ -65,6 +65,13 @@ public class WeChatPayOrderQueryRequest {
     @XmlElement(name = "sign_type")
     private String signType;
 
+    /**
+     * 根据商户订单号查询订单.
+     *
+     * @param outTradeNo 商户订单号
+     *
+     * @return WeChatPayOrderQueryRequest
+     */
     public static WeChatPayOrderQueryRequest create(final String outTradeNo) {
         final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
 
