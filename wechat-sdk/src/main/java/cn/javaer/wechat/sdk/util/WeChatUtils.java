@@ -78,7 +78,7 @@ public class WeChatUtils {
             return Collections.emptyMap();
         }
 
-        final Map<String, String> map = new HashMap<>();
+        final Map<String, String> map = new HashMap<>(elements.size());
         for (final Element element : elements) {
             map.put(element.getNodeName(), element.getTextContent());
         }
