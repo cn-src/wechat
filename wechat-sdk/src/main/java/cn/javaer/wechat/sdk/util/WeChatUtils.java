@@ -85,6 +85,13 @@ public class WeChatUtils {
         return map;
     }
 
+    /**
+     * url 编码.
+     *
+     * @param urlStr 原始 url
+     *
+     * @return 编码后的 url
+     */
     public static String urlEncode(final String urlStr) {
         try {
             return URLEncoder.encode(urlStr, "UTF-8");
