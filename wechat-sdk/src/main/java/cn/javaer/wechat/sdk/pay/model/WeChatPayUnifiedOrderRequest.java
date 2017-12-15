@@ -187,6 +187,15 @@ public class WeChatPayUnifiedOrderRequest {
     @XmlElement(name = "scene_info")
     private String sceneInfo;
 
+    /**
+     * 微信支付-统一下单-NATIVE 类型.
+     *
+     * @param body 商品简述
+     * @param outTradeNo 商户订单号
+     * @param totalFee 待支付的金额
+     *
+     * @return WeChatPayUnifiedOrderRequest
+     */
     public static WeChatPayUnifiedOrderRequest createWithNative(
             @NotNull final String body,
             @NotNull final String outTradeNo,
@@ -212,6 +221,16 @@ public class WeChatPayUnifiedOrderRequest {
         return request;
     }
 
+    /**
+     * 微信支付-统一下单-JSAPI 类型.
+     *
+     * @param openid openid
+     * @param body 商品简述
+     * @param outTradeNo 商户订单号
+     * @param totalFee 待支付的金额
+     *
+     * @return WeChatPayUnifiedOrderRequest
+     */
     public static WeChatPayUnifiedOrderRequest createWithJsApi(
             @NotNull final String openid,
             @NotNull final String body,
