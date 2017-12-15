@@ -82,7 +82,7 @@ public class WeChatPayRequest {
 
     public String getNonceStr() {
         if (null == this.nonceStr) {
-            this.nonceStr = WeChatUtils.uuid();
+            this.nonceStr = WeChatUtils.uuid32();
         }
         return this.nonceStr;
     }

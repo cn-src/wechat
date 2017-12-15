@@ -37,11 +37,11 @@ public class WeChatUtils {
     private WeChatUtils() {}
 
     /**
-     * 生成长度为 32 的 uuid.
+     * 生成长度为 32 的 uuid32.
      *
-     * @return uuid String
+     * @return uuid32 String
      */
-    public static String uuid() {
+    public static String uuid32() {
         final StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
         sb.deleteCharAt(8);
         sb.deleteCharAt(12);

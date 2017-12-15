@@ -195,8 +195,8 @@ public class WeChatPayUnifiedOrderRequest {
 
         final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
 
-        request.nonceStr = WeChatUtils.uuid();
-        request.productId = WeChatUtils.uuid();
+        request.nonceStr = WeChatUtils.uuid32();
+        request.productId = WeChatUtils.uuid32();
         request.tradeType = TRADE_TYPE_NATIVE;
 
         request.appid = configurator.getAppid();
@@ -221,7 +221,7 @@ public class WeChatPayUnifiedOrderRequest {
 
         final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
 
-        request.nonceStr = WeChatUtils.uuid();
+        request.nonceStr = WeChatUtils.uuid32();
         request.tradeType = TRADE_TYPE_JSAPI;
 
         request.appid = configurator.getAppid();

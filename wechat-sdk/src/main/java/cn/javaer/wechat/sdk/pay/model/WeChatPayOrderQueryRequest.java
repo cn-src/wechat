@@ -74,7 +74,7 @@ public class WeChatPayOrderQueryRequest {
         request.appid = configurator.getAppid();
         request.mchId = configurator.getMchId();
 
-        request.nonceStr = WeChatUtils.uuid();
+        request.nonceStr = WeChatUtils.uuid32();
 
         request.sign = WeChatPayUtils.sign(request, configurator.getMchKey());
         return request;
