@@ -18,12 +18,18 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 微信支付-基本响应信息.
@@ -69,7 +75,17 @@ public abstract class WeChatPayResponse {
     @XmlElement(name = "err_code_des")
     private String errCodeDes;
 
+    @XmlAnyElement
+    @Setter(AccessLevel.PACKAGE)
+    @Getter(AccessLevel.PACKAGE)
+    private List<Element> other;
+
+    @Setter(AccessLevel.PACKAGE)
+    protected Map<String, String> otherMap;
+
     public void check() {
+        this.otherMap = WeChatUtils.elementsToMap(this.other);
+
         WeChatPayUtils.checkSign(this, WeChatPayConfigurator.INSTANCE.getMchKey());
         WeChatPayUtils.checkSuccess(this);
     }

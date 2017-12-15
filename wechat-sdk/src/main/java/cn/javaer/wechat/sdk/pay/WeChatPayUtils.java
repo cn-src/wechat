@@ -155,7 +155,7 @@ public class WeChatPayUtils {
      * @throws WeChatPayException 签名错误时抛出此异常.
      */
     public static void checkSign(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
-        if (!response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))) {
+        if (!response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey, response.getOtherMap()))) {
             throw new WeChatPayException("WeChat pay response 'generateSign' error, response:" + response.toString());
         }
     }
@@ -169,7 +169,7 @@ public class WeChatPayUtils {
      */
     public static boolean isSuccessful(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
 
-        return response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))
+        return response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey, response.getOtherMap()))
                 && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
