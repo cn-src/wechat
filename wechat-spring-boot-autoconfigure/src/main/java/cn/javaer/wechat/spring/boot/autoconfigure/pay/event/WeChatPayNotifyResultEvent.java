@@ -16,7 +16,6 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay.event;
 
-import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResult;
 
 /**
@@ -33,7 +32,7 @@ public class WeChatPayNotifyResultEvent {
 
     public WeChatPayNotifyResultEvent(final WeChatPayNotifyResult notifyResult) {
         this.notifyResult = notifyResult;
-        this.successful = WeChatPayUtils.isSuccessful(notifyResult);
+        this.successful = notifyResult.isSuccessful();
     }
 
     /**
