@@ -73,6 +73,13 @@ public class WeChatUtils {
         }).collect(Collectors.joining("/"));
     }
 
+    /**
+     * Element 转成 Map.
+     *
+     * @param elements elements
+     *
+     * @return <code>Map<String, String></code>
+     */
     public static Map<String, String> elementsToMap(final List<Element> elements) {
         if (null == elements || elements.isEmpty()) {
             return Collections.emptyMap();
