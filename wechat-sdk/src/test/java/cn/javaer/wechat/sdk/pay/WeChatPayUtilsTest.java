@@ -3,6 +3,7 @@ package cn.javaer.wechat.sdk.pay;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -50,6 +51,7 @@ public class WeChatPayUtilsTest {
     public void beanMethodNameToFieldName() {
         assertEquals("x", WeChatPayUtils.beanMethodNameToFieldName("getX"));
         assertEquals("xxx", WeChatPayUtils.beanMethodNameToFieldName("getXxx"));
-        assertEquals("xx", WeChatPayUtils.beanMethodNameToFieldName("xx"));
+        assertThatThrownBy(() -> WeChatPayUtils.beanMethodNameToFieldName("xxx"))
+                .isExactlyInstanceOf(IllegalArgumentException.class);
     }
 }
