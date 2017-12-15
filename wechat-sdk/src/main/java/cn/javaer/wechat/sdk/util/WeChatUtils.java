@@ -37,7 +37,7 @@ public class WeChatUtils {
     private WeChatUtils() {}
 
     /**
-     * 生成长度为 32 的 uuid32.
+     * 生成长度为 32 的 uuid.
      *
      * @return uuid32 String
      */
