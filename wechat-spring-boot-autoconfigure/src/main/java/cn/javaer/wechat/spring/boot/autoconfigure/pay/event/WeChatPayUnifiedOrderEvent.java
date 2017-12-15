@@ -32,7 +32,7 @@ public class WeChatPayUnifiedOrderEvent {
 
     public WeChatPayUnifiedOrderEvent(final WeChatPayUnifiedOrderResponse unifiedOrderResponse) {
         this.unifiedOrderResponse = unifiedOrderResponse;
-        successful = WeChatPayUtils.isSuccessfulResponseBody(unifiedOrderResponse);
+        this.successful = WeChatPayUtils.isSuccessful(unifiedOrderResponse);
     }
 
     /**
@@ -41,7 +41,7 @@ public class WeChatPayUnifiedOrderEvent {
      * @return WeChatPayUnifiedOrderResponse
      */
     public WeChatPayUnifiedOrderResponse getUnifiedOrderResponse() {
-        return unifiedOrderResponse;
+        return this.unifiedOrderResponse;
     }
 
     /**
@@ -50,6 +50,6 @@ public class WeChatPayUnifiedOrderEvent {
      * @return 成功为 true
      */
     public boolean isPlaceOrderSuccessful() {
-        return successful;
+        return this.successful;
     }
 }

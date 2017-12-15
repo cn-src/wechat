@@ -82,7 +82,7 @@ public class WeChatPayDefaultService implements WeChatPayService {
         final WeChatPayUnifiedOrderResponse responseBody
                 = this.weChatPayClient.unifiedOrder(request);
 
-        WeChatPayUtils.checkResponseBody(responseBody, WeChatPayConfigurator.INSTANCE.getMchKey());
+        WeChatPayUtils.checkSuccessful(responseBody, WeChatPayConfigurator.INSTANCE.getMchKey());
 
         this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
 

@@ -139,7 +139,7 @@ public class WeChatPayUtils {
      *
      * @throws WeChatPayException 没有响应信息, 签名错误, 响应信息标示不成功时抛出此异常.
      */
-    public static void checkResponseBody(final WeChatPayResponse response, @NotNull final String mchKey) {
+    public static void checkSuccessful(final WeChatPayResponse response, @NotNull final String mchKey) {
         if (null == response) {
             throw new WeChatPayException("WeChat pay response is null");
         }
@@ -161,7 +161,7 @@ public class WeChatPayUtils {
      *
      * @return 有响应信息, 并且完全成功返回 true
      */
-    public static boolean isSuccessfulResponseBody(final WeChatPayResponse response) {
+    public static boolean isSuccessful(final WeChatPayResponse response) {
 
         return (null != response)
                 && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))

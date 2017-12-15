@@ -33,7 +33,7 @@ public class WeChatPayNotifyResultEvent {
 
     public WeChatPayNotifyResultEvent(final WeChatPayNotifyResult notifyResult) {
         this.notifyResult = notifyResult;
-        successful = WeChatPayUtils.isSuccessfulResponseBody(notifyResult);
+        this.successful = WeChatPayUtils.isSuccessful(notifyResult);
     }
 
     /**
@@ -42,7 +42,7 @@ public class WeChatPayNotifyResultEvent {
      * @return WeChatPayNotifyResult
      */
     public WeChatPayNotifyResult getNotifyResult() {
-        return notifyResult;
+        return this.notifyResult;
     }
 
     /**
@@ -51,6 +51,6 @@ public class WeChatPayNotifyResultEvent {
      * @return 支付成功为 true
      */
     public boolean isPaySuccessful() {
-        return successful;
+        return this.successful;
     }
 }
