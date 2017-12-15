@@ -49,9 +49,9 @@ public class WeChatPayUtilsTest {
 
     @Test
     public void beanMethodNameToFieldName() {
-        assertEquals("x", WeChatPayUtils.beanMethodNameToFieldName("getX"));
-        assertEquals("xxx", WeChatPayUtils.beanMethodNameToFieldName("getXxx"));
-        assertThatThrownBy(() -> WeChatPayUtils.beanMethodNameToFieldName("xxx"))
+        assertEquals("x", WeChatPayUtils.toFieldName("getX"));
+        assertEquals("xxx", WeChatPayUtils.toFieldName("getXxx"));
+        assertThatThrownBy(() -> WeChatPayUtils.toFieldName("xxx"))
                 .isExactlyInstanceOf(IllegalArgumentException.class);
     }
 }

@@ -168,7 +168,7 @@ public class WeChatPayUtils {
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
-    static String beanMethodNameToFieldName(final String methodName) {
+    static String toFieldName(final String methodName) {
 
         if (methodName.startsWith("get")) {
             final char[] chars = methodName.toCharArray();
@@ -193,7 +193,7 @@ public class WeChatPayUtils {
 
     private static String keyFromXmlElementName(final String methodName, final List<Field> fields) {
         for (final Field field : fields) {
-            if (field.getName().equals(beanMethodNameToFieldName(methodName))) {
+            if (field.getName().equals(toFieldName(methodName))) {
                 final XmlElement[] xmlElements = field.getAnnotationsByType(XmlElement.class);
                 if (null != xmlElements && xmlElements.length > 0) {
                     final String xmlElementName = xmlElements[0].name();
