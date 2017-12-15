@@ -47,7 +47,7 @@ public class WeChatPayUtils {
     private static final Map<Class, Map<String, NameIndex>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
 
     /**
-     * 微信支付-签名.
+     * 微信支付-生成签名.
      *
      * @param obj 要签名的数据对象.
      * @param key key
@@ -60,7 +60,7 @@ public class WeChatPayUtils {
     }
 
     /**
-     * 微信支付-签名.
+     * 微信支付-生成签名.
      *
      * @param obj 要签名的数据对象.
      * @param key key
