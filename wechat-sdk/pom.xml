@@ -26,11 +26,6 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>reflectasm</artifactId>
             <version>1.11.3</version>

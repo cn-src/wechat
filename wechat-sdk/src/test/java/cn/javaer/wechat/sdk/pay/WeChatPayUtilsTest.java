@@ -45,4 +45,11 @@ public class WeChatPayUtilsTest {
 
         assertEquals("BC884153761883FE608EA956BD05A6F5", response.getSign());
     }
+
+    @Test
+    public void beanMethodNameToFieldName() {
+        assertEquals("x", WeChatPayUtils.beanMethodNameToFieldName("getX"));
+        assertEquals("xxx", WeChatPayUtils.beanMethodNameToFieldName("getXxx"));
+        assertEquals("xx", WeChatPayUtils.beanMethodNameToFieldName("xx"));
+    }
 }

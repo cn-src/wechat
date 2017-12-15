@@ -21,7 +21,6 @@ import com.esotericsoftware.reflectasm.MethodAccess;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.commons.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,13 +152,17 @@ public class WeChatPayUtils {
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
-    private static String beanMethodNameToFieldName(final String methodName) {
+    static String beanMethodNameToFieldName(final String methodName) {
 
         if (methodName.startsWith("get")) {
-            return WordUtils.uncapitalize(methodName.substring(3));
+            final char[] chars = methodName.toCharArray();
+            if (chars[3] >= 'A' && chars[3] <= 'Z') {
+                chars[3] += 32;
+            }
+            return String.copyValueOf(chars, 3, chars.length - 3);
         }
 
-        return methodName;
+        throw new IllegalArgumentException("'methodName' must be a read method of javabean");
     }
 
     private static void putNonNullValueAsString(
