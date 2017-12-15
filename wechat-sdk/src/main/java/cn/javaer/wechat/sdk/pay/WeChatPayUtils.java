@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 /**
  * 微信支付工具类.
@@ -172,6 +174,29 @@ public class WeChatPayUtils {
         return response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey, response.getOtherMap()))
                 && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
                 && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
+    }
+
+    public static <T> Map<String, T> dynamicMapping(final Map<String, String> otherMap, final Map<String, BiConsumer<String, T>> mappingMap, final Supplier<T> newT) {
+        final Map<String, T> rtMap = new TreeMap<>();
+        for (final Map.Entry<String, String> entry : otherMap.entrySet()) {
+
+            final String key = entry.getKey();
+            final String value = entry.getValue();
+            if (null == value || value.isEmpty()) {
+                continue;
+            }
+            for (final Map.Entry<String, BiConsumer<String, T>> mappingEntry : mappingMap.entrySet()) {
+                final String keyStart = mappingEntry.getKey();
+                if (key.matches(keyStart + "\\d+")) {
+                    final String rtKey = key.substring(keyStart.length());
+                    final T t = rtMap.computeIfAbsent(rtKey, k -> newT.get());
+                    mappingEntry.getValue().accept(value, t);
+                }
+            }
+
+        }
+
+        return rtMap;
     }
 
     static String toFieldName(final String methodName) {

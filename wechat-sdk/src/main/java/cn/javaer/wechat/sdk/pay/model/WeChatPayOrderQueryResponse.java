@@ -16,22 +16,18 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import cn.javaer.wechat.sdk.util.WeChatUtils;
-import lombok.AccessLevel;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
-import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 /**
  * 微信支付-查询订单-响应.
@@ -164,23 +160,20 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
     @XmlElement(name = "coupon_fee_4")
     private String couponFee4;
 
-    @XmlAnyElement
-    @Setter(AccessLevel.PACKAGE)
-    @Getter(AccessLevel.PACKAGE)
-    private List<Element> other;
-
-    @Setter(AccessLevel.PACKAGE)
-    @Getter(AccessLevel.PACKAGE)
-    private Map<String, String> otherMap;
-
     /**
      * 代金券.
      */
-    private List<Coupon> coupons;
+    private Map<String, Coupon> coupons;
 
-    public void afterCreated() {
-        final Map<String, String> map = WeChatUtils.elementsToMap(this.other);
-
+    public Map<String, Coupon> getCoupons() {
+        if (null == this.coupons && null != this.otherMap) {
+            final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();
+            mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
+            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
+            mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+            WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, Coupon::new);
+        }
+        return this.coupons;
     }
 
     @Data
