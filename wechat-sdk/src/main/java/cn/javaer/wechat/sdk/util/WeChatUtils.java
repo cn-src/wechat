@@ -16,6 +16,8 @@
 
 package cn.javaer.wechat.sdk.util;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 
 import java.io.UnsupportedEncodingException;
@@ -41,6 +43,7 @@ public class WeChatUtils {
      *
      * @return uuid32 String
      */
+    @NotNull
     public static String uuid32() {
         final StringBuilder sb = new StringBuilder(UUID.randomUUID().toString());
         sb.deleteCharAt(8);
@@ -57,6 +60,7 @@ public class WeChatUtils {
      *
      * @return 拼接后的 path.
      */
+    @Contract("null -> fail")
     public static String joinPath(final String... pathItems) {
         if (null == pathItems || pathItems.length <= 0) {
             throw new IllegalArgumentException("'pathItems' must not be empty");
@@ -80,6 +84,7 @@ public class WeChatUtils {
      *
      * @return <code>Map&lt;String, String&gt;</code>
      */
+    @Contract("null -> !null")
     public static Map<String, String> elementsToMap(final List<Element> elements) {
         if (null == elements || elements.isEmpty()) {
             return Collections.emptyMap();
