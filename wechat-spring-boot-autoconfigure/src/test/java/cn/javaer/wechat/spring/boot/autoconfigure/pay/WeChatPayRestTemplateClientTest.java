@@ -1,6 +1,7 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
@@ -38,7 +39,7 @@ public class WeChatPayRestTemplateClientTest {
                         .withStatus(200)
                         .withHeader("Content-Type", MediaType.APPLICATION_XML_VALUE)
                         .withBody("<xml><return_code>SUCCESS</return_code><result_code>SUCCESS</result_code></xml>")));
-
+        WeChatPayConfigurator.INSTANCE.setMchKey("key");
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.createWithNative("body", "outTradeNo", 100);
         final WeChatPayUnifiedOrderResponse unifiedOrderResponse = this.weChatPayClient.unifiedOrder(request);
 
