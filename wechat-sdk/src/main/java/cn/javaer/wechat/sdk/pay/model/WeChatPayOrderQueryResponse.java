@@ -165,6 +165,11 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
      */
     private Map<String, Coupon> coupons;
 
+    /**
+     * 获取代金券.
+     *
+     * @return 代金券 Map, key 为微信支付文档描述的数字下标
+     */
     public Map<String, Coupon> getCoupons() {
         if (null == this.coupons && null != this.otherMap) {
             final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();

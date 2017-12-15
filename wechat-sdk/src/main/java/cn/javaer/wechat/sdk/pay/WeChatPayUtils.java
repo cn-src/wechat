@@ -69,7 +69,8 @@ public class WeChatPayUtils {
      * @return 返回签名 String
      */
     @NotNull
-    public static String generateSign(@NotNull final Object obj, @NotNull final String key, final Map<String, String> otherMap) {
+    public static String generateSign(
+            @NotNull final Object obj, @NotNull final String key, final Map<String, String> otherMap) {
 
         final Class<?> clazz = obj.getClass();
 
@@ -183,7 +184,7 @@ public class WeChatPayUtils {
      *
      * <h3>样例:</h3>
      * <pre>
-     * final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();
+     * final Map&lt;String, BiConsumer&lt;String, Coupon&gt;&gt; mappingMap = new HashMap&lt;&gt;();
      * mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
      * mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
      * mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
@@ -191,13 +192,18 @@ public class WeChatPayUtils {
      * </pre>
      *
      * @param otherMap 已存放的动态数据
-     * @param mappingMap 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.  value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
+     * @param mappingMap 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.
+     * value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
      * @param newT 新对象的创建函数
      * @param <T> 要转换的目标对象的类型
      *
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
-    public static <T> Map<String, T> dynamicMapping(final Map<String, String> otherMap, final Map<String, BiConsumer<String, T>> mappingMap, final Supplier<T> newT) {
+    public static <T> Map<String, T> dynamicMapping(
+            final Map<String, String> otherMap,
+            final Map<String, BiConsumer<String, T>> mappingMap,
+            final Supplier<T> newT) {
+
         final Map<String, T> rtMap = new TreeMap<>();
         for (final Map.Entry<String, String> entry : otherMap.entrySet()) {
 

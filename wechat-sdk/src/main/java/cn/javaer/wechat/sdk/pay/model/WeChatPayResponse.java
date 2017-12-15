@@ -83,6 +83,9 @@ public abstract class WeChatPayResponse {
     @Setter(AccessLevel.PACKAGE)
     protected Map<String, String> otherMap;
 
+    /**
+     * 校验 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
+     */
     public void check() {
         this.otherMap = WeChatUtils.elementsToMap(this.other);
 
@@ -90,6 +93,11 @@ public abstract class WeChatPayResponse {
         WeChatPayUtils.checkSuccess(this);
     }
 
+    /**
+     * 判断 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
+     *
+     * @return 签名正确以及状态都为 'SUCCESS' 时返回 true.
+     */
     public boolean isSuccessful() {
         return WeChatPayUtils.isSuccessful(this, WeChatPayConfigurator.INSTANCE.getMchKey());
     }
