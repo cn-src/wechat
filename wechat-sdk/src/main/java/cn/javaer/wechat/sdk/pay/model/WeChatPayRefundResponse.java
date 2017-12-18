@@ -88,20 +88,20 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
      * 退款代金券.
      */
     @SignIgnore
-    private Map<String, Coupon> refundCoupons;
+    private Map<String, WeChatPayCoupon> refundCoupons;
 
     /**
      * 获取退款代金券.
      *
      * @return 代金券 Map, key 为微信支付文档描述的数字下标
      */
-    public Map<String, Coupon> getRefundCoupons() {
+    public Map<String, WeChatPayCoupon> getRefundCoupons() {
         if (null == this.refundCoupons && null != this.otherMap) {
-            final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();
+            final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>();
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
-            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
+            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-            WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, Coupon::new);
+            WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatPayCoupon::new);
         }
         return this.refundCoupons;
     }

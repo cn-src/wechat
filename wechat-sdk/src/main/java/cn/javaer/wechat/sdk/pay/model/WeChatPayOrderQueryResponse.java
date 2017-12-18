@@ -109,20 +109,20 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
      * 代金券.
      */
     @SignIgnore
-    private Map<String, Coupon> coupons;
+    private Map<String, WeChatPayCoupon> coupons;
 
     /**
      * 获取代金券.
      *
      * @return 代金券 Map, key 为微信支付文档描述的数字下标
      */
-    public Map<String, Coupon> getCoupons() {
+    public Map<String, WeChatPayCoupon> getCoupons() {
         if (null == this.coupons && null != this.otherMap) {
-            final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();
+            final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>();
             mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
-            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
+            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
             mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-            WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, Coupon::new);
+            WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatPayCoupon::new);
         }
         return this.coupons;
     }

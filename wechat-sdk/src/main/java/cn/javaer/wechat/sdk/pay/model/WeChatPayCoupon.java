@@ -22,7 +22,7 @@ import lombok.Data;
  * 代金券.
  */
 @Data
-public class Coupon {
+public class WeChatPayCoupon {
 
     /**
      * 代金券类型.

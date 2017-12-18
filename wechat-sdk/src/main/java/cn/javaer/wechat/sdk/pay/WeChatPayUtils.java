@@ -170,11 +170,11 @@ public class WeChatPayUtils {
      *
      * <h3>样例:</h3>
      * <pre>
-     * final Map&lt;String, BiConsumer&lt;String, Coupon&gt;&gt; mappingMap = new HashMap&lt;&gt;();
+     * final Map&lt;String, BiConsumer&lt;String, WeChatPayCoupon&gt;&gt; mappingMap = new HashMap&lt;&gt;();
      * mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
      * mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
      * mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-     * WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, Coupon::new);
+     * WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatPayCoupon::new);
      * </pre>
      *
      * @param otherMap 已存放的动态数据
