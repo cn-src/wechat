@@ -49,9 +49,7 @@ public class WeChatPayCloseOrderRequest extends WeChatPayRequest {
      * @return WeChatPayCloseOrderRequest
      */
     public static WeChatPayCloseOrderRequest create(@NotNull final String outTradeNo) {
-
         final WeChatPayCloseOrderRequest request = new WeChatPayCloseOrderRequest();
-
         request.outTradeNo = outTradeNo;
         request.configureAndSign();
         return request;

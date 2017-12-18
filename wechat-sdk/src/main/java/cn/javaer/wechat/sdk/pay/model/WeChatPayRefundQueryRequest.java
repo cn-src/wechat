@@ -16,9 +16,8 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.Getter;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,44 +29,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Data
-@Builder(builderClassName = "Builder")
+@Getter
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayRefundQueryRequest {
-
-    /**
-     * 公众账号ID.
-     */
-    @NonNull
-    @XmlElement(name = "appid")
-    private String appid;
-
-    /**
-     * 商户号.
-     */
-    @NonNull
-    @XmlElement(name = "mch_id")
-    private String mchId;
-
-    /**
-     * 随机字符串.
-     */
-    @NonNull
-    @XmlElement(name = "nonce_str")
-    private String nonceStr;
-
-    /**
-     * 签名.
-     */
-    @XmlElement(name = "sign")
-    private String sign;
-
-    /**
-     * 签名类型.
-     */
-    @XmlElement(name = "sign_type")
-    private String signType;
+public class WeChatPayRefundQueryRequest extends WeChatPayRequest {
 
     @XmlElement(name = "transaction_id")
     private String transactionId;

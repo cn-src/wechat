@@ -16,11 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
-import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,36 +30,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author zhangpeng
  */
 @Getter
-@ToString
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayOrderQueryRequest {
+public class WeChatPayOrderQueryRequest extends WeChatPayRequest {
 
     private WeChatPayOrderQueryRequest() {}
-
-    @NonNull
-    @XmlElement(name = "appid")
-    private String appid;
-
-    @NonNull
-    @XmlElement(name = "mch_id")
-    private String mchId;
 
     @XmlElement(name = "transaction_id")
     private String transactionId;
 
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
-
-    @NonNull
-    @XmlElement(name = "nonce_str")
-    private String nonceStr;
-
-    @XmlElement(name = "sign")
-    private String sign;
-
-    @XmlElement(name = "sign_type")
-    private String signType;
 
     /**
      * 根据商户订单号查询订单.
@@ -73,17 +51,9 @@ public class WeChatPayOrderQueryRequest {
      * @return WeChatPayOrderQueryRequest
      */
     public static WeChatPayOrderQueryRequest create(final String outTradeNo) {
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
-
         final WeChatPayOrderQueryRequest request = new WeChatPayOrderQueryRequest();
         request.outTradeNo = outTradeNo;
-
-        request.appid = configurator.getAppid();
-        request.mchId = configurator.getMchId();
-
-        request.nonceStr = WeChatUtils.uuid32();
-
-        request.sign = WeChatPayUtils.generateSign(request, configurator.getMchKey());
+        request.configureAndSign();
         return request;
     }
 }
