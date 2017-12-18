@@ -233,22 +233,4 @@ public class WeChatPayUtils {
         }
         return sortedMap;
     }
-
-    private static class NameIndex {
-        private final String methodName;
-        private final int methodIndex;
-
-        public NameIndex(final String methodName, final int methodIndex) {
-            this.methodName = methodName;
-            this.methodIndex = methodIndex;
-        }
-
-        public String getMethodName() {
-            return this.methodName;
-        }
-
-        public int getMethodIndex() {
-            return this.methodIndex;
-        }
-    }
 }
