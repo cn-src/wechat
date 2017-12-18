@@ -16,9 +16,13 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import lombok.Builder;
-import lombok.Data;
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
+import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,8 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Data
-@Builder(builderClassName = "Builder")
+@Getter
+@ToString
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayRefundRequest {
@@ -87,14 +91,14 @@ public class WeChatPayRefundRequest {
      */
     @NonNull
     @XmlElement(name = "total_fee")
-    private String totalFee;
+    private int totalFee;
 
     /**
      * 退款金额.
      */
     @NonNull
     @XmlElement(name = "refund_fee")
-    private String refundFee;
+    private int refundFee;
 
     @XmlElement(name = "refund_fee_type")
     private String refundFeeType;
@@ -110,4 +114,77 @@ public class WeChatPayRefundRequest {
      */
     @XmlElement(name = "refund_account")
     private String refundAccount;
+
+    /**
+     * create WeChatPayRefundRequest.
+     *
+     * @param outTradeNo 商户订单号
+     * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
+     * @param totalFee 订单总金额
+     * @param refundFee 退款金额
+     *
+     * @return WeChatPayRefundRequest
+     */
+    public static WeChatPayRefundRequest create(
+            @NotNull final String outTradeNo,
+            @NotNull final String outRefundNo,
+            final int totalFee,
+            final int refundFee) {
+
+        Validate.inclusiveBetween(1, 100000, totalFee);
+        Validate.inclusiveBetween(1, totalFee, refundFee);
+
+        final WeChatPayRefundRequest request = new WeChatPayRefundRequest();
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+
+        request.outTradeNo = outTradeNo;
+        request.outRefundNo = outRefundNo;
+        request.totalFee = totalFee;
+        request.refundFee = refundFee;
+
+        request.appid = configurator.getAppid();
+        request.mchId = configurator.getMchId();
+
+        request.nonceStr = WeChatUtils.uuid32();
+
+        return request;
+    }
+
+    /**
+     * create WeChatPayRefundRequest.
+     *
+     * @param outTradeNo 商户订单号
+     * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
+     * @param totalFee 订单总金额
+     * @param refundFee 退款金额
+     * @param refundDesc 退款原因, 发给用户的退款消息中体现退款原因
+     *
+     * @return WeChatPayRefundRequest
+     */
+    public static WeChatPayRefundRequest create(
+            @NotNull final String outTradeNo,
+            @NotNull final String outRefundNo,
+            final int totalFee,
+            final int refundFee,
+            @NotNull final String refundDesc) {
+
+        Validate.inclusiveBetween(1, 100000, totalFee);
+        Validate.inclusiveBetween(1, totalFee, refundFee);
+
+        final WeChatPayRefundRequest request = new WeChatPayRefundRequest();
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+
+        request.outTradeNo = outTradeNo;
+        request.outRefundNo = outRefundNo;
+        request.totalFee = totalFee;
+        request.refundFee = refundFee;
+        request.refundDesc = refundDesc;
+
+        request.appid = configurator.getAppid();
+        request.mchId = configurator.getMchId();
+
+        request.nonceStr = WeChatUtils.uuid32();
+
+        return request;
+    }
 }
