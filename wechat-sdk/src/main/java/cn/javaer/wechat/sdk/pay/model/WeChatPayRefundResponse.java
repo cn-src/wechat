@@ -58,7 +58,7 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
     private Integer refundFee;
 
     @XmlElement(name = "settlement_refund_fee")
-    private String settlementRefundFee;
+    private Integer settlementRefundFee;
 
     @XmlElement(name = "total_fee")
     private Integer totalFee;
