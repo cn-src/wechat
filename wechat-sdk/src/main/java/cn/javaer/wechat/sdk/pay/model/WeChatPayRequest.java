@@ -60,6 +60,9 @@ public abstract class WeChatPayRequest {
     @XmlElement(name = "sign_type")
     private String signType;
 
+    /**
+     * 赋值配置信息并生成签名, 在其它字段赋值后调用以确保签名正确.
+     */
     protected void configureAndSign() {
 
         final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
