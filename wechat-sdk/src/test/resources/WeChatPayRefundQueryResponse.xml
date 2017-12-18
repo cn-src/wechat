@@ -4,7 +4,7 @@
     <appid>appid</appid>
     <mch_id>mch_id</mch_id>
     <nonce_str>4EDCA0A0220F466D95C524FA3FE3C100</nonce_str>
-    <sign>E36DFA32857BEDFEE613738521F82F6C</sign>
+    <sign>A6BC15B5F996FC8F6807659456238FAB</sign>
     <total_refund_count>36</total_refund_count>
     <transaction_id>transaction_id</transaction_id>
     <out_trade_no>out_trade_no</out_trade_no>
