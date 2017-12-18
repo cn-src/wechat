@@ -16,9 +16,6 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
-import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -35,47 +32,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author zhangpeng
  */
 @Getter
-@ToString
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayCloseOrderRequest {
-
-    /**
-     * 公众账号ID.
-     */
-    @NonNull
-    @XmlElement(name = "appid")
-    private String appid;
-
-    /**
-     * 商户号.
-     */
-    @NonNull
-    @XmlElement(name = "mch_id")
-    private String mchId;
+public class WeChatPayCloseOrderRequest extends WeChatPayRequest {
 
     @NonNull
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
-
-    /**
-     * 随机字符串.
-     */
-    @NonNull
-    @XmlElement(name = "nonce_str")
-    private String nonceStr;
-
-    /**
-     * 签名.
-     */
-    @XmlElement(name = "sign")
-    private String sign;
-
-    /**
-     * 签名类型.
-     */
-    @XmlElement(name = "sign_type")
-    private String signType;
 
     /**
      * create WeChatPayCloseOrderRequest.
@@ -87,16 +51,9 @@ public class WeChatPayCloseOrderRequest {
     public static WeChatPayCloseOrderRequest create(@NotNull final String outTradeNo) {
 
         final WeChatPayCloseOrderRequest request = new WeChatPayCloseOrderRequest();
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
 
         request.outTradeNo = outTradeNo;
-
-        request.nonceStr = WeChatUtils.uuid32();
-
-        request.appid = configurator.getAppid();
-        request.mchId = configurator.getMchId();
-
-        request.sign = WeChatPayUtils.generateSign(request, configurator.getMchKey());
+        request.configureAndSign();
         return request;
     }
 }
