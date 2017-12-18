@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import static cn.javaer.wechat.sdk.pay.model.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -69,8 +71,8 @@ public class WeChatPayUtilsTest {
         otherMap.put("coupon_refund_fee_0", "100");
 
         otherMap.put("coupon_refund_id_1", "16BE80B8FD1044069950ADAEDEB812C5");
-        otherMap.put("coupon_type_1", "CASH");
-        otherMap.put("coupon_refund_fee_1", "100");
+        otherMap.put("coupon_type_1", "NO_CASH");
+        otherMap.put("coupon_refund_fee_1", "1");
 
         final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
         mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
@@ -78,5 +80,18 @@ public class WeChatPayUtilsTest {
         mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
         final Map<String, WeChatPayCoupon> couponMap = WeChatPayUtils.dynamicMapping(
                 otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
+
+        assertThat(couponMap)
+                .containsOnlyKeys("0", "1");
+
+        assertThat(couponMap.get("0"))
+                .hasId("BC884153761883FE608EA956BD05A6F5")
+                .hasType(WeChatPayCoupon.Type.CASH)
+                .hasFee(100);
+
+        assertThat(couponMap.get("1"))
+                .hasId("16BE80B8FD1044069950ADAEDEB812C5")
+                .hasType(WeChatPayCoupon.Type.NO_CASH)
+                .hasFee(1);
     }
 }
