@@ -98,7 +98,8 @@ public class WeChatPayUtils {
             final String methodName = methodNames[i];
 
             final boolean readMethodNonParam = parameterTypes[i] == null || parameterTypes[i].length == 0;
-            final boolean notIgnoreMethod = !"getClass".equals(methodName);
+            final boolean notIgnoreMethod = !"getClass".equals(methodName)
+                    && (methodName.startsWith("get") || methodName.startsWith("is"));
 
             if (readMethodNonParam && notIgnoreMethod) {
                 final String k = keyFromXmlElementName(methodName, fields);
@@ -272,7 +273,7 @@ public class WeChatPayUtils {
                 }
             }
         }
-        return methodName;
+        return null;
     }
 
     private static class NameIndex {
