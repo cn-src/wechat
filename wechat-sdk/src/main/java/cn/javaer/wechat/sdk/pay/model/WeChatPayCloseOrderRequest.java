@@ -22,6 +22,7 @@ import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -83,7 +84,7 @@ public class WeChatPayCloseOrderRequest {
      *
      * @return WeChatPayCloseOrderRequest
      */
-    public static WeChatPayCloseOrderRequest create(final String outTradeNo) {
+    public static WeChatPayCloseOrderRequest create(@NotNull final String outTradeNo) {
 
         final WeChatPayCloseOrderRequest request = new WeChatPayCloseOrderRequest();
         final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
