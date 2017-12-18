@@ -91,7 +91,7 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
     private Map<String, Coupon> refundCoupons;
 
     /**
-     * 获取代金券.
+     * 获取退款代金券.
      *
      * @return 代金券 Map, key 为微信支付文档描述的数字下标
      */
