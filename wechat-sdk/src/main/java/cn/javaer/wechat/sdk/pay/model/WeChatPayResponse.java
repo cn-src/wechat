@@ -88,11 +88,17 @@ public abstract class WeChatPayResponse {
     protected Map<String, String> otherMap;
 
     /**
+     * 签名之前的处理, 子类可覆盖实现完成各自特定处理.
+     */
+    public void beforeSign() {
+        this.otherMap = Collections.unmodifiableMap(WeChatUtils.elementsToMap(this.otherElements));
+    }
+
+    /**
      * 校验 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
      */
-    public void check() {
-        this.otherMap = Collections.unmodifiableMap(WeChatUtils.elementsToMap(this.otherElements));
-
+    public void checkSignAndSuccessful() {
+        this.beforeSign();
         WeChatPayUtils.checkSign(this, WeChatPayConfigurator.INSTANCE.getMchKey());
         WeChatPayUtils.checkSuccess(this);
     }

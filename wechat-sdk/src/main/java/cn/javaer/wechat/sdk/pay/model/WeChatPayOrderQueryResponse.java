@@ -112,12 +112,9 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
     @SignIgnore
     private Map<String, WeChatPayCoupon> coupons;
 
-    /**
-     * 获取代金券.
-     *
-     * @return 代金券 Map, key 为微信支付文档描述的数字下标
-     */
-    public Map<String, WeChatPayCoupon> getCoupons() {
+    @Override
+    public void beforeSign() {
+        super.beforeSign();
         if (null == this.coupons && null != this.otherMap) {
             final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
             mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
@@ -127,6 +124,5 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
             this.coupons = WeChatPayUtils.dynamicMapping(
                     this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
         }
-        return this.coupons;
     }
 }

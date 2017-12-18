@@ -1,12 +1,12 @@
 package cn.javaer.wechat.sdk.pay;
 
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundResponse;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.function.BiConsumer;
 
 import static org.junit.Assert.assertEquals;
@@ -64,8 +64,20 @@ public class WeChatPayUtilsTest {
 
     @Test
     public void dynamicMapping() {
-        final Map<String, String> otherMap = new TreeMap<>();
-        final Map<String, BiConsumer<String, WeChatPayRefundResponse>> mappingMap = new HashMap<>();
-        WeChatPayUtils.dynamicMapping(otherMap, mappingMap, WeChatPayRefundResponse::new);
+        final Map<String, String> otherMap = new HashMap<>();
+        otherMap.put("coupon_refund_id_0", "BC884153761883FE608EA956BD05A6F5");
+        otherMap.put("coupon_type_0", "CASH");
+        otherMap.put("coupon_refund_fee_0", "100");
+
+        otherMap.put("coupon_refund_id_1", "16BE80B8FD1044069950ADAEDEB812C5");
+        otherMap.put("coupon_type_1", "CASH");
+        otherMap.put("coupon_refund_fee_1", "100");
+
+        final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
+        mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
+        mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
+        mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+        final Map<String, WeChatPayCoupon> couponMap = WeChatPayUtils.dynamicMapping(
+                otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
     }
 }

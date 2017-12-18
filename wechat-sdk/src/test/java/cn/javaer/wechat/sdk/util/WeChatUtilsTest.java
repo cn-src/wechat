@@ -16,13 +16,16 @@
 
 package cn.javaer.wechat.sdk.util;
 
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundQueryResponse;
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
 import cn.javaer.wechat.test.WeChatTestUtils;
 import org.junit.Test;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static cn.javaer.wechat.sdk.pay.model.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author zhangpeng
@@ -31,12 +34,17 @@ public class WeChatUtilsTest {
 
     @Test
     public void elementsToMap() {
-        final WeChatPayRefundQueryResponse response = WeChatTestUtils.jaxbUnmarshal(
-                "<xml><nonce_str>nonce_str_value</nonce_str><coupon_type_0_0>CASH</coupon_type_0_0></xml>",
-                WeChatPayRefundQueryResponse.class);
+        WeChatPayConfigurator.INSTANCE.setMchKey("key");
 
-        final Map<String, String> otherValues = response.getOtherValues();
-        assertEquals(1, otherValues.size());
-        assertEquals("CASH", otherValues.get("coupon_type_0_0"));
+        final WeChatPayOrderQueryResponse response = WeChatTestUtils.jaxbUnmarshal(
+                "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
+                WeChatPayOrderQueryResponse.class);
+        response.checkSignAndSuccessful();
+
+        final Map<String, WeChatPayCoupon> coupons = response.getCoupons();
+        assertThat(coupons)
+                .hasSize(1)
+                .containsOnlyKeys("0");
+        assertThat(coupons.get("0")).hasType(WeChatPayCoupon.Type.CASH);
     }
 }
