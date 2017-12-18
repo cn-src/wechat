@@ -23,9 +23,9 @@ import org.w3c.dom.Element;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -90,7 +90,7 @@ public class WeChatUtils {
             return Collections.emptyMap();
         }
 
-        final Map<String, String> map = new HashMap<>(elements.size());
+        final Map<String, String> map = new TreeMap<>();
         for (final Element element : elements) {
             map.put(element.getNodeName(), element.getTextContent());
         }

@@ -16,31 +16,28 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import cn.javaer.wechat.sdk.util.WeChatUtils;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import cn.javaer.wechat.sdk.pay.SignIgnore;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.BiConsumer;
 
 /**
  * 微信支付-查询退款-响应.
  *
  * @author zhangpeng
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@ToString(callSuper = true, exclude = {"refundMap"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
@@ -69,14 +66,30 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
     @XmlElement(name = "refund_count")
     private Integer refundCount;
 
-    @XmlAnyElement
-    @Setter(AccessLevel.PACKAGE)
-    @Getter(AccessLevel.PACKAGE)
-    private List<Element> other;
+    @SignIgnore
+    private Map<String, WeChatRefund> refundMap;
 
-    private Map<String, String> otherValues;
+    public Map<String, WeChatRefund> getRefundMap() {
 
-    public Map<String, String> getOtherValues() {
-        return WeChatUtils.elementsToMap(this.other);
+        if (null == this.refundMap && null != this.otherMap) {
+            final Map<String, BiConsumer<String, WeChatRefund>> mappingMap = new TreeMap<>();
+            mappingMap.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));
+            mappingMap.put("refund_id_", (val, coupon) -> coupon.setRefundId(val));
+            mappingMap.put("refund_channel_", (val, coupon) -> coupon.setRefundChannel(val));
+            mappingMap.put("refund_fee_", (val, coupon) -> coupon.setRefundFee(Integer.valueOf(val)));
+            mappingMap.put("settlement_refund_fee_", (val, coupon) -> coupon.setSettlementRefundFee(Integer.valueOf(val)));
+//            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setFee(val));
+            mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setCouponRefundFee(Integer.valueOf(val)));
+            mappingMap.put("coupon_refund_count_", (val, coupon) -> coupon.setCouponRefundCount(Integer.valueOf(val)));
+//            mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setFee(val));
+//            mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(val));
+            mappingMap.put("refund_status_", (val, coupon) -> coupon.setRefundStatus(val));
+            mappingMap.put("refund_account_", (val, coupon) -> coupon.setRefundAccount(val));
+            mappingMap.put("refund_recv_accout_", (val, coupon) -> coupon.setRefundRecvAccout(val));
+            mappingMap.put("refund_success_time_", (val, coupon) -> coupon.setRefundSuccessTime(val));
+            this.refundMap = WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatRefund::new);
+
+        }
+        return this.refundMap;
     }
 }

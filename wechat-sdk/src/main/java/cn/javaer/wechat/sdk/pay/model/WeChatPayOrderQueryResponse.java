@@ -122,7 +122,7 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
             mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
             mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
             mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-            WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatPayCoupon::new);
+            this.coupons = WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatPayCoupon::new);
         }
         return this.coupons;
     }
