@@ -76,6 +76,13 @@ public class WeChatPayCloseOrderRequest {
     @XmlElement(name = "sign_type")
     private String signType;
 
+    /**
+     * create WeChatPayCloseOrderRequest.
+     *
+     * @param outTradeNo 商户订单号
+     *
+     * @return WeChatPayCloseOrderRequest
+     */
     public static WeChatPayCloseOrderRequest create(final String outTradeNo) {
 
         final WeChatPayCloseOrderRequest request = new WeChatPayCloseOrderRequest();
