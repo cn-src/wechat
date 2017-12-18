@@ -19,7 +19,6 @@
     <settlement_refund_fee_0>8</settlement_refund_fee_0>
     <coupon_refund_fee_0>20</coupon_refund_fee_0>
     <coupon_refund_count_0>3</coupon_refund_count_0>
-    <coupon_refund_count_0>3</coupon_refund_count_0>
     <refund_status_0>SUCCESS</refund_status_0>
     <refund_account_0>REFUND_SOURCE_RECHARGE_FUNDS</refund_account_0>
     <refund_recv_accout_0>招商银行信用卡0403</refund_recv_accout_0>
