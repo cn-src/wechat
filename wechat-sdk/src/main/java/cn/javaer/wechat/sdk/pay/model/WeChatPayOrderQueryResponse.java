@@ -67,25 +67,25 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
     private String detail;
 
     @XmlElement(name = "total_fee")
-    private String totalFee;
+    private Integer totalFee;
 
     @XmlElement(name = "fee_type")
     private String feeType;
 
     @XmlElement(name = "settlement_total_fee")
-    private String settlementTotalFee;
+    private Integer settlementTotalFee;
 
     @XmlElement(name = "cash_fee")
-    private String cashFee;
+    private Integer cashFee;
 
     @XmlElement(name = "cash_fee_type")
     private String cashFeeType;
 
     @XmlElement(name = "coupon_fee")
-    private String couponFee;
+    private Integer couponFee;
 
     @XmlElement(name = "coupon_count")
-    private String couponCount;
+    private Integer couponCount;
 
     @XmlElement(name = "transaction_id")
     private String transactionId;
