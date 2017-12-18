@@ -72,7 +72,10 @@ public class WeChatPayUtils {
     public static String generateSign(
             @NotNull final WeChatPayResponse response, @NotNull final String key) {
         final Map<String, String> sortedMap = toSortedMap(response);
-        sortedMap.putAll(response.getOtherMap());
+        final Map<String, String> otherMap = response.getOtherMap();
+        if (null != otherMap && !otherMap.isEmpty()) {
+            sortedMap.putAll(otherMap);
+        }
         return generateSign(sortedMap, key);
     }
 
