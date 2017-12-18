@@ -39,7 +39,7 @@ public class WeChatUtilsTest {
         final WeChatPayOrderQueryResponse response = WeChatTestUtils.jaxbUnmarshal(
                 "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
                 WeChatPayOrderQueryResponse.class);
-        response.checkSignAndSuccessful();
+        response.beforeSign();
 
         final Map<String, WeChatPayCoupon> coupons = response.getCoupons();
         assertThat(coupons)
