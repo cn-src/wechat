@@ -145,7 +145,7 @@ public class WeChatPayUtils {
      */
     public static void checkSign(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
         if (!response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))) {
-            throw new WeChatPayException("WeChat pay response 'generateSign' error, response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
         }
     }
 

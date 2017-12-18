@@ -82,7 +82,7 @@ public class WeChatPayDefaultService implements WeChatPayService {
 
         this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
 
-        responseBody.check();
+        responseBody.checkSignAndSuccessful();
 
         return responseBody;
     }
