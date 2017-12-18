@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.test.WeChatTestUtils;
 import org.junit.Test;
@@ -81,7 +82,8 @@ public class WeChatPayRefundQueryResponseTest {
         final String generateSign = WeChatPayUtils.generateSign(response, "key");
 
         assertThat(response).hasSign(generateSign);
-//        WeChatPayConfigurator.INSTANCE.setMchKey("key");
-//        response.checkSignAndSuccessful();
+
+        WeChatPayConfigurator.INSTANCE.setMchKey("key");
+        response.checkSignAndSuccessful();
     }
 }
