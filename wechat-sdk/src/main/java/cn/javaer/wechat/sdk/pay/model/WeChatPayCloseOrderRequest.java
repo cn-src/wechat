@@ -16,9 +16,12 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import lombok.Builder;
-import lombok.Data;
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,8 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Data
-@Builder(builderClassName = "Builder")
+@Getter
+@ToString
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayCloseOrderRequest {
@@ -73,4 +76,19 @@ public class WeChatPayCloseOrderRequest {
     @XmlElement(name = "sign_type")
     private String signType;
 
+    public static WeChatPayCloseOrderRequest create(final String outTradeNo) {
+
+        final WeChatPayCloseOrderRequest request = new WeChatPayCloseOrderRequest();
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+
+        request.outTradeNo = outTradeNo;
+
+        request.nonceStr = WeChatUtils.uuid32();
+
+        request.appid = configurator.getAppid();
+        request.mchId = configurator.getMchId();
+
+        request.sign = WeChatPayUtils.generateSign(request, configurator.getMchKey());
+        return request;
+    }
 }
