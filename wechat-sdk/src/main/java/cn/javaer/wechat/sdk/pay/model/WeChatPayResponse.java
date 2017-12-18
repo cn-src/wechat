@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -90,7 +91,7 @@ public abstract class WeChatPayResponse {
      * 校验 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
      */
     public void check() {
-        this.otherMap = WeChatUtils.elementsToMap(this.otherElements);
+        this.otherMap = Collections.unmodifiableMap(WeChatUtils.elementsToMap(this.otherElements));
 
         WeChatPayUtils.checkSign(this, WeChatPayConfigurator.INSTANCE.getMchKey());
         WeChatPayUtils.checkSuccess(this);

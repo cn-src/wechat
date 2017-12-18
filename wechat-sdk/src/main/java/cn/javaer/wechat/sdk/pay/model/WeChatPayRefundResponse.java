@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -97,11 +98,12 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
      */
     public Map<String, WeChatPayCoupon> getRefundCoupons() {
         if (null == this.refundCoupons && null != this.otherMap) {
-            final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>();
+            final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
             mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-            this.refundCoupons = WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatPayCoupon::new);
+            this.refundCoupons = WeChatPayUtils.dynamicMapping(
+                    this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
         }
         return this.refundCoupons;
     }

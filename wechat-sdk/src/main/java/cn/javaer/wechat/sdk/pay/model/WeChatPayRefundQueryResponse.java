@@ -26,8 +26,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.function.BiConsumer;
 
 /**
@@ -77,12 +78,13 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
     public Map<String, WeChatRefund> getRefundMap() {
 
         if (null == this.refundMap && null != this.otherMap) {
-            final Map<String, BiConsumer<String, WeChatRefund>> mappingMap = new TreeMap<>();
+            final Map<String, BiConsumer<String, WeChatRefund>> mappingMap = new HashMap<>(11);
             mappingMap.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));
             mappingMap.put("refund_id_", (val, coupon) -> coupon.setRefundId(val));
             mappingMap.put("refund_channel_", (val, coupon) -> coupon.setRefundChannel(val));
             mappingMap.put("refund_fee_", (val, coupon) -> coupon.setRefundFee(Integer.valueOf(val)));
-            mappingMap.put("settlement_refund_fee_", (val, coupon) -> coupon.setSettlementRefundFee(Integer.valueOf(val)));
+            mappingMap.put("settlement_refund_fee_",
+                    (val, coupon) -> coupon.setSettlementRefundFee(Integer.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setCouponRefundFee(Integer.valueOf(val)));
             mappingMap.put("coupon_refund_count_", (val, coupon) -> coupon.setCouponRefundCount(Integer.valueOf(val)));
             mappingMap.put("refund_status_", (val, coupon) -> coupon.setRefundStatus(val));
@@ -90,17 +92,20 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
             mappingMap.put("refund_recv_accout_", (val, coupon) -> coupon.setRefundRecvAccout(val));
             mappingMap.put("refund_success_time_", (val, coupon) -> coupon.setRefundSuccessTime(val));
 
-            this.refundMap = WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatRefund::new);
+            this.refundMap = WeChatPayUtils.dynamicMapping(
+                    this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatRefund::new);
 
             for (final Map.Entry<String, WeChatRefund> entry : this.refundMap.entrySet()) {
                 final String key = entry.getKey();
 
-                final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap2 = new TreeMap<>();
-                mappingMap2.put("coupon_type_" + key + "_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
+                final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap2 = new HashMap<>(3);
+                mappingMap2.put("coupon_type_" + key + "_",
+                        (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
                 mappingMap2.put("coupon_refund_id_" + key + "_", (val, coupon) -> coupon.setId(val));
                 mappingMap2.put("coupon_refund_fee_" + key + "_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
-                final Map<String, WeChatPayCoupon> couponMap = WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap2, WeChatPayCoupon::new);
+                final Map<String, WeChatPayCoupon> couponMap = WeChatPayUtils.dynamicMapping(
+                        this.otherMap, Collections.unmodifiableMap(mappingMap2), WeChatPayCoupon::new);
 
                 entry.getValue().setRefundCoupons(couponMap);
             }

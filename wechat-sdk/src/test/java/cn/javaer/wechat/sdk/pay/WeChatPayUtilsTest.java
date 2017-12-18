@@ -1,7 +1,13 @@
 package cn.javaer.wechat.sdk.pay;
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.BiConsumer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -54,5 +60,12 @@ public class WeChatPayUtilsTest {
         assertEquals(null, WeChatPayUtils.toFieldName("isXxx", String.class));
         assertEquals("xxx", WeChatPayUtils.toFieldName("isXxx", boolean.class));
         assertEquals("xxx", WeChatPayUtils.toFieldName("isXxx", Boolean.class));
+    }
+
+    @Test
+    public void dynamicMapping() {
+        final Map<String, String> otherMap = new TreeMap<>();
+        final Map<String, BiConsumer<String, WeChatPayRefundResponse>> mappingMap = new HashMap<>();
+        WeChatPayUtils.dynamicMapping(otherMap, mappingMap, WeChatPayRefundResponse::new);
     }
 }
