@@ -70,13 +70,9 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
     @SignIgnore
     private Map<String, WeChatRefund> refundMap;
 
-    /**
-     * 获取退款记录信息.
-     *
-     * @return <code>Map&lt;String, WeChatRefund&gt;</code>
-     */
-    public Map<String, WeChatRefund> getRefundMap() {
-
+    @Override
+    public void beforeSign() {
+        super.beforeSign();
         if (null == this.refundMap && null != this.otherMap) {
             final Map<String, BiConsumer<String, WeChatRefund>> mappingMap = new HashMap<>(11);
             mappingMap.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));
@@ -110,6 +106,7 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
                 entry.getValue().setRefundCoupons(couponMap);
             }
         }
-        return this.refundMap;
+
     }
+
 }
