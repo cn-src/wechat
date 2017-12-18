@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+./mvnw clean install -U -Dmaven.test.skip=true
+rm -rf wechat-test/src/main/java/cn/javaer/wechat/sdk/pay/model
+cd wechat-test && ./mvnw clean assertj:generate-assertions install -U
