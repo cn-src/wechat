@@ -94,17 +94,15 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
 
             for (final Map.Entry<String, WeChatRefund> entry : this.refundMap.entrySet()) {
                 final String key = entry.getKey();
-                final WeChatRefund refund = entry.getValue();
-                if (null == refund.getRefundCoupons()) {
-                    refund.setRefundCoupons(new TreeMap<>());
-                }
 
                 final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap2 = new TreeMap<>();
                 mappingMap2.put("coupon_type_" + key + "_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
                 mappingMap2.put("coupon_refund_id_" + key + "_", (val, coupon) -> coupon.setId(val));
                 mappingMap2.put("coupon_refund_fee_" + key + "_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
-                WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap2, WeChatPayCoupon::new);
+                final Map<String, WeChatPayCoupon> couponMap = WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap2, WeChatPayCoupon::new);
+
+                entry.getValue().setRefundCoupons(couponMap);
             }
         }
         return this.refundMap;
