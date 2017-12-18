@@ -55,34 +55,34 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
     private String refundId;
 
     @XmlElement(name = "refund_fee")
-    private String refundFee;
+    private Integer refundFee;
 
     @XmlElement(name = "settlement_refund_fee")
     private String settlementRefundFee;
 
     @XmlElement(name = "total_fee")
-    private String totalFee;
+    private Integer totalFee;
 
     @XmlElement(name = "settlement_total_fee")
-    private String settlementTotalFee;
+    private Integer settlementTotalFee;
 
     @XmlElement(name = "fee_type")
     private String feeType;
 
     @XmlElement(name = "cash_fee")
-    private String cashFee;
+    private Integer cashFee;
 
     @XmlElement(name = "cash_fee_type")
     private String cashFeeType;
 
     @XmlElement(name = "cash_refund_fee")
-    private String cashRefundFee;
+    private Integer cashRefundFee;
 
     @XmlElement(name = "coupon_refund_fee")
-    private String couponRefundFee;
+    private Integer couponRefundFee;
 
     @XmlElement(name = "coupon_refund_count")
-    private String couponRefundCount;
+    private Integer couponRefundCount;
 
     /**
      * 退款代金券.
