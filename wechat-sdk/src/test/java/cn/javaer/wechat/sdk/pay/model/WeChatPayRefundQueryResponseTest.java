@@ -16,6 +16,8 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
+import cn.javaer.wechat.test.WeChatTestUtils;
 import org.junit.Test;
 
 /**
@@ -25,6 +27,9 @@ public class WeChatPayRefundQueryResponseTest {
 
     @Test
     public void beforeSign() {
-
+        final String xmlStr = WeChatTestUtils.readClassPathFileToUTFString("/WeChatPayRefundQueryResponse.xml", this.getClass());
+        final WeChatPayRefundQueryResponse response = WeChatTestUtils.jaxbUnmarshal(xmlStr, WeChatPayRefundQueryResponse.class);
+        WeChatPayConfigurator.INSTANCE.setMchKey("key");
+        response.checkSignAndSuccessful();
     }
 }

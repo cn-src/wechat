@@ -54,16 +54,6 @@ public class WeChatPayUtilsTest {
     }
 
     @Test
-    public void beanMethodNameToFieldName() {
-        assertEquals("x", WeChatPayUtils.toFieldName("getX", String.class));
-        assertEquals("xxx", WeChatPayUtils.toFieldName("getXxx", String.class));
-        assertEquals(null, WeChatPayUtils.toFieldName("xxx", String.class));
-        assertEquals(null, WeChatPayUtils.toFieldName("isXxx", String.class));
-        assertEquals("xxx", WeChatPayUtils.toFieldName("isXxx", boolean.class));
-        assertEquals("xxx", WeChatPayUtils.toFieldName("isXxx", Boolean.class));
-    }
-
-    @Test
     public void dynamicMapping() {
         final Map<String, String> otherMap = new HashMap<>();
         otherMap.put("coupon_refund_id_0", "BC884153761883FE608EA956BD05A6F5");

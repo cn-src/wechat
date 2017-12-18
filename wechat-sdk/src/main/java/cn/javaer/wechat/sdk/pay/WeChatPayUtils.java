@@ -17,12 +17,10 @@
 package cn.javaer.wechat.sdk.pay;
 
 import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
-import com.esotericsoftware.reflectasm.MethodAccess;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +42,7 @@ public class WeChatPayUtils {
 
     private static final Logger log = LoggerFactory.getLogger(WeChatPayUtils.class);
 
-    private static final Map<Class, Map<String, NameIndex>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
+    private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
 
     /**
      * 微信支付-生成签名.
@@ -60,56 +58,28 @@ public class WeChatPayUtils {
 
         final Class<?> clazz = obj.getClass();
 
-        Map<String, NameIndex> cache = CACHE_FOR_SIGN.get(clazz);
+        final List<Field> cache = CACHE_FOR_SIGN.get(clazz);
 
-        final MethodAccess methodAccess = MethodAccess.get(clazz);
-
-        if (null != cache) {
-            log.debug("Sign '{}' from cache", clazz.getName());
-
-            final Map<String, String> sortedMap = new TreeMap<>();
-
-            for (final Map.Entry<String, NameIndex> entry : cache.entrySet()) {
-                final NameIndex nameIndex = entry.getValue();
-                final Object value = methodAccess.invoke(obj, nameIndex.getMethodIndex());
-                putNonNullValueAsString(sortedMap, entry.getKey(), value);
-            }
-            final StringBuilder sb = new StringBuilder();
-
-            for (final Map.Entry<String, String> entry : sortedMap.entrySet()) {
-                sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
-            }
-            sb.append("key").append('=').append(key);
-            return DigestUtils.md5Hex(sb.toString()).toUpperCase();
+        final List<Field> fields;
+        if (null == cache) {
+            fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
+            CACHE_FOR_SIGN.put(clazz, fields);
         } else {
-            cache = new TreeMap<>();
-            CACHE_FOR_SIGN.put(clazz, cache);
+            fields = cache;
         }
-
-        final String[] methodNames = methodAccess.getMethodNames();
-        final Class[] returnTypes = methodAccess.getReturnTypes();
-        final Class[][] parameterTypes = methodAccess.getParameterTypes();
-
-        final List<Field> fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
+        Validate.notEmpty(fields);
 
         final Map<String, String> sortedMap = new TreeMap<>();
-
-        for (int i = 0; i < methodNames.length; i++) {
-            final String methodName = methodNames[i];
-
-            final boolean readMethodNonParam = parameterTypes[i] == null || parameterTypes[i].length == 0;
-            final boolean notIgnoreMethod = !"getClass".equals(methodName)
-                    && (methodName.startsWith("get") || methodName.startsWith("is"));
-
-            if (readMethodNonParam && notIgnoreMethod) {
-                final String k = keyFromXmlElementName(methodName, fields);
-                if (null == k) {
-                    continue;
-                }
-                final Object value = methodAccess.invoke(obj, i);
-                putNonNullValueAsString(sortedMap, k, value);
-                cache.put(k, new NameIndex(methodName, i));
+        for (final Field field : fields) {
+            if (null != field.getAnnotation(SignIgnore.class)) {
+                continue;
             }
+            final String val = asString(field, obj);
+            if (null == val) {
+                continue;
+            }
+            final String name = field.getAnnotation(XmlElement.class).name();
+            sortedMap.put(name, val);
         }
 
         final StringBuilder sb = new StringBuilder();
@@ -213,67 +183,18 @@ public class WeChatPayUtils {
         return rtMap;
     }
 
-    static String toFieldName(final String methodName, final Class fieldType) {
-
-        if (methodName.startsWith("is") && (fieldType == boolean.class || fieldType == Boolean.class)) {
-            final char[] chars = methodName.toCharArray();
-            if (chars[2] >= 'A' && chars[2] <= 'Z') {
-                chars[2] += 32;
-            }
-            return String.copyValueOf(chars, 2, chars.length - 2);
-        }
-
-        if (methodName.startsWith("get")) {
-            final char[] chars = methodName.toCharArray();
-            if (chars[3] >= 'A' && chars[3] <= 'Z') {
-                chars[3] += 32;
-            }
-            return String.copyValueOf(chars, 3, chars.length - 3);
-        }
-
-        return null;
-    }
-
-    private static void putNonNullValueAsString(
-            final Map<String, String> sortedMap, final String key, final Object value) {
-        if (null != value) {
-            if ("getOtherMap".equals(key)) {
-                //noinspection unchecked
-                final Map<String, String> mapValue = (Map<String, String>) value;
-                if (!mapValue.isEmpty()) {
-                    sortedMap.putAll(mapValue);
-                }
-            } else {
-                final String valStr = value.toString();
-                if (!valStr.isEmpty()) {
-                    sortedMap.put(key, valStr);
-                }
-            }
-        }
-    }
-
-    @Nullable
-    private static String keyFromXmlElementName(final String methodName, final List<Field> fields) {
-        for (final Field field : fields) {
-            final String fieldName = toFieldName(methodName, field.getType());
-            if (null == fieldName) {
+    private static String asString(final Field field, final Object obj) {
+        try {
+            field.setAccessible(true);
+            final Object val = field.get(obj);
+            if (null == val) {
                 return null;
+            } else {
+                return val.toString();
             }
-            if (field.getName().equals(fieldName)) {
-                final SignIgnore signIgnore = field.getAnnotation(SignIgnore.class);
-                if (null != signIgnore) {
-                    return null;
-                }
-                final XmlElement xmlElement = field.getAnnotation(XmlElement.class);
-                if (null != xmlElement) {
-                    final String xmlElementName = xmlElement.name();
-                    if (StringUtils.isNotEmpty(xmlElementName)) {
-                        return xmlElementName;
-                    }
-                }
-            }
+        } catch (final IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     private static class NameIndex {
