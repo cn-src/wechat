@@ -30,6 +30,17 @@ public class Assertions {
   }
 
   /**
+   * Creates a new instance of <code>{@link cn.javaer.wechat.sdk.pay.model.WeChatPayCouponAssert}</code>.
+   *
+   * @param actual the actual value.
+   * @return the created assertion object.
+   */
+  @org.assertj.core.util.CheckReturnValue
+  public static cn.javaer.wechat.sdk.pay.model.WeChatPayCouponAssert assertThat(cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon actual) {
+    return new cn.javaer.wechat.sdk.pay.model.WeChatPayCouponAssert(actual);
+  }
+
+  /**
    * Creates a new instance of <code>{@link cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResultAssert}</code>.
    *
    * @param actual the actual value.
@@ -159,6 +170,17 @@ public class Assertions {
   @org.assertj.core.util.CheckReturnValue
   public static cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponseAssert assertThat(cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse actual) {
     return new cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponseAssert(actual);
+  }
+
+  /**
+   * Creates a new instance of <code>{@link cn.javaer.wechat.sdk.pay.model.WeChatRefundAssert}</code>.
+   *
+   * @param actual the actual value.
+   * @return the created assertion object.
+   */
+  @org.assertj.core.util.CheckReturnValue
+  public static cn.javaer.wechat.sdk.pay.model.WeChatRefundAssert assertThat(cn.javaer.wechat.sdk.pay.model.WeChatRefund actual) {
+    return new cn.javaer.wechat.sdk.pay.model.WeChatRefundAssert(actual);
   }
 
   /**

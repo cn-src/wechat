@@ -22,7 +22,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's cashFee is not equal to the given one.
    */
-  public S hasCashFee(String cashFee) {
+  public S hasCashFee(Integer cashFee) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -30,7 +30,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting cashFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualCashFee = actual.getCashFee();
+    Integer actualCashFee = actual.getCashFee();
     if (!Objects.areEqual(actualCashFee, cashFee)) {
       failWithMessage(assertjErrorMessage, actual, cashFee, actualCashFee);
     }
@@ -68,7 +68,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's cashRefundFee is not equal to the given one.
    */
-  public S hasCashRefundFee(String cashRefundFee) {
+  public S hasCashRefundFee(Integer cashRefundFee) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -76,239 +76,9 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting cashRefundFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualCashRefundFee = actual.getCashRefundFee();
+    Integer actualCashRefundFee = actual.getCashRefundFee();
     if (!Objects.areEqual(actualCashRefundFee, cashRefundFee)) {
       failWithMessage(assertjErrorMessage, actual, cashRefundFee, actualCashRefundFee);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponFee0 is equal to the given one.
-   * @param couponFee0 the given couponFee0 to compare the actual WeChatPayRefundResponse's couponFee0 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponFee0 is not equal to the given one.
-   */
-  public S hasCouponFee0(String couponFee0) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponFee0 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponFee0 = actual.getCouponFee0();
-    if (!Objects.areEqual(actualCouponFee0, couponFee0)) {
-      failWithMessage(assertjErrorMessage, actual, couponFee0, actualCouponFee0);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponFee1 is equal to the given one.
-   * @param couponFee1 the given couponFee1 to compare the actual WeChatPayRefundResponse's couponFee1 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponFee1 is not equal to the given one.
-   */
-  public S hasCouponFee1(String couponFee1) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponFee1 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponFee1 = actual.getCouponFee1();
-    if (!Objects.areEqual(actualCouponFee1, couponFee1)) {
-      failWithMessage(assertjErrorMessage, actual, couponFee1, actualCouponFee1);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponFee2 is equal to the given one.
-   * @param couponFee2 the given couponFee2 to compare the actual WeChatPayRefundResponse's couponFee2 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponFee2 is not equal to the given one.
-   */
-  public S hasCouponFee2(String couponFee2) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponFee2 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponFee2 = actual.getCouponFee2();
-    if (!Objects.areEqual(actualCouponFee2, couponFee2)) {
-      failWithMessage(assertjErrorMessage, actual, couponFee2, actualCouponFee2);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponFee3 is equal to the given one.
-   * @param couponFee3 the given couponFee3 to compare the actual WeChatPayRefundResponse's couponFee3 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponFee3 is not equal to the given one.
-   */
-  public S hasCouponFee3(String couponFee3) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponFee3 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponFee3 = actual.getCouponFee3();
-    if (!Objects.areEqual(actualCouponFee3, couponFee3)) {
-      failWithMessage(assertjErrorMessage, actual, couponFee3, actualCouponFee3);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponFee4 is equal to the given one.
-   * @param couponFee4 the given couponFee4 to compare the actual WeChatPayRefundResponse's couponFee4 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponFee4 is not equal to the given one.
-   */
-  public S hasCouponFee4(String couponFee4) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponFee4 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponFee4 = actual.getCouponFee4();
-    if (!Objects.areEqual(actualCouponFee4, couponFee4)) {
-      failWithMessage(assertjErrorMessage, actual, couponFee4, actualCouponFee4);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponId0 is equal to the given one.
-   * @param couponId0 the given couponId0 to compare the actual WeChatPayRefundResponse's couponId0 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponId0 is not equal to the given one.
-   */
-  public S hasCouponId0(String couponId0) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponId0 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponId0 = actual.getCouponId0();
-    if (!Objects.areEqual(actualCouponId0, couponId0)) {
-      failWithMessage(assertjErrorMessage, actual, couponId0, actualCouponId0);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponId1 is equal to the given one.
-   * @param couponId1 the given couponId1 to compare the actual WeChatPayRefundResponse's couponId1 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponId1 is not equal to the given one.
-   */
-  public S hasCouponId1(String couponId1) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponId1 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponId1 = actual.getCouponId1();
-    if (!Objects.areEqual(actualCouponId1, couponId1)) {
-      failWithMessage(assertjErrorMessage, actual, couponId1, actualCouponId1);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponId2 is equal to the given one.
-   * @param couponId2 the given couponId2 to compare the actual WeChatPayRefundResponse's couponId2 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponId2 is not equal to the given one.
-   */
-  public S hasCouponId2(String couponId2) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponId2 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponId2 = actual.getCouponId2();
-    if (!Objects.areEqual(actualCouponId2, couponId2)) {
-      failWithMessage(assertjErrorMessage, actual, couponId2, actualCouponId2);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponId3 is equal to the given one.
-   * @param couponId3 the given couponId3 to compare the actual WeChatPayRefundResponse's couponId3 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponId3 is not equal to the given one.
-   */
-  public S hasCouponId3(String couponId3) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponId3 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponId3 = actual.getCouponId3();
-    if (!Objects.areEqual(actualCouponId3, couponId3)) {
-      failWithMessage(assertjErrorMessage, actual, couponId3, actualCouponId3);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponId4 is equal to the given one.
-   * @param couponId4 the given couponId4 to compare the actual WeChatPayRefundResponse's couponId4 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponId4 is not equal to the given one.
-   */
-  public S hasCouponId4(String couponId4) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponId4 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponId4 = actual.getCouponId4();
-    if (!Objects.areEqual(actualCouponId4, couponId4)) {
-      failWithMessage(assertjErrorMessage, actual, couponId4, actualCouponId4);
     }
 
     // return the current assertion for method chaining
@@ -321,7 +91,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's couponRefundCount is not equal to the given one.
    */
-  public S hasCouponRefundCount(String couponRefundCount) {
+  public S hasCouponRefundCount(Integer couponRefundCount) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -329,7 +99,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting couponRefundCount of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualCouponRefundCount = actual.getCouponRefundCount();
+    Integer actualCouponRefundCount = actual.getCouponRefundCount();
     if (!Objects.areEqual(actualCouponRefundCount, couponRefundCount)) {
       failWithMessage(assertjErrorMessage, actual, couponRefundCount, actualCouponRefundCount);
     }
@@ -344,7 +114,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's couponRefundFee is not equal to the given one.
    */
-  public S hasCouponRefundFee(String couponRefundFee) {
+  public S hasCouponRefundFee(Integer couponRefundFee) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -352,124 +122,9 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting couponRefundFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualCouponRefundFee = actual.getCouponRefundFee();
+    Integer actualCouponRefundFee = actual.getCouponRefundFee();
     if (!Objects.areEqual(actualCouponRefundFee, couponRefundFee)) {
       failWithMessage(assertjErrorMessage, actual, couponRefundFee, actualCouponRefundFee);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponType0 is equal to the given one.
-   * @param couponType0 the given couponType0 to compare the actual WeChatPayRefundResponse's couponType0 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponType0 is not equal to the given one.
-   */
-  public S hasCouponType0(String couponType0) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponType0 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponType0 = actual.getCouponType0();
-    if (!Objects.areEqual(actualCouponType0, couponType0)) {
-      failWithMessage(assertjErrorMessage, actual, couponType0, actualCouponType0);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponType1 is equal to the given one.
-   * @param couponType1 the given couponType1 to compare the actual WeChatPayRefundResponse's couponType1 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponType1 is not equal to the given one.
-   */
-  public S hasCouponType1(String couponType1) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponType1 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponType1 = actual.getCouponType1();
-    if (!Objects.areEqual(actualCouponType1, couponType1)) {
-      failWithMessage(assertjErrorMessage, actual, couponType1, actualCouponType1);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponType2 is equal to the given one.
-   * @param couponType2 the given couponType2 to compare the actual WeChatPayRefundResponse's couponType2 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponType2 is not equal to the given one.
-   */
-  public S hasCouponType2(String couponType2) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponType2 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponType2 = actual.getCouponType2();
-    if (!Objects.areEqual(actualCouponType2, couponType2)) {
-      failWithMessage(assertjErrorMessage, actual, couponType2, actualCouponType2);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponType3 is equal to the given one.
-   * @param couponType3 the given couponType3 to compare the actual WeChatPayRefundResponse's couponType3 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponType3 is not equal to the given one.
-   */
-  public S hasCouponType3(String couponType3) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponType3 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponType3 = actual.getCouponType3();
-    if (!Objects.areEqual(actualCouponType3, couponType3)) {
-      failWithMessage(assertjErrorMessage, actual, couponType3, actualCouponType3);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundResponse's couponType4 is equal to the given one.
-   * @param couponType4 the given couponType4 to compare the actual WeChatPayRefundResponse's couponType4 to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundResponse's couponType4 is not equal to the given one.
-   */
-  public S hasCouponType4(String couponType4) {
-    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting couponType4 of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    String actualCouponType4 = actual.getCouponType4();
-    if (!Objects.areEqual(actualCouponType4, couponType4)) {
-      failWithMessage(assertjErrorMessage, actual, couponType4, actualCouponType4);
     }
 
     // return the current assertion for method chaining
@@ -546,12 +201,35 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
   }
 
   /**
+   * Verifies that the actual WeChatPayRefundResponse's refundCoupons is equal to the given one.
+   * @param refundCoupons the given refundCoupons to compare the actual WeChatPayRefundResponse's refundCoupons to.
+   * @return this assertion object.
+   * @throws AssertionError - if the actual WeChatPayRefundResponse's refundCoupons is not equal to the given one.
+   */
+  public S hasRefundCoupons(java.util.Map refundCoupons) {
+    // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
+    isNotNull();
+
+    // overrides the default error message with a more explicit one
+    String assertjErrorMessage = "\nExpecting refundCoupons of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
+
+    // null safe check
+    java.util.Map actualRefundCoupons = actual.getRefundCoupons();
+    if (!Objects.areEqual(actualRefundCoupons, refundCoupons)) {
+      failWithMessage(assertjErrorMessage, actual, refundCoupons, actualRefundCoupons);
+    }
+
+    // return the current assertion for method chaining
+    return myself;
+  }
+
+  /**
    * Verifies that the actual WeChatPayRefundResponse's refundFee is equal to the given one.
    * @param refundFee the given refundFee to compare the actual WeChatPayRefundResponse's refundFee to.
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's refundFee is not equal to the given one.
    */
-  public S hasRefundFee(String refundFee) {
+  public S hasRefundFee(Integer refundFee) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -559,7 +237,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting refundFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualRefundFee = actual.getRefundFee();
+    Integer actualRefundFee = actual.getRefundFee();
     if (!Objects.areEqual(actualRefundFee, refundFee)) {
       failWithMessage(assertjErrorMessage, actual, refundFee, actualRefundFee);
     }
@@ -597,7 +275,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's settlementRefundFee is not equal to the given one.
    */
-  public S hasSettlementRefundFee(String settlementRefundFee) {
+  public S hasSettlementRefundFee(Integer settlementRefundFee) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -605,7 +283,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting settlementRefundFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualSettlementRefundFee = actual.getSettlementRefundFee();
+    Integer actualSettlementRefundFee = actual.getSettlementRefundFee();
     if (!Objects.areEqual(actualSettlementRefundFee, settlementRefundFee)) {
       failWithMessage(assertjErrorMessage, actual, settlementRefundFee, actualSettlementRefundFee);
     }
@@ -620,7 +298,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's settlementTotalFee is not equal to the given one.
    */
-  public S hasSettlementTotalFee(String settlementTotalFee) {
+  public S hasSettlementTotalFee(Integer settlementTotalFee) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -628,7 +306,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting settlementTotalFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualSettlementTotalFee = actual.getSettlementTotalFee();
+    Integer actualSettlementTotalFee = actual.getSettlementTotalFee();
     if (!Objects.areEqual(actualSettlementTotalFee, settlementTotalFee)) {
       failWithMessage(assertjErrorMessage, actual, settlementTotalFee, actualSettlementTotalFee);
     }
@@ -643,7 +321,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundResponse's totalFee is not equal to the given one.
    */
-  public S hasTotalFee(String totalFee) {
+  public S hasTotalFee(Integer totalFee) {
     // check that actual WeChatPayRefundResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -651,7 +329,7 @@ public abstract class AbstractWeChatPayRefundResponseAssert<S extends AbstractWe
     String assertjErrorMessage = "\nExpecting totalFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualTotalFee = actual.getTotalFee();
+    Integer actualTotalFee = actual.getTotalFee();
     if (!Objects.areEqual(actualTotalFee, totalFee)) {
       failWithMessage(assertjErrorMessage, actual, totalFee, actualTotalFee);
     }

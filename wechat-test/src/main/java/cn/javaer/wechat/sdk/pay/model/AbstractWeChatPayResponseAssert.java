@@ -270,4 +270,40 @@ public abstract class AbstractWeChatPayResponseAssert<S extends AbstractWeChatPa
     return myself;
   }
 
+  /**
+   * Verifies that the actual WeChatPayResponse is successful.
+   * @return this assertion object.
+   * @throws AssertionError - if the actual WeChatPayResponse is not successful.
+   */
+  public S isSuccessful() {
+    // check that actual WeChatPayResponse we want to make assertions on is not null.
+    isNotNull();
+
+    // check that property call/field access is true
+    if (!actual.isSuccessful()) {
+      failWithMessage("\nExpecting that actual WeChatPayResponse is successful but is not.");
+    }
+
+    // return the current assertion for method chaining
+    return myself;
+  }
+
+  /**
+   * Verifies that the actual WeChatPayResponse is not successful.
+   * @return this assertion object.
+   * @throws AssertionError - if the actual WeChatPayResponse is successful.
+   */
+  public S isNotSuccessful() {
+    // check that actual WeChatPayResponse we want to make assertions on is not null.
+    isNotNull();
+
+    // check that property call/field access is false
+    if (actual.isSuccessful()) {
+      failWithMessage("\nExpecting that actual WeChatPayResponse is not successful but is.");
+    }
+
+    // return the current assertion for method chaining
+    return myself;
+  }
+
 }

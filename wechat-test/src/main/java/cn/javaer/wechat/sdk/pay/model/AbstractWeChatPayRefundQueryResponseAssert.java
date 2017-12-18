@@ -22,7 +22,7 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundQueryResponse's cashFee is not equal to the given one.
    */
-  public S hasCashFee(String cashFee) {
+  public S hasCashFee(Integer cashFee) {
     // check that actual WeChatPayRefundQueryResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -30,7 +30,7 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
     String assertjErrorMessage = "\nExpecting cashFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualCashFee = actual.getCashFee();
+    Integer actualCashFee = actual.getCashFee();
     if (!Objects.areEqual(actualCashFee, cashFee)) {
       failWithMessage(assertjErrorMessage, actual, cashFee, actualCashFee);
     }
@@ -56,29 +56,6 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
     String actualFeeType = actual.getFeeType();
     if (!Objects.areEqual(actualFeeType, feeType)) {
       failWithMessage(assertjErrorMessage, actual, feeType, actualFeeType);
-    }
-
-    // return the current assertion for method chaining
-    return myself;
-  }
-
-  /**
-   * Verifies that the actual WeChatPayRefundQueryResponse's otherValues is equal to the given one.
-   * @param otherValues the given otherValues to compare the actual WeChatPayRefundQueryResponse's otherValues to.
-   * @return this assertion object.
-   * @throws AssertionError - if the actual WeChatPayRefundQueryResponse's otherValues is not equal to the given one.
-   */
-  public S hasOtherValues(java.util.Map otherValues) {
-    // check that actual WeChatPayRefundQueryResponse we want to make assertions on is not null.
-    isNotNull();
-
-    // overrides the default error message with a more explicit one
-    String assertjErrorMessage = "\nExpecting otherValues of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
-
-    // null safe check
-    java.util.Map actualOtherValues = actual.getOtherValues();
-    if (!Objects.areEqual(actualOtherValues, otherValues)) {
-      failWithMessage(assertjErrorMessage, actual, otherValues, actualOtherValues);
     }
 
     // return the current assertion for method chaining
@@ -114,7 +91,7 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundQueryResponse's refundCount is not equal to the given one.
    */
-  public S hasRefundCount(String refundCount) {
+  public S hasRefundCount(Integer refundCount) {
     // check that actual WeChatPayRefundQueryResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -122,9 +99,32 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
     String assertjErrorMessage = "\nExpecting refundCount of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualRefundCount = actual.getRefundCount();
+    Integer actualRefundCount = actual.getRefundCount();
     if (!Objects.areEqual(actualRefundCount, refundCount)) {
       failWithMessage(assertjErrorMessage, actual, refundCount, actualRefundCount);
+    }
+
+    // return the current assertion for method chaining
+    return myself;
+  }
+
+  /**
+   * Verifies that the actual WeChatPayRefundQueryResponse's refundMap is equal to the given one.
+   * @param refundMap the given refundMap to compare the actual WeChatPayRefundQueryResponse's refundMap to.
+   * @return this assertion object.
+   * @throws AssertionError - if the actual WeChatPayRefundQueryResponse's refundMap is not equal to the given one.
+   */
+  public S hasRefundMap(java.util.Map refundMap) {
+    // check that actual WeChatPayRefundQueryResponse we want to make assertions on is not null.
+    isNotNull();
+
+    // overrides the default error message with a more explicit one
+    String assertjErrorMessage = "\nExpecting refundMap of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
+
+    // null safe check
+    java.util.Map actualRefundMap = actual.getRefundMap();
+    if (!Objects.areEqual(actualRefundMap, refundMap)) {
+      failWithMessage(assertjErrorMessage, actual, refundMap, actualRefundMap);
     }
 
     // return the current assertion for method chaining
@@ -137,7 +137,7 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundQueryResponse's settlementTotalFee is not equal to the given one.
    */
-  public S hasSettlementTotalFee(String settlementTotalFee) {
+  public S hasSettlementTotalFee(Integer settlementTotalFee) {
     // check that actual WeChatPayRefundQueryResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -145,7 +145,7 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
     String assertjErrorMessage = "\nExpecting settlementTotalFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualSettlementTotalFee = actual.getSettlementTotalFee();
+    Integer actualSettlementTotalFee = actual.getSettlementTotalFee();
     if (!Objects.areEqual(actualSettlementTotalFee, settlementTotalFee)) {
       failWithMessage(assertjErrorMessage, actual, settlementTotalFee, actualSettlementTotalFee);
     }
@@ -160,7 +160,7 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
    * @return this assertion object.
    * @throws AssertionError - if the actual WeChatPayRefundQueryResponse's totalFee is not equal to the given one.
    */
-  public S hasTotalFee(String totalFee) {
+  public S hasTotalFee(Integer totalFee) {
     // check that actual WeChatPayRefundQueryResponse we want to make assertions on is not null.
     isNotNull();
 
@@ -168,7 +168,7 @@ public abstract class AbstractWeChatPayRefundQueryResponseAssert<S extends Abstr
     String assertjErrorMessage = "\nExpecting totalFee of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
 
     // null safe check
-    String actualTotalFee = actual.getTotalFee();
+    Integer actualTotalFee = actual.getTotalFee();
     if (!Objects.areEqual(actualTotalFee, totalFee)) {
       failWithMessage(assertjErrorMessage, actual, totalFee, actualTotalFee);
     }

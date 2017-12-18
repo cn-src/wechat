@@ -29,6 +29,17 @@ public class SoftAssertions extends org.assertj.core.api.SoftAssertions {
   }
 
   /**
+   * Creates a new "soft" instance of <code>{@link cn.javaer.wechat.sdk.pay.model.WeChatPayCouponAssert}</code>.
+   *
+   * @param actual the actual value.
+   * @return the created "soft" assertion object.
+   */
+  @org.assertj.core.util.CheckReturnValue
+  public cn.javaer.wechat.sdk.pay.model.WeChatPayCouponAssert assertThat(cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon actual) {
+    return proxy(cn.javaer.wechat.sdk.pay.model.WeChatPayCouponAssert.class, cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon.class, actual);
+  }
+
+  /**
    * Creates a new "soft" instance of <code>{@link cn.javaer.wechat.sdk.pay.model.WeChatPayNotifyResultAssert}</code>.
    *
    * @param actual the actual value.
@@ -158,6 +169,17 @@ public class SoftAssertions extends org.assertj.core.api.SoftAssertions {
   @org.assertj.core.util.CheckReturnValue
   public cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponseAssert assertThat(cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse actual) {
     return proxy(cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponseAssert.class, cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse.class, actual);
+  }
+
+  /**
+   * Creates a new "soft" instance of <code>{@link cn.javaer.wechat.sdk.pay.model.WeChatRefundAssert}</code>.
+   *
+   * @param actual the actual value.
+   * @return the created "soft" assertion object.
+   */
+  @org.assertj.core.util.CheckReturnValue
+  public cn.javaer.wechat.sdk.pay.model.WeChatRefundAssert assertThat(cn.javaer.wechat.sdk.pay.model.WeChatRefund actual) {
+    return proxy(cn.javaer.wechat.sdk.pay.model.WeChatRefundAssert.class, cn.javaer.wechat.sdk.pay.model.WeChatRefund.class, actual);
   }
 
 }
