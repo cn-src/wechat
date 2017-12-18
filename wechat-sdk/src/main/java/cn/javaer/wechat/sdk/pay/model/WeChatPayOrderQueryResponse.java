@@ -120,17 +120,10 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
         if (null == this.coupons && null != this.otherMap) {
             final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();
             mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
-            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
+            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
             mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
             WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, Coupon::new);
         }
         return this.coupons;
-    }
-
-    @Data
-    public static class Coupon {
-        private String id;
-        private String type;
-        private Integer fee;
     }
 }

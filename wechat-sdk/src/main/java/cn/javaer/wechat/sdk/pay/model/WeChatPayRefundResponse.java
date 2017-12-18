@@ -16,6 +16,8 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.SignIgnore;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,6 +26,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 /**
  * 微信支付-申请退款-响应.
@@ -79,59 +84,25 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
     @XmlElement(name = "coupon_refund_count")
     private String couponRefundCount;
 
-    // ---- 代金券
-    // ----  0
+    /**
+     * 退款代金券.
+     */
+    @SignIgnore
+    private Map<String, Coupon> refundCoupons;
 
-    @XmlElement(name = "coupon_type_0")
-    private String couponType0;
-
-    @XmlElement(name = "coupon_refund_id_0")
-    private String couponId0;
-
-    @XmlElement(name = "coupon_refund_fee_0")
-    private String couponFee0;
-
-    // ----  1
-
-    @XmlElement(name = "coupon_type_1")
-    private String couponType1;
-
-    @XmlElement(name = "coupon_refund_id_1")
-    private String couponId1;
-
-    @XmlElement(name = "coupon_refund_fee_1")
-    private String couponFee1;
-
-    // ----  2
-
-    @XmlElement(name = "coupon_type_2")
-    private String couponType2;
-
-    @XmlElement(name = "coupon_refund_id_2")
-    private String couponId2;
-
-    @XmlElement(name = "coupon_refund_fee_2")
-    private String couponFee2;
-
-    // ----  3
-
-    @XmlElement(name = "coupon_type_3")
-    private String couponType3;
-
-    @XmlElement(name = "coupon_refund_id_3")
-    private String couponId3;
-
-    @XmlElement(name = "coupon_refund_fee_3")
-    private String couponFee3;
-
-    // ----  4
-
-    @XmlElement(name = "coupon_type_4")
-    private String couponType4;
-
-    @XmlElement(name = "coupon_refund_id_4")
-    private String couponId4;
-
-    @XmlElement(name = "coupon_refund_fee_4")
-    private String couponFee4;
+    /**
+     * 获取代金券.
+     *
+     * @return 代金券 Map, key 为微信支付文档描述的数字下标
+     */
+    public Map<String, Coupon> getRefundCoupons() {
+        if (null == this.refundCoupons && null != this.otherMap) {
+            final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>();
+            mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
+            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
+            mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+            WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, Coupon::new);
+        }
+        return this.refundCoupons;
+    }
 }
