@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay;
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.Validate;
@@ -47,40 +48,45 @@ public class WeChatPayUtils {
     /**
      * 微信支付-生成签名.
      *
-     * @param obj 要签名的数据对象.
+     * @param request 要签名的数据对象.
      * @param key key
      *
      * @return 返回签名 String
      */
     @NotNull
     public static String generateSign(
-            @NotNull final Object obj, @NotNull final String key) {
+            @NotNull final WeChatPayRequest request, @NotNull final String key) {
 
-        final Class<?> clazz = obj.getClass();
+        return generateSign(toSortedMap(request), key);
+    }
 
-        final List<Field> cache = CACHE_FOR_SIGN.get(clazz);
+    /**
+     * 微信支付-生成签名.
+     *
+     * @param response 要签名的数据对象.
+     * @param key key
+     *
+     * @return 返回签名 String
+     */
+    @NotNull
+    public static String generateSign(
+            @NotNull final WeChatPayResponse response, @NotNull final String key) {
+        final Map<String, String> sortedMap = toSortedMap(response);
+        sortedMap.putAll(response.getOtherMap());
+        return generateSign(sortedMap, key);
+    }
 
-        final List<Field> fields;
-        if (null == cache) {
-            fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
-            CACHE_FOR_SIGN.put(clazz, fields);
-        } else {
-            fields = cache;
-        }
-        Validate.notEmpty(fields);
-
-        final Map<String, String> sortedMap = new TreeMap<>();
-        for (final Field field : fields) {
-            if (null != field.getAnnotation(SignIgnore.class)) {
-                continue;
-            }
-            final String val = asString(field, obj);
-            if (null == val) {
-                continue;
-            }
-            final String name = field.getAnnotation(XmlElement.class).name();
-            sortedMap.put(name, val);
-        }
+    /**
+     * 微信支付-生成签名.
+     *
+     * @param sortedMap 要签名的数据对象.
+     * @param key key
+     *
+     * @return 返回签名 String
+     */
+    @NotNull
+    public static String generateSign(
+            @NotNull final Map<String, String> sortedMap, @NotNull final String key) {
 
         final StringBuilder sb = new StringBuilder();
 
@@ -195,6 +201,34 @@ public class WeChatPayUtils {
         } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Map<String, String> toSortedMap(final Object obj) {
+        final Class<?> clazz = obj.getClass();
+        final List<Field> cache = CACHE_FOR_SIGN.get(clazz);
+
+        final List<Field> fields;
+        if (null == cache) {
+            fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
+            CACHE_FOR_SIGN.put(clazz, fields);
+        } else {
+            fields = cache;
+        }
+        Validate.notEmpty(fields);
+
+        final Map<String, String> sortedMap = new TreeMap<>();
+        for (final Field field : fields) {
+            if (null != field.getAnnotation(SignIgnore.class)) {
+                continue;
+            }
+            final String val = asString(field, obj);
+            if (null == val) {
+                continue;
+            }
+            final String name = field.getAnnotation(XmlElement.class).name();
+            sortedMap.put(name, val);
+        }
+        return sortedMap;
     }
 
     private static class NameIndex {

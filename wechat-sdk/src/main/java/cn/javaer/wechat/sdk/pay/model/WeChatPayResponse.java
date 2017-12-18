@@ -84,7 +84,6 @@ public abstract class WeChatPayResponse {
     @SignIgnore
     private List<Element> otherElements;
 
-    @Getter(AccessLevel.PACKAGE)
     @Setter(AccessLevel.PACKAGE)
     protected Map<String, String> otherMap;
 
