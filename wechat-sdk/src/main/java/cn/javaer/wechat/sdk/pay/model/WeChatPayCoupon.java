@@ -20,6 +20,8 @@ import lombok.Data;
 
 /**
  * 代金券.
+ *
+ * @author zhangpeng
  */
 @Data
 public class WeChatPayCoupon {
