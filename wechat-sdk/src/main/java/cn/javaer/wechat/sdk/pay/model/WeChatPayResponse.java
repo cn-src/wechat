@@ -23,6 +23,7 @@ import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -40,6 +41,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
+@ToString(callSuper = true, exclude = {"otherElements"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class WeChatPayResponse {
     public static final String SUCCESS = "SUCCESS";
@@ -71,7 +73,7 @@ public abstract class WeChatPayResponse {
 
     @XmlElement(name = "sign_type")
     private String signType;
-    
+
     @XmlElement(name = "result_code")
     private String resultCode;
 

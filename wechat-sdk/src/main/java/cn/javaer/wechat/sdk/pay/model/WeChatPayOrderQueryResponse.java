@@ -18,8 +18,8 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import cn.javaer.wechat.sdk.pay.SignIgnore;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -36,9 +36,9 @@ import java.util.function.BiConsumer;
  *
  * @author zhangpeng
  */
-@Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@ToString(callSuper = true, exclude = {"coupons"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
@@ -122,7 +122,7 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
             mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
             this.coupons = WeChatPayUtils.dynamicMapping(
-                    this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
+                this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
         }
     }
 }

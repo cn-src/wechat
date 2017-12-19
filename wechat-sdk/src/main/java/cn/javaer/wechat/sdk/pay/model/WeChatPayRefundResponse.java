@@ -38,7 +38,7 @@ import java.util.function.BiConsumer;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"refundCoupons"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class WeChatPayRefundResponse extends WeChatPayResponse {
@@ -100,7 +100,7 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
             mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
             this.refundCoupons = WeChatPayUtils.dynamicMapping(
-                    this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
+                this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
         }
     }
 
