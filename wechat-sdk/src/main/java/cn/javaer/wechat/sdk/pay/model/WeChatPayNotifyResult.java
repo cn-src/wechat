@@ -16,6 +16,8 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
+import cn.javaer.wechat.sdk.pay.SignIgnore;
+import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -24,6 +26,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 /**
  * 微信支付-支付结果通知.
@@ -37,17 +43,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayNotifyResult extends WeChatPayResponse {
 
+    @XmlElement(name = "device_info")
+    private String deviceInfo;
+
     @XmlElement(name = "openid")
     private String openid;
 
     @XmlElement(name = "is_subscribe")
     private String isSubscribe;
-
-    @XmlElement(name = "sub_openid")
-    private String subOpenid;
-
-    @XmlElement(name = "sub_is_subscribe")
-    private String subIsSubscribe;
 
     @XmlElement(name = "trade_type")
     private String tradeType;
@@ -55,26 +58,26 @@ public class WeChatPayNotifyResult extends WeChatPayResponse {
     @XmlElement(name = "bank_type")
     private String bankType;
 
+    @XmlElement(name = "total_fee")
+    private Integer totalFee;
+
     @XmlElement(name = "settlement_total_fee")
-    private String settlementTotalFee;
+    private Integer settlementTotalFee;
 
     @XmlElement(name = "fee_type")
     private String feeType;
 
-    @XmlElement(name = "total_fee")
-    private String totalFee;
-
     @XmlElement(name = "cash_fee")
-    private String cashFee;
+    private Integer cashFee;
 
     @XmlElement(name = "cash_fee_type")
     private String cashFeeType;
 
     @XmlElement(name = "coupon_fee")
-    private String couponFee;
+    private Integer couponFee;
 
     @XmlElement(name = "coupon_count")
-    private String couponCount;
+    private Integer couponCount;
 
     @XmlElement(name = "transaction_id")
     private String transactionId;
@@ -88,59 +91,23 @@ public class WeChatPayNotifyResult extends WeChatPayResponse {
     @XmlElement(name = "time_end")
     private String timeEnd;
 
-    // ---- 代金券
-    // ----  0
+    /**
+     * 代金券.
+     */
+    @SignIgnore
+    private Map<String, WeChatPayCoupon> coupons;
 
-    @XmlElement(name = "coupon_type_0")
-    private String couponType0;
+    @Override
+    public void beforeSign() {
+        super.beforeSign();
+        if (null == this.coupons && null != this.otherMap) {
+            final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
+            mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
+            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
+            mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
-    @XmlElement(name = "coupon_id_0")
-    private String couponId0;
-
-    @XmlElement(name = "coupon_fee_0")
-    private String couponFee0;
-
-    // ----  1
-
-    @XmlElement(name = "coupon_type_1")
-    private String couponType1;
-
-    @XmlElement(name = "coupon_id_1")
-    private String couponId1;
-
-    @XmlElement(name = "coupon_fee_1")
-    private String couponFee1;
-
-    // ----  2
-
-    @XmlElement(name = "coupon_type_2")
-    private String couponType2;
-
-    @XmlElement(name = "coupon_id_2")
-    private String couponId2;
-
-    @XmlElement(name = "coupon_fee_2")
-    private String couponFee2;
-
-    // ----  3
-
-    @XmlElement(name = "coupon_type_3")
-    private String couponType3;
-
-    @XmlElement(name = "coupon_id_3")
-    private String couponId3;
-
-    @XmlElement(name = "coupon_fee_3")
-    private String couponFee3;
-
-    // ----  4
-
-    @XmlElement(name = "coupon_type_4")
-    private String couponType4;
-
-    @XmlElement(name = "coupon_id_4")
-    private String couponId4;
-
-    @XmlElement(name = "coupon_fee_4")
-    private String couponFee4;
+            this.coupons = WeChatPayUtils.dynamicMapping(
+                this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
+        }
+    }
 }
