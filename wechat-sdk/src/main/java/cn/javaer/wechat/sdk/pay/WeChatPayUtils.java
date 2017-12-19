@@ -55,7 +55,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-            @NotNull final WeChatPayRequest request, @NotNull final String key) {
+        @NotNull final WeChatPayRequest request, @NotNull final String key) {
 
         return generateSign(toSortedMap(request), key);
     }
@@ -70,7 +70,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-            @NotNull final WeChatPayResponse response, @NotNull final String key) {
+        @NotNull final WeChatPayResponse response, @NotNull final String key) {
         final Map<String, String> sortedMap = toSortedMap(response);
         final Map<String, String> otherMap = response.getOtherMap();
         if (null != otherMap && !otherMap.isEmpty()) {
@@ -89,7 +89,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-            @NotNull final Map<String, String> sortedMap, @NotNull final String key) {
+        @NotNull final Map<String, String> sortedMap, @NotNull final String key) {
 
         final StringBuilder sb = new StringBuilder();
 
@@ -139,8 +139,8 @@ public class WeChatPayUtils {
     public static boolean isSuccessful(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
 
         return response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))
-                && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
-                && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
+            && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
+            && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
     /**
@@ -159,16 +159,16 @@ public class WeChatPayUtils {
      *
      * @param otherMap 已存放的动态数据
      * @param mappingMap 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.
-     *         value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
+     *     value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
      * @param newT 新对象的创建函数
      * @param <T> 要转换的目标对象的类型
      *
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
     public static <T> Map<String, T> dynamicMapping(
-            final Map<String, String> otherMap,
-            final Map<String, BiConsumer<String, T>> mappingMap,
-            final Supplier<T> newT) {
+        final Map<String, String> otherMap,
+        final Map<String, BiConsumer<String, T>> mappingMap,
+        final Supplier<T> newT) {
 
         final Map<String, T> rtMap = new TreeMap<>();
         for (final Map.Entry<String, String> entry : otherMap.entrySet()) {
@@ -212,6 +212,7 @@ public class WeChatPayUtils {
 
         final List<Field> fields;
         if (null == cache) {
+            log.debug("'{}' generate sign from cache", clazz);
             fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
             CACHE_FOR_SIGN.put(clazz, fields);
         } else {
