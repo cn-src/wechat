@@ -30,6 +30,9 @@ import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
  */
 public interface WeChatPayClient {
 
+    /**
+     * 微信支付系统 base path.
+     */
     String BASE_PATH = "https://api.mch.weixin.qq.com";
 
     /**
@@ -61,6 +64,16 @@ public interface WeChatPayClient {
      * 下载对账单 path.
      */
     String DOWNLOAD_BILL_PATH = "/pay/downloadbill";
+
+    /**
+     * 交易保障 path.
+     */
+    String REPORT_PATH = "/payitil/report";
+
+    /**
+     * 拉取订单评价数据 path.
+     */
+    String BATCH_QUERY_COMMENT_PATH = "/billcommentsp/batchquerycomment";
 
     /**
      * 统一下单.
