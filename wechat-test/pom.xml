@@ -28,12 +28,23 @@
             <plugin>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
-                <configuration>
-                    <classes>
-                        <param>cn.javaer.wechat.sdk.pay.model</param>
-                    </classes>
-                    <targetDir>${basedir}/src/main/java</targetDir>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>d</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate-assertions</goal>
+                        </goals>
+                        <configuration>
+                            <classes>
+                                <param>cn.javaer.wechat.sdk.pay.model</param>
+                            </classes>
+                            <targetDir>${project.build.directory}/generated-sources/assertj-assertions</targetDir>
+                            <generatedSourcesScope>compile</generatedSourcesScope>
+                            <entryPointClassPackage>cn.javaer.wechat.test</entryPointClassPackage>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
