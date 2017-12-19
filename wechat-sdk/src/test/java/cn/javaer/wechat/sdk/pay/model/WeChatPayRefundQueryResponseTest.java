@@ -21,7 +21,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.test.WeChatTestUtils;
 import org.junit.Test;
 
-import static cn.javaer.wechat.sdk.pay.model.Assertions.assertThat;
+import static cn.javaer.wechat.test.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
