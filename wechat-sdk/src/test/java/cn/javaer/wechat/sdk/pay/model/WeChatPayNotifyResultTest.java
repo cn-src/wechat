@@ -60,7 +60,7 @@ public class WeChatPayNotifyResultTest {
         assertThat(notifyResult.getCoupons().get("4"))
             .hasId("coupon_id_4")
             .hasType(WeChatPayCoupon.Type.CASH)
-            .hasFee(3);
+            .hasFee(4);
 
     }
 }
