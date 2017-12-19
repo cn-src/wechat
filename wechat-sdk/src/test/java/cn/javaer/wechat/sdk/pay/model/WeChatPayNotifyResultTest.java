@@ -36,6 +36,8 @@ public class WeChatPayNotifyResultTest {
             .hasTradeType("JSAPI")
             .hasTransactionId("1004400740201409030005092168");
 
+        notifyResult.beforeSign();
+
         assertThat(notifyResult.getCoupons())
             .containsOnlyKeys("0", "1", "2", "3", "4");
 
