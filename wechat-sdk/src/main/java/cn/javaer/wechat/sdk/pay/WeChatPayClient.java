@@ -32,10 +32,35 @@ public interface WeChatPayClient {
 
     String BASE_PATH = "https://api.mch.weixin.qq.com";
 
+    /**
+     * 统一下单 path.
+     */
     String UNIFIED_ORDER_PATH = "/pay/unifiedorder";
+
+    /**
+     * 查询订单 path.
+     */
     String ORDER_QUERY_PATH = "/pay/orderquery";
+
+    /**
+     * 关闭订单 path.
+     */
     String CLOSE_ORDER_PATH = "/pay/closeorder";
-    String PAY_REFUND_PATH = "/secapi/pay/refund";
+
+    /**
+     * 申请退款 path.
+     */
+    String REFUND_PATH = "/secapi/pay/refund";
+
+    /**
+     * 查询退款 path.
+     */
+    String REFUND_QUERY_PATH = "/pay/refundquery";
+
+    /**
+     * 下载对账单 path.
+     */
+    String DOWNLOAD_BILL_PATH = "/pay/downloadbill";
 
     /**
      * 统一下单.
