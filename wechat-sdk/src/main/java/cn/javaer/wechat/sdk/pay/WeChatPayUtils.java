@@ -166,9 +166,9 @@ public class WeChatPayUtils {
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
     public static <T> Map<String, T> dynamicMapping(
-        final Map<String, String> otherMap,
-        final Map<String, BiConsumer<String, T>> mappingMap,
-        final Supplier<T> newT) {
+        @NotNull final Map<String, String> otherMap,
+        @NotNull final Map<String, BiConsumer<String, T>> mappingMap,
+        @NotNull final Supplier<T> newT) {
 
         final Map<String, T> rtMap = new TreeMap<>();
         for (final Map.Entry<String, String> entry : otherMap.entrySet()) {
