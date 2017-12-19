@@ -69,6 +69,9 @@ public abstract class WeChatPayResponse {
     @XmlElement(name = "sign")
     private String sign;
 
+    @XmlElement(name = "sign_type")
+    private String signType;
+    
     @XmlElement(name = "result_code")
     private String resultCode;
 

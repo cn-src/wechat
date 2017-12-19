@@ -37,9 +37,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayNotifyResult extends WeChatPayResponse {
 
-    @XmlElement(name = "sign_type")
-    private String signType;
-
     @XmlElement(name = "openid")
     private String openid;
 
