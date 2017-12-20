@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayRefundQueryRequest extends WeChatPayRequest {
 
+    private WeChatPayRefundQueryRequest() {}
+
     @XmlElement(name = "transaction_id")
     private String transactionId;
 
@@ -73,12 +75,12 @@ public class WeChatPayRefundQueryRequest extends WeChatPayRequest {
      *
      * @param outTradeNo 商户订单号
      * @param offset 分页查询的偏移量,
-     *         举例：当商户想查询第25笔时，可传入订单号及offset=24，微信支付平台会返回第25笔到第35笔的退款单信息.
+     *     举例：当商户想查询第25笔时，可传入订单号及offset=24，微信支付平台会返回第25笔到第35笔的退款单信息.
      *
      * @return WeChatPayRefundQueryRequest
      */
     public static WeChatPayRefundQueryRequest createWithOutTradeNo(
-            @NotNull final String outTradeNo, @NotNull final Integer offset) {
+        @NotNull final String outTradeNo, @NotNull final Integer offset) {
         final WeChatPayRefundQueryRequest request = new WeChatPayRefundQueryRequest();
         request.outTradeNo = outTradeNo;
         request.offset = offset;

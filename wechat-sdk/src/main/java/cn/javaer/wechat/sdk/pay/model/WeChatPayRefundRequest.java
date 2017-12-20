@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayRefundRequest extends WeChatPayRequest {
 
+    private WeChatPayRefundRequest() {}
+
     @XmlElement(name = "transaction_id")
     private String transactionId;
 
@@ -91,10 +93,10 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
      * @return WeChatPayRefundRequest
      */
     public static WeChatPayRefundRequest create(
-            @NotNull final String outTradeNo,
-            @NotNull final String outRefundNo,
-            final int totalFee,
-            final int refundFee) {
+        @NotNull final String outTradeNo,
+        @NotNull final String outRefundNo,
+        final int totalFee,
+        final int refundFee) {
 
         Validate.inclusiveBetween(1, 100000, totalFee);
         Validate.inclusiveBetween(1, totalFee, refundFee);
@@ -122,11 +124,11 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
      * @return WeChatPayRefundRequest
      */
     public static WeChatPayRefundRequest create(
-            @NotNull final String outTradeNo,
-            @NotNull final String outRefundNo,
-            final int totalFee,
-            final int refundFee,
-            @NotNull final String refundDesc) {
+        @NotNull final String outTradeNo,
+        @NotNull final String outRefundNo,
+        final int totalFee,
+        final int refundFee,
+        @NotNull final String refundDesc) {
 
         Validate.inclusiveBetween(1, 100000, totalFee);
         Validate.inclusiveBetween(1, totalFee, refundFee);

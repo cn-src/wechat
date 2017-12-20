@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class WeChatPayCloseOrderRequest extends WeChatPayRequest {
 
+    private WeChatPayCloseOrderRequest() {}
+
     @NonNull
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
