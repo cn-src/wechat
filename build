@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+./regenerate-wechat-test
+./mvnw checkstyle:check findbugs:check install
