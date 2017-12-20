@@ -16,11 +16,11 @@
 
 package cn.javaer.wechat.sdk.mp;
 
-import cn.javaer.wechat.sdk.mp.model.WeChatWeChatMpAccessTokenResponse;
+import cn.javaer.wechat.sdk.mp.model.WeChatMpAccessTokenResponse;
 
 public interface WeChatMpClient {
 
     String BASE_URL = "https://api.weixin.qq.com";
 
-    WeChatWeChatMpAccessTokenResponse snsOauth2AccessToken(String appid, String secret, String code, String grantType);
+    WeChatMpAccessTokenResponse snsOauth2AccessToken(String appid, String secret, String code, String grantType);
 }
