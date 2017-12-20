@@ -19,7 +19,6 @@ package cn.javaer.wechat.sdk.pay.model;
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +53,6 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
     /**
      * 商品描述.
      */
-    @NonNull
     @XmlElement(name = "body")
     private String body;
 
@@ -73,7 +71,6 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
     /**
      * 商户订单号.
      */
-    @NonNull
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
@@ -86,14 +83,12 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
     /**
      * 总金额.
      */
-    @NonNull
     @XmlElement(name = "total_fee")
     private Integer totalFee;
 
     /**
      * 终端IP.
      */
-    @NonNull
     @XmlElement(name = "spbill_create_ip")
     private String spbillCreateIp;
 
@@ -118,14 +113,12 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
     /**
      * 通知地址.
      */
-    @NonNull
     @XmlElement(name = "notify_url")
     private String notifyUrl;
 
     /**
      * 交易类型.
      */
-    @NonNull
     @XmlElement(name = "trade_type")
     private String tradeType;
 

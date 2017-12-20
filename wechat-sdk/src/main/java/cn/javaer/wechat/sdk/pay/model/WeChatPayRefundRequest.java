@@ -17,7 +17,6 @@
 package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
@@ -49,21 +48,18 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
     /**
      * 商户退款单号.
      */
-    @NonNull
     @XmlElement(name = "out_refund_no")
     private String outRefundNo;
 
     /**
      * 订单金额.
      */
-    @NonNull
     @XmlElement(name = "total_fee")
     private int totalFee;
 
     /**
      * 退款金额.
      */
-    @NonNull
     @XmlElement(name = "refund_fee")
     private int refundFee;
 

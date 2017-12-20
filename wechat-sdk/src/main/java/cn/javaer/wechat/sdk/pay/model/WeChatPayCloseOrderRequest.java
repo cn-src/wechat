@@ -17,7 +17,6 @@
 package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +38,6 @@ public class WeChatPayCloseOrderRequest extends WeChatPayRequest {
 
     private WeChatPayCloseOrderRequest() {}
 
-    @NonNull
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
