@@ -83,7 +83,7 @@ public class WeChatMpUtils {
             throw new WeChatMpException("WeChat mp response is null");
         }
 
-        if (null != response.getErrcode() && !response.getErrcode().isEmpty()) {
+        if (null != response.getErrCode() && !response.getErrCode().isEmpty()) {
             throw new WeChatMpException("WeChat mp response error, response:" + response.toString());
         }
     }
