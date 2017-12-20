@@ -3,10 +3,17 @@ package cn.javaer.wechat.mock.server;
 import com.github.tomakehurst.wiremock.standalone.WireMockServerRunner;
 
 /**
+ * The type WechatMockServer.
+ *
  * @author zhangpeng
  */
 public class WechatMockServer {
-    public static void main(String[] args) {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(final String[] args) {
 
         final String[] newArgs;
 
