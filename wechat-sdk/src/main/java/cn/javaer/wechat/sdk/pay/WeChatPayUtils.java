@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay;
 
+import cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -27,6 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -190,6 +193,22 @@ public class WeChatPayUtils {
         }
 
         return rtMap;
+    }
+
+    /**
+     * 提取转换代金券信息.
+     *
+     * @param otherMap otherMap
+     *
+     * @return <code>Map&lt;String, WeChatPayCoupon&gt;</code>
+     */
+    public static Map<String, WeChatPayCoupon> toCouponMap(final Map<String, String> otherMap) {
+        final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
+        mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
+        mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
+        mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+
+        return WeChatPayUtils.dynamicMapping(otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
     }
 
     private static String asString(final Field field, final Object obj) {
