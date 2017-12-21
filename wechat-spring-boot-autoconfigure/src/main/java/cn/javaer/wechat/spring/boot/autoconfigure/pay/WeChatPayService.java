@@ -30,16 +30,16 @@ public interface WeChatPayService {
      * 微信统一下单 NATIVE 类型, 参数简化.
      */
     WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(
-            @NotNull String body,
-            @NotNull String outTradeNo,
-            @NotNull Integer totalFee) throws WeChatPayException;
+        @NotNull String body,
+        @NotNull String outTradeNo,
+        int totalFee) throws WeChatPayException;
 
     /**
      * 微信统一下单 JSAPI 类型, 参数简化.
      */
     void unifiedOrderWithJsApi(
-            @NotNull String openid,
-            @NotNull String body,
-            @NotNull String outTradeNo,
-            @NotNull Integer totalFee) throws WeChatPayException;
+        @NotNull String openid,
+        @NotNull String body,
+        @NotNull String outTradeNo,
+        int totalFee) throws WeChatPayException;
 }

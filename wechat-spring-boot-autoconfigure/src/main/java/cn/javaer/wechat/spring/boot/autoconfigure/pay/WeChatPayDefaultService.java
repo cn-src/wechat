@@ -42,20 +42,20 @@ public class WeChatPayDefaultService implements WeChatPayService {
      * @param publisher ApplicationEventPublisher
      */
     public WeChatPayDefaultService(
-            @NotNull final WeChatPayClient weChatPayClient,
-            @NotNull final ApplicationEventPublisher publisher) {
+        @NotNull final WeChatPayClient weChatPayClient,
+        @NotNull final ApplicationEventPublisher publisher) {
         this.weChatPayClient = weChatPayClient;
         this.publisher = publisher;
     }
 
     @Override
     public WeChatPayUnifiedOrderWithNativeResult unifiedOrderWithNative(
-            @NotNull final String body,
-            @NotNull final String outTradeNo,
-            @NotNull final Integer totalFee) throws WeChatPayException {
+        @NotNull final String body,
+        @NotNull final String outTradeNo,
+        final int totalFee) throws WeChatPayException {
 
         final WeChatPayUnifiedOrderRequest request
-                = WeChatPayUnifiedOrderRequest.createWithNative(body, outTradeNo, totalFee);
+            = WeChatPayUnifiedOrderRequest.createWithNative(body, outTradeNo, totalFee);
 
         final WeChatPayUnifiedOrderResponse responseBody = requestAndPublishEvent(request);
 
@@ -64,13 +64,13 @@ public class WeChatPayDefaultService implements WeChatPayService {
 
     @Override
     public void unifiedOrderWithJsApi(
-            @NotNull final String openid,
-            @NotNull final String body,
-            @NotNull final String outTradeNo,
-            @NotNull final Integer totalFee) throws WeChatPayException {
+        @NotNull final String openid,
+        @NotNull final String body,
+        @NotNull final String outTradeNo,
+        final int totalFee) throws WeChatPayException {
 
         final WeChatPayUnifiedOrderRequest request
-                = WeChatPayUnifiedOrderRequest.createWithJsApi(openid, body, outTradeNo, totalFee);
+            = WeChatPayUnifiedOrderRequest.createWithJsApi(openid, body, outTradeNo, totalFee);
 
         requestAndPublishEvent(request);
     }
@@ -78,7 +78,7 @@ public class WeChatPayDefaultService implements WeChatPayService {
     private WeChatPayUnifiedOrderResponse requestAndPublishEvent(final WeChatPayUnifiedOrderRequest request) {
 
         final WeChatPayUnifiedOrderResponse responseBody
-                = this.weChatPayClient.unifiedOrder(request);
+            = this.weChatPayClient.unifiedOrder(request);
 
         this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));
 
