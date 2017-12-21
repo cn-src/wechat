@@ -20,7 +20,8 @@ import cn.javaer.wechat.sdk.mp.model.WeChatMpAccessTokenResponse;
 
 public interface WeChatMpClient {
 
-    String BASE_URL = "https://api.weixin.qq.com";
+    String BASE_PATH = "https://api.weixin.qq.com";
+    String ACCESS_TOKEN_PATH = "/sns/oauth2/access_token";
 
     WeChatMpAccessTokenResponse snsOauth2AccessToken(String appid, String secret, String code, String grantType);
 }
