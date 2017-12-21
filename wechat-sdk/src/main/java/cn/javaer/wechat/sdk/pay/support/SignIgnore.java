@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.sdk.pay;
+package cn.javaer.wechat.sdk.pay.support;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

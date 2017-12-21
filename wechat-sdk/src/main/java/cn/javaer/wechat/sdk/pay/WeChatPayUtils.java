@@ -19,6 +19,7 @@ package cn.javaer.wechat.sdk.pay;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
+import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;

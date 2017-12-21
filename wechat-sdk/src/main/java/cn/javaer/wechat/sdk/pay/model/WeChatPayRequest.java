@@ -16,9 +16,9 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import cn.javaer.wechat.sdk.pay.SignIgnore;
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
+import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
 
