@@ -25,8 +25,8 @@ import javax.xml.bind.ValidationEventHandler;
 import javax.xml.bind.annotation.DomHandler;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 处理接收微信动态字段以及 api 变更产生的未知字段.
@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class OtherElementsDomHandler implements DomHandler<Map<String, String>, DOMResult> {
 
-    private final Map<String, String> otherElements = new HashMap<>();
+    private final Map<String, String> otherElements = new TreeMap<>();
 
     @Override
     public DOMResult createUnmarshaller(final ValidationEventHandler errorHandler) {
