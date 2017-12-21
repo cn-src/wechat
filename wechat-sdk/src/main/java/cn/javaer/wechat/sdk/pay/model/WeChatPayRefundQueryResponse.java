@@ -72,7 +72,6 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
 
     @Override
     public void beforeSign() {
-        super.beforeSign();
         if (null == this.refundMap && null != this.otherMap) {
             final Map<String, BiConsumer<String, WeChatRefund>> mappingMap = new HashMap<>(11);
             mappingMap.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));

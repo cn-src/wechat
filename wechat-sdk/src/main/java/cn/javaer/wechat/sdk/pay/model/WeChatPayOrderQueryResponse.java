@@ -111,7 +111,6 @@ public class WeChatPayOrderQueryResponse extends WeChatPayResponse {
 
     @Override
     public void beforeSign() {
-        super.beforeSign();
         if (null == this.coupons && null != this.otherMap) {
             this.coupons = WeChatPayUtils.toCouponMap(this.otherMap);
         }

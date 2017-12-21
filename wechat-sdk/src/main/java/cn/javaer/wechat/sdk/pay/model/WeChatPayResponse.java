@@ -18,20 +18,17 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
+import cn.javaer.wechat.sdk.pay.support.OtherElementsDomHandler;
 import cn.javaer.wechat.sdk.pay.support.SignIgnore;
-import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,21 +80,14 @@ public abstract class WeChatPayResponse {
     @XmlElement(name = "err_code_des")
     private String errCodeDes;
 
-    @XmlAnyElement
-    @Setter(AccessLevel.PACKAGE)
-    @Getter(AccessLevel.PACKAGE)
-    @SignIgnore
-    private List<Element> otherElements;
-
+    @XmlAnyElement(OtherElementsDomHandler.class)
     @Setter(AccessLevel.PACKAGE)
     protected Map<String, String> otherMap;
 
     /**
      * 签名之前的处理, 子类可覆盖实现完成各自特定处理.
      */
-    public void beforeSign() {
-        this.otherMap = Collections.unmodifiableMap(WeChatUtils.elementsToMap(this.otherElements));
-    }
+    public void beforeSign() {}
 
     /**
      * 校验 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
