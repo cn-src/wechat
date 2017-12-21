@@ -93,13 +93,13 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
 
     @Override
     public void beforeSign() {
-        if (null == this.refundCoupons && null != this.otherMap) {
+        if (null == this.refundCoupons && null != this.otherElements) {
             final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
             mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
             this.refundCoupons = WeChatPayUtils.dynamicMapping(
-                this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
+                this.otherElements, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
         }
     }
 

@@ -77,7 +77,7 @@ public class WeChatPayUtils {
     public static String generateSign(
         @NotNull final WeChatPayResponse response, @NotNull final String key) {
         final Map<String, String> sortedMap = toSortedMap(response);
-        final Map<String, String> otherMap = response.getOtherMap();
+        final Map<String, String> otherMap = response.getOtherElements();
         if (null != otherMap && !otherMap.isEmpty()) {
             sortedMap.putAll(otherMap);
         }
@@ -159,24 +159,24 @@ public class WeChatPayUtils {
      * mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
      * mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
      * mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-     * WeChatPayUtils.dynamicMapping(this.otherMap, mappingMap, WeChatPayCoupon::new);
+     * WeChatPayUtils.dynamicMapping(this.otherElements, mappingMap, WeChatPayCoupon::new);
      * </pre>
      *
-     * @param otherMap 已存放的动态数据
+     * @param otherElements 已存放的动态数据
      * @param mappingMap 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.
-     *     value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherMap 的 value.
+     *     value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherElements 的 value.
      * @param newT 新对象的创建函数
      * @param <T> 要转换的目标对象的类型
      *
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
     public static <T> Map<String, T> dynamicMapping(
-        @NotNull final Map<String, String> otherMap,
+        @NotNull final Map<String, String> otherElements,
         @NotNull final Map<String, BiConsumer<String, T>> mappingMap,
         @NotNull final Supplier<T> newT) {
 
         final Map<String, T> rtMap = new TreeMap<>();
-        for (final Map.Entry<String, String> entry : otherMap.entrySet()) {
+        for (final Map.Entry<String, String> entry : otherElements.entrySet()) {
 
             final String key = entry.getKey();
             final String value = entry.getValue();
@@ -200,7 +200,7 @@ public class WeChatPayUtils {
     /**
      * 提取转换代金券信息.
      *
-     * @param otherMap otherMap
+     * @param otherMap otherElements
      *
      * @return <code>Map&lt;String, WeChatPayCoupon&gt;</code>
      */

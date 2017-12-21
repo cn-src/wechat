@@ -72,7 +72,7 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
 
     @Override
     public void beforeSign() {
-        if (null == this.refundMap && null != this.otherMap) {
+        if (null == this.refundMap && null != this.otherElements) {
             final Map<String, BiConsumer<String, WeChatRefund>> mappingMap = new HashMap<>(11);
             mappingMap.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));
             mappingMap.put("refund_id_", (val, coupon) -> coupon.setRefundId(val));
@@ -88,7 +88,7 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
             mappingMap.put("refund_success_time_", (val, coupon) -> coupon.setRefundSuccessTime(val));
 
             this.refundMap = WeChatPayUtils.dynamicMapping(
-                this.otherMap, Collections.unmodifiableMap(mappingMap), WeChatRefund::new);
+                this.otherElements, Collections.unmodifiableMap(mappingMap), WeChatRefund::new);
 
             for (final Map.Entry<String, WeChatRefund> entry : this.refundMap.entrySet()) {
                 final String key = entry.getKey();
@@ -100,7 +100,7 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
                 mappingMap2.put("coupon_refund_fee_" + key + "_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
                 final Map<String, WeChatPayCoupon> couponMap = WeChatPayUtils.dynamicMapping(
-                    this.otherMap, Collections.unmodifiableMap(mappingMap2), WeChatPayCoupon::new);
+                    this.otherElements, Collections.unmodifiableMap(mappingMap2), WeChatPayCoupon::new);
 
                 entry.getValue().setRefundCoupons(couponMap);
             }

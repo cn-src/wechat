@@ -96,8 +96,8 @@ public class WeChatPayNotifyResult extends WeChatPayResponse {
 
     @Override
     public void beforeSign() {
-        if (null == this.coupons && null != this.otherMap) {
-            this.coupons = WeChatPayUtils.toCouponMap(this.otherMap);
+        if (null == this.coupons && null != this.otherElements) {
+            this.coupons = WeChatPayUtils.toCouponMap(this.otherElements);
         }
     }
 }

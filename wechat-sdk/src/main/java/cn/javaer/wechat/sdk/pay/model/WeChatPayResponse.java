@@ -81,7 +81,7 @@ public abstract class WeChatPayResponse {
     @XmlAnyElement(OtherElementsDomHandler.class)
     @Setter(AccessLevel.PACKAGE)
     @SignIgnore
-    protected Map<String, String> otherMap;
+    protected Map<String, String> otherElements;
 
     /**
      * 签名之前的处理, 子类可覆盖实现完成各自特定处理.
