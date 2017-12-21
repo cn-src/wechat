@@ -23,5 +23,5 @@ public interface WeChatMpClient {
     String BASE_PATH = "https://api.weixin.qq.com";
     String ACCESS_TOKEN_PATH = "/sns/oauth2/access_token";
 
-    WeChatMpAccessTokenResponse snsOauth2AccessToken(String appid, String secret, String code, String grantType);
+    WeChatMpAccessTokenResponse accessToken(String code);
 }
