@@ -17,16 +17,18 @@
 package cn.javaer.wechat.sdk.mp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 微信公众号获取授权令牌响应.
  *
  * @author zhangpeng
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Setter
+@Getter
+@ToString(callSuper = true)
 public class WeChatMpAccessTokenResponse extends WeChatMpResponse {
     @JsonProperty("access_token")
     private String accessToken;
@@ -43,5 +45,6 @@ public class WeChatMpAccessTokenResponse extends WeChatMpResponse {
     @JsonProperty("scope")
     private String scope;
 
+    @JsonProperty("unionid")
     private String unionid;
 }
