@@ -22,7 +22,7 @@ package cn.javaer.wechat.sdk.mp.model;
  * @author zhangpeng
  */
 public enum AuthorizeScope {
-    BASE("snsapi_base"), USERINFO("snsapi_userinfo");
+    BASE("snsapi_base"), USER_INFO("snsapi_userinfo");
     private final String scope;
 
     AuthorizeScope(String scope) {
