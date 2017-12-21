@@ -31,7 +31,7 @@ public class WeChatPayConfigurator {
     /**
      * 默认的全局配置实例.
      */
-    public static final WeChatPayConfigurator INSTANCE = new WeChatPayConfigurator();
+    public static final WeChatPayConfigurator DEFAULT = new WeChatPayConfigurator();
 
     private String appid;
 

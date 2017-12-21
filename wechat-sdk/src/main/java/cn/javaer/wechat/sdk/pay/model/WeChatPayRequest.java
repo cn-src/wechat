@@ -67,7 +67,7 @@ public abstract class WeChatPayRequest {
      */
     protected void configureAndSign() {
 
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
 
         this.appid = configurator.getAppid();
         this.mchId = configurator.getMchId();

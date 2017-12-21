@@ -93,7 +93,7 @@ public abstract class WeChatPayResponse {
      */
     public void checkSignAndSuccessful() {
         this.beforeSign();
-        WeChatPayUtils.checkSign(this, WeChatPayConfigurator.INSTANCE.getMchKey());
+        WeChatPayUtils.checkSign(this, WeChatPayConfigurator.DEFAULT.getMchKey());
         WeChatPayUtils.checkSuccess(this);
     }
 
@@ -103,6 +103,6 @@ public abstract class WeChatPayResponse {
      * @return 签名正确以及状态都为 'SUCCESS' 时返回 true.
      */
     public boolean isSuccessful() {
-        return WeChatPayUtils.isSuccessful(this, WeChatPayConfigurator.INSTANCE.getMchKey());
+        return WeChatPayUtils.isSuccessful(this, WeChatPayConfigurator.DEFAULT.getMchKey());
     }
 }

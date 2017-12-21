@@ -34,7 +34,7 @@ public class WeChatUtilsTest {
 
     @Test
     public void elementsToMap() {
-        WeChatPayConfigurator.INSTANCE.setMchKey("key");
+        WeChatPayConfigurator.DEFAULT.setMchKey("key");
 
         final WeChatPayOrderQueryResponse response = WeChatTestUtils.jaxbUnmarshal(
                 "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",

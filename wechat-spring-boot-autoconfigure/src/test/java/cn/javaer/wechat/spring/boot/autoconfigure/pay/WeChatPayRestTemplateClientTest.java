@@ -39,7 +39,7 @@ public class WeChatPayRestTemplateClientTest {
                         .withStatus(200)
                         .withHeader("Content-Type", MediaType.APPLICATION_XML_VALUE)
                         .withBody("<xml><return_code>SUCCESS</return_code><result_code>SUCCESS</result_code></xml>")));
-        WeChatPayConfigurator.INSTANCE.setMchKey("key");
+        WeChatPayConfigurator.DEFAULT.setMchKey("key");
         final WeChatPayUnifiedOrderRequest request = WeChatPayUnifiedOrderRequest.createWithNative("body", "outTradeNo", 100);
         final WeChatPayUnifiedOrderResponse unifiedOrderResponse = this.weChatPayClient.unifiedOrder(request);
 

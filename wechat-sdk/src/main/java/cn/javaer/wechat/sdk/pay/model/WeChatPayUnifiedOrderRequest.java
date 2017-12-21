@@ -162,7 +162,7 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
         final int totalFee) {
         Validate.inclusiveBetween(1, 10_0000_00, totalFee);
 
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
         final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
 
         request.productId = WeChatUtils.uuid32();
@@ -196,7 +196,7 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
         final int totalFee) {
         Validate.inclusiveBetween(1, 10_0000_00, totalFee);
 
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
         final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
 
         request.tradeType = TRADE_TYPE_JSAPI;

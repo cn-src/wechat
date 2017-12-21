@@ -83,7 +83,7 @@ public class WeChatPayRefundQueryResponseTest {
 
         assertThat(response).hasSign(generateSign);
 
-        WeChatPayConfigurator.INSTANCE.setMchKey("key");
+        WeChatPayConfigurator.DEFAULT.setMchKey("key");
         response.checkSignAndSuccessful();
     }
 }
