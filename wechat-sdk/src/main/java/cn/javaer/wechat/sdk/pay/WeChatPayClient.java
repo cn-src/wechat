@@ -20,6 +20,8 @@ import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundQueryRequest;
+import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundQueryResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundResponse;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
@@ -120,4 +122,15 @@ public interface WeChatPayClient {
      * @throws WeChatPayException WeChatPayException
      */
     WeChatPayRefundResponse refund(WeChatPayRefundRequest request) throws WeChatPayException;
+
+    /**
+     * 查询退款.
+     *
+     * @param request WeChatPayRefundQueryRequest
+     *
+     * @return WeChatPayRefundQueryResponse
+     *
+     * @throws WeChatPayException WeChatPayException
+     */
+    WeChatPayRefundQueryResponse refundQuery(WeChatPayRefundQueryRequest request) throws WeChatPayException;
 }
