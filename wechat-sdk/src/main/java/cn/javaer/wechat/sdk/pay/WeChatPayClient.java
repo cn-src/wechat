@@ -80,9 +80,9 @@ public interface WeChatPayClient {
     /**
      * 统一下单.
      *
-     * @param request request
+     * @param request WeChatPayUnifiedOrderRequest
      *
-     * @return response
+     * @return WeChatPayUnifiedOrderResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
@@ -91,9 +91,9 @@ public interface WeChatPayClient {
     /**
      * 查询订单.
      *
-     * @param request request
+     * @param request WeChatPayOrderQueryRequest
      *
-     * @return response
+     * @return WeChatPayOrderQueryResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
@@ -102,9 +102,9 @@ public interface WeChatPayClient {
     /**
      * 关闭订单.
      *
-     * @param request request
+     * @param request WeChatPayCloseOrderRequest
      *
-     * @return response
+     * @return WeChatPayCloseOrderResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
