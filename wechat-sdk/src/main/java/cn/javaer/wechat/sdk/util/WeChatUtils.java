@@ -18,14 +18,9 @@ package cn.javaer.wechat.sdk.util;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Element;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -75,26 +70,6 @@ public class WeChatUtils {
                 return pathItem;
             }
         }).collect(Collectors.joining("/"));
-    }
-
-    /**
-     * Element 转成 Map.
-     *
-     * @param elements elements
-     *
-     * @return <code>Map&lt;String, String&gt;</code>
-     */
-    @Contract("null -> !null")
-    public static Map<String, String> elementsToMap(final List<Element> elements) {
-        if (null == elements || elements.isEmpty()) {
-            return Collections.emptyMap();
-        }
-
-        final Map<String, String> map = new TreeMap<>();
-        for (final Element element : elements) {
-            map.put(element.getNodeName(), element.getTextContent());
-        }
-        return map;
     }
 
     /**
