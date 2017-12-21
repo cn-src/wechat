@@ -20,6 +20,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -156,11 +157,12 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
      * @return WeChatPayUnifiedOrderRequest
      */
     public static WeChatPayUnifiedOrderRequest createWithNative(
-            @NotNull final String body,
-            @NotNull final String outTradeNo,
-            @NotNull final Integer totalFee) {
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+        @NotNull final String body,
+        @NotNull final String outTradeNo,
+        final int totalFee) {
+        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
 
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
         final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
 
         request.productId = WeChatUtils.uuid32();
@@ -188,12 +190,13 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
      * @return WeChatPayUnifiedOrderRequest
      */
     public static WeChatPayUnifiedOrderRequest createWithJsApi(
-            @NotNull final String openid,
-            @NotNull final String body,
-            @NotNull final String outTradeNo,
-            @NotNull final Integer totalFee) {
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
+        @NotNull final String openid,
+        @NotNull final String body,
+        @NotNull final String outTradeNo,
+        final int totalFee) {
+        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
 
+        final WeChatPayConfigurator configurator = WeChatPayConfigurator.INSTANCE;
         final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
 
         request.tradeType = TRADE_TYPE_JSAPI;
