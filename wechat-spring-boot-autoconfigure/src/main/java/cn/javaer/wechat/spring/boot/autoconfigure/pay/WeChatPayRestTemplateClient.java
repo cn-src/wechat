@@ -35,6 +35,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 /**
  * 微信支付客户端-RestTemplate实现.
  *
@@ -54,6 +56,8 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
      */
     public WeChatPayRestTemplateClient(
         final RestTemplate restTemplate, final WeChatPayProperties weChatPayProperties) {
+        Objects.requireNonNull(restTemplate);
+        Objects.requireNonNull(weChatPayProperties);
 
         this.restTemplate = restTemplate;
         this.weChatPayProperties = weChatPayProperties;
@@ -62,6 +66,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     @Override
     public WeChatPayUnifiedOrderResponse unifiedOrder(
         final WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
+        Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.UNIFIED_ORDER_PATH,
@@ -73,6 +78,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     @Override
     public WeChatPayOrderQueryResponse orderQuery(
         final WeChatPayOrderQueryRequest request) throws WeChatPayException {
+        Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.ORDER_QUERY_PATH,
@@ -84,6 +90,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     @Override
     public WeChatPayCloseOrderResponse closeOrder(
         final WeChatPayCloseOrderRequest request) throws WeChatPayException {
+        Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.CLOSE_ORDER_PATH,
@@ -95,6 +102,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     @Override
     public WeChatPayRefundResponse refund(
         final WeChatPayRefundRequest request) throws WeChatPayException {
+        Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.REFUND_PATH,
@@ -106,6 +114,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     @Override
     public WeChatPayRefundQueryResponse refundQuery(
         final WeChatPayRefundQueryRequest request) throws WeChatPayException {
+        Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.REFUND_QUERY_PATH,
