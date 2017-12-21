@@ -93,8 +93,7 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
         @NotNull final String outRefundNo,
         final int totalFee,
         final int refundFee) {
-
-        Validate.inclusiveBetween(1, 100000, totalFee);
+        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
         Validate.inclusiveBetween(1, totalFee, refundFee);
 
         final WeChatPayRefundRequest request = new WeChatPayRefundRequest();
