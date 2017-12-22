@@ -17,6 +17,8 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
+import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
+import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -94,5 +96,11 @@ public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
         if (!StringUtils.hasText(this.notifyAddress) && StringUtils.hasText(mpNotifyAddress)) {
             this.notifyAddress = mpNotifyAddress;
         }
+
+        WeChatPayConfigurator.DEFAULT.setAppid(this.appid);
+        WeChatPayConfigurator.DEFAULT.setMchId(this.mchId);
+        WeChatPayConfigurator.DEFAULT.setMchKey(this.mchKey);
+        WeChatPayConfigurator.DEFAULT.setSpbillCreateIp(this.clientIp);
+        WeChatPayConfigurator.DEFAULT.setNotifyUrl(WeChatUtils.joinPath(this.notifyAddress, this.notifyResultPath));
     }
 }
