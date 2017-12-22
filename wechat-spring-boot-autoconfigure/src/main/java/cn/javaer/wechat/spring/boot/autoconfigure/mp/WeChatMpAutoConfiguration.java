@@ -26,6 +26,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * 微信公众号自动配置.
@@ -48,13 +49,13 @@ public class WeChatMpAutoConfiguration {
     @ConditionalOnMissingBean
     public WeChatMpController weChatMpController(final WeChatMpClient weChatMpClient,
                                                  final ApplicationEventPublisher publisher) {
-        return new WeChatMpController(weChatMpProperties, weChatMpClient, publisher);
+        return new WeChatMpController(this.weChatMpProperties, weChatMpClient, publisher);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatMpClient weChatMpClient() {
-        //TODO
-        return null;
+    public WeChatMpClient weChatMpClient(final RestTemplate restTemplate) {
+        return new WeChatMpRestTemplateClient(restTemplate, this.weChatMpProperties);
     }
+
 }

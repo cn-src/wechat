@@ -16,6 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
+import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -37,7 +38,7 @@ public class WeChatMpProperties {
     private String appid;
 
     @NonNull
-    private String appSecret;
+    private String secret;
 
     @NonNull
     private String notifyAddress;
@@ -49,5 +50,5 @@ public class WeChatMpProperties {
 
     private String accessAuthorizePath;
 
-    private String apiBasePath = "https://api.weixin.qq.com";
+    private String apiBasePath = WeChatPayClient.BASE_PATH;
 }
