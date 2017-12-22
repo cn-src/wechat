@@ -21,6 +21,7 @@ import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
 import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author zhangpeng
  */
 @Getter
+@ToString
 public abstract class WeChatPayRequest {
     /**
      * 公众账号ID.

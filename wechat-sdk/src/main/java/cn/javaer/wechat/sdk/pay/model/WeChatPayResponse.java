@@ -23,6 +23,7 @@ import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -37,6 +38,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
+@ToString
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class WeChatPayResponse {
     public static final String SUCCESS = "SUCCESS";

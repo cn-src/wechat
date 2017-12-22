@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
+@ToString
 public abstract class WeChatMpResponse {
     @JsonProperty("errcode")
     protected String errCode;
