@@ -16,34 +16,23 @@
 
 package cn.javaer.wechat.sdk.mp.model;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
- * 微信公众号基本的响应信息.
- *
  * @author zhangpeng
  */
-@Getter
-@Setter
-public abstract class WeChatMpResponse {
-    @JsonProperty("errcode")
-    protected String errCode;
+public class WeChatMpResponseTest {
 
-    @JsonProperty("errmsg")
-    protected String errMsg;
-
-    @Setter(AccessLevel.PRIVATE)
-    protected Map<String, String> otherProperties = new HashMap<>();
-
-    @JsonAnySetter
-    protected void setOtherProperties(final String name, final String value) {
-        this.otherProperties.put(name, value);
+    @Test
+    public void setOtherProperties() throws Exception {
+        final ObjectMapper mapper = new ObjectMapper();
+        final Demo demo = mapper.readValue("{\"errcode\":\"d1\",\"any1\":\"any1\",\"any2\":\"any2\"}", Demo.class);
+        Assert.assertEquals("d1", demo.getErrCode());
+        Assert.assertEquals("any1", demo.getOtherProperties().get("any1"));
+        Assert.assertEquals("any2", demo.getOtherProperties().get("any2"));
     }
 }
+
+class Demo extends WeChatMpResponse {}
