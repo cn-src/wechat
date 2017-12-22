@@ -16,14 +16,12 @@
 
 package cn.javaer.wechat.sdk.util;
 
-import org.jetbrains.annotations.Contract;
+import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 微信工具类.
@@ -51,25 +49,18 @@ public class WeChatUtils {
     /**
      * 拼接多个 path.
      *
-     * @param pathItems Path items
+     * @param firstPath firstPath
+     * @param secondPath secondPath
      *
      * @return 拼接后的 path.
      */
-    @Contract("null -> fail")
-    public static String joinPath(final String... pathItems) {
-        if (null == pathItems || pathItems.length <= 0) {
-            throw new IllegalArgumentException("'pathItems' must not be empty");
-        }
+    public static String joinPath(final String firstPath, final String secondPath) {
+        Validate.notEmpty(firstPath);
+        Validate.notEmpty(secondPath);
 
-        return Stream.of(pathItems).map(pathItem -> {
-            if (pathItem.endsWith("/")) {
-                return pathItem.substring(0, pathItem.length() - 1);
-            } else if (pathItem.startsWith("/")) {
-                return pathItem.substring(1);
-            } else {
-                return pathItem;
-            }
-        }).collect(Collectors.joining("/"));
+        final String tmp1 = firstPath.endsWith("/") ? firstPath.substring(0, firstPath.length() - 1) : firstPath;
+        final String tmp2 = secondPath.startsWith("/") ? (tmp1 + secondPath) : (tmp1 + "/" + secondPath);
+        return tmp2.endsWith("/") ? tmp2.substring(0, tmp2.length() - 1) : tmp2;
     }
 
     /**

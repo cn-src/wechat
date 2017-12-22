@@ -26,6 +26,7 @@ import java.util.Map;
 
 import static cn.javaer.wechat.test.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author zhangpeng
@@ -37,14 +38,24 @@ public class WeChatUtilsTest {
         WeChatPayConfigurator.DEFAULT.setMchKey("key");
 
         final WeChatPayOrderQueryResponse response = WeChatTestUtils.jaxbUnmarshal(
-                "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
-                WeChatPayOrderQueryResponse.class);
+            "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
+            WeChatPayOrderQueryResponse.class);
         response.beforeSign();
 
         final Map<String, WeChatPayCoupon> coupons = response.getCoupons();
         assertThat(coupons)
-                .hasSize(1)
-                .containsOnlyKeys("0");
+            .hasSize(1)
+            .containsOnlyKeys("0");
         assertThat(coupons.get("0")).hasType(WeChatPayCoupon.Type.CASH);
+    }
+
+    @Test
+    public void joinPath() {
+        assertEquals("http://demo.com/demo", WeChatUtils.joinPath("http://demo.com", "/demo"));
+        assertEquals("http://demo.com/demo", WeChatUtils.joinPath("http://demo.com", "/demo/"));
+        assertEquals("http://demo.com/demo", WeChatUtils.joinPath("http://demo.com", "demo/"));
+        assertEquals("http://demo.com/demo", WeChatUtils.joinPath("http://demo.com/", "/demo"));
+        assertEquals("http://demo.com/demo", WeChatUtils.joinPath("http://demo.com/", "/demo/"));
+        assertEquals("http://demo.com/demo", WeChatUtils.joinPath("http://demo.com/", "demo/"));
     }
 }
