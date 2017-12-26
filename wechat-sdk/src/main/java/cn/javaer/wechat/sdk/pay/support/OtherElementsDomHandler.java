@@ -47,7 +47,6 @@ public class OtherElementsDomHandler implements DomHandler<Map<String, String>, 
     public Map<String, String> getElement(final DOMResult rt) {
         final Node n = rt.getNode();
         if (n instanceof Document) {
-
             final Element element = ((Document) n).getDocumentElement();
             this.otherElements.put(element.getNodeName(), element.getTextContent());
         }
