@@ -59,7 +59,7 @@ public class WeChatPayDefaultService implements WeChatPayService {
 
         final WeChatPayUnifiedOrderResponse responseBody = requestAndPublishEvent(request);
 
-        return WeChatPayUnifiedOrderWithNativeResult.createWith(responseBody);
+        return WeChatPayUnifiedOrderWithNativeResult.createFrom(responseBody);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class WeChatPayUnifiedOrderWithNativeResult {
      *
      * @return WeChatPayUnifiedOrderWithNativeResult
      */
-    public static WeChatPayUnifiedOrderWithNativeResult createWith(final WeChatPayUnifiedOrderResponse response) {
+    public static WeChatPayUnifiedOrderWithNativeResult createFrom(final WeChatPayUnifiedOrderResponse response) {
         final WeChatPayUnifiedOrderWithNativeResult nativeResult = new WeChatPayUnifiedOrderWithNativeResult();
         nativeResult.setCodeUrl(response.getCodeUrl());
         return nativeResult;
