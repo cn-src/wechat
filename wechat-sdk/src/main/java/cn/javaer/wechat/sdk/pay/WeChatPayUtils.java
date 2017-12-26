@@ -112,7 +112,7 @@ public class WeChatPayUtils {
      *
      * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
      */
-    public static void checkSuccess(@NotNull final WeChatPayResponse response) {
+    public static void checkSuccessful(@NotNull final WeChatPayResponse response) {
         if (!WeChatPayResponse.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
         }
