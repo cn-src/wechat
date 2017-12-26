@@ -114,10 +114,12 @@ public class WeChatPayUtils {
      */
     public static void checkSuccessful(@NotNull final WeChatPayResponse response) {
         if (!WeChatPayResponse.SUCCESS.equals(response.getReturnCode())) {
-            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
+                + "', response:" + response.toString());
         }
         if (!WeChatPayResponse.SUCCESS.equals(response.getResultCode())) {
-            throw new WeChatPayException("WeChat pay response error, response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response 'result_code' is '" + response.getResultCode()
+                + "', response:" + response.toString());
         }
     }
 
