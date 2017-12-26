@@ -249,7 +249,7 @@ public class WeChatPayUtils {
                 continue;
             }
             final String val = asString(field, obj);
-            if (null == val) {
+            if (null == val || val.isEmpty()) {
                 continue;
             }
             final String name = field.getAnnotation(XmlElement.class).name();
