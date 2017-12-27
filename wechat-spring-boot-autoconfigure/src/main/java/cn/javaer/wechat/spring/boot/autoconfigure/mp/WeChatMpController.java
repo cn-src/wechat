@@ -34,7 +34,6 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 @RestController
 public class WeChatMpController {
-    private static final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
     private final WeChatMpProperties weChatMpProperties;
     private final WeChatMpClient weChatMpClient;
     private final ApplicationEventPublisher publisher;
@@ -43,13 +42,13 @@ public class WeChatMpController {
      * 微信公众号 Controller.
      *
      * @param weChatMpProperties weChatMpProperties
-     * @param weChatMpClient     weChatMpClient
-     * @param publisher          publisher
+     * @param weChatMpClient weChatMpClient
+     * @param publisher publisher
      */
     public WeChatMpController(
-            @NotNull final WeChatMpProperties weChatMpProperties,
-            @NotNull final WeChatMpClient weChatMpClient,
-            @NotNull final ApplicationEventPublisher publisher) {
+        @NotNull final WeChatMpProperties weChatMpProperties,
+        @NotNull final WeChatMpClient weChatMpClient,
+        @NotNull final ApplicationEventPublisher publisher) {
         this.weChatMpProperties = weChatMpProperties;
         this.weChatMpClient = weChatMpClient;
         this.publisher = publisher;
@@ -60,26 +59,19 @@ public class WeChatMpController {
      *
      * @param redirect 应用自身回调地址
      */
-    @GetMapping(path = "${wechat.mp.access-authorize-path:/public/wechat/mp/access_authorize}")
-    public RedirectView accessAuthorize(@RequestParam("redirect") final String redirect) {
-        // final String path = StringUtils.hasText(this.weChatMpProperties.getAuthorizeCodePath())
-        //     ? this.weChatMpProperties.getAuthorizeCodePath()
-        //     : AUTHORIZE_CODE_PATH;
+    @GetMapping(path = "${wechat.mp.authorize-path:" + WeChatMpProperties.AUTHORIZE_PATH + "}")
+    public RedirectView authorize(@RequestParam("redirect") final String redirect) {
         final String redirectUri = WeChatUtils.joinPath(this.weChatMpProperties.getNotifyAddress(), redirect);
         return new RedirectView(WeChatMpUtils.generateAuthorizeUrl(
-                this.weChatMpProperties.getAppid(), redirectUri, AuthorizeScope.BASE));
+            this.weChatMpProperties.getAppid(), redirectUri, AuthorizeScope.BASE));
     }
 
     /**
      * 微信回调接口, 提供给微信在授权之后的重定向.
-     *
-     * @return 重定向到指定地址, {@link #accessAuthorize(String)}中指定的 redirect
      */
-    @GetMapping(path = "${wechat.mp.authorize-code-path:" + AUTHORIZE_CODE_PATH + '}')
-    public RedirectView authorizeCode(
-            @RequestParam("code") final String code,
-            @RequestParam("redirect") final String redirect) {
-        //TODO
-        return new RedirectView(redirect);
+    @GetMapping(path = "${wechat.mp.authorize-code-path:" + WeChatMpProperties.AUTHORIZE_CODE_PATH + '}')
+    public void authorizeCode(
+        @RequestParam("code") final String code) {
+
     }
 }

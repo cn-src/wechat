@@ -31,6 +31,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @ConfigurationProperties(prefix = "wechat.mp")
 public class WeChatMpProperties {
+
+    public static final String AUTHORIZE_CODE_PATH = "/public/wechat/mp/authorize_code";
+    public static final String AUTHORIZE_PATH = "/public/wechat/mp/authorize";
+
+
     /**
      * 公众号的唯一标识.
      */
@@ -48,7 +53,7 @@ public class WeChatMpProperties {
      */
     private String authorizeCodePath;
 
-    private String accessAuthorizePath;
+    private String authorizePath;
 
     private String apiBasePath = WeChatPayClient.BASE_PATH;
 }
