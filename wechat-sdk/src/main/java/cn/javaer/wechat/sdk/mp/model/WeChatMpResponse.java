@@ -48,4 +48,8 @@ public abstract class WeChatMpResponse {
     protected void setOtherProperties(final String name, final String value) {
         this.otherProperties.put(name, value);
     }
+
+    public boolean isSuccessful() {
+        return null == this.errCode || this.errCode.isEmpty() || "0".equals(this.errCode);
+    }
 }
