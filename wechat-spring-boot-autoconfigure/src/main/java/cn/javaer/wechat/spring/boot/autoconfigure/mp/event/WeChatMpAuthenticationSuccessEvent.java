@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.spring.boot.autoconfigure.mp;
+package cn.javaer.wechat.spring.boot.autoconfigure.mp.event;
 
 import cn.javaer.wechat.sdk.mp.model.WeChatMpAccessTokenResponse;
 import lombok.Data;
