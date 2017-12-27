@@ -19,7 +19,9 @@ package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 import cn.javaer.wechat.sdk.mp.WeChatMpClient;
 import cn.javaer.wechat.sdk.mp.WeChatMpUtils;
 import cn.javaer.wechat.sdk.mp.model.AuthorizeScope;
+import cn.javaer.wechat.sdk.mp.model.WeChatMpAccessTokenResponse;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
+import cn.javaer.wechat.spring.boot.autoconfigure.mp.event.WeChatMpAuthenticationSuccessEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +74,12 @@ public class WeChatMpController {
     @GetMapping(path = "${wechat.mp.authorize-code-path:" + WeChatMpProperties.AUTHORIZE_CODE_PATH + '}')
     public void authorizeCode(
         @RequestParam("code") final String code) {
-
+        final WeChatMpAccessTokenResponse accessTokenResponse = this.weChatMpClient.accessToken(code);
+        if (accessTokenResponse.isSuccessful()) {
+            this.publisher.publishEvent(new WeChatMpAuthenticationSuccessEvent(accessTokenResponse));
+        } else {
+            throw new WeChatMpAuthenticationException(String.format("errcode: %s, errmsg: %s",
+                accessTokenResponse.getErrCode(), accessTokenResponse.getErrMsg()));
+        }
     }
 }

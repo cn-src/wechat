@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.spring.boot.autoconfigure.mp.event;
+package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
-import cn.javaer.wechat.sdk.mp.model.WeChatMpAccessTokenResponse;
-import lombok.Data;
-import lombok.NonNull;
+import org.springframework.security.core.AuthenticationException;
 
 /**
- * 公众号认证成功事件.
+ * 微信公众号授权异常.
  *
  * @author zhangpeng
  */
-@Data
-public class WeChatMpAuthenticationSuccessEvent {
-    @NonNull
-    private WeChatMpAccessTokenResponse accessTokenResponse;
+public class WeChatMpAuthenticationException extends AuthenticationException {
+    public WeChatMpAuthenticationException(final String msg, final Throwable t) {
+        super(msg, t);
+    }
+
+    public WeChatMpAuthenticationException(final String msg) {
+        super(msg);
+    }
 }
