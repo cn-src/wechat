@@ -17,12 +17,14 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.mp;
 
 import cn.javaer.wechat.sdk.mp.WeChatMpClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,10 +54,23 @@ public class WeChatMpAutoConfiguration {
         return new WeChatMpController(this.weChatMpProperties, weChatMpClient, publisher);
     }
 
+    /**
+     * weChatMpClient.
+     *
+     * @param restTemplateBuilder the rest template builder
+     *
+     * @return the WeChatMpClient
+     */
     @Bean
     @ConditionalOnMissingBean
-    public WeChatMpClient weChatMpClient(final RestTemplate restTemplate) {
-        return new WeChatMpRestTemplateClient(restTemplate, this.weChatMpProperties);
+    public WeChatMpClient weChatMpClient(
+        @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+        @Autowired(required = false) final RestTemplateBuilder restTemplateBuilder) {
+
+        if (null == restTemplateBuilder) {
+            return new WeChatMpRestTemplateClient(new RestTemplate(), this.weChatMpProperties);
+        }
+        return new WeChatMpRestTemplateClient(restTemplateBuilder.build(), this.weChatMpProperties);
     }
 
 }
