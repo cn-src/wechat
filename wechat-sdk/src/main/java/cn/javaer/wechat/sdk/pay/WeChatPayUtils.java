@@ -215,11 +215,7 @@ public class WeChatPayUtils {
         try {
             field.setAccessible(true);
             final Object val = field.get(obj);
-            if (null == val) {
-                return null;
-            } else {
-                return val.toString();
-            }
+            return (null == val) ? null : val.toString();
         } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
         }
