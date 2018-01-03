@@ -49,7 +49,7 @@ public class RefundQueryResponseTest {
 
         response.beforeSign();
 
-        assertThat(response.getOtherElements())
+        assertThat(response.getOtherParams())
                 .containsEntry("out_refund_no_0", "out_refund_no_0")
                 .containsEntry("refund_id_0", "refund_id_0")
                 .containsEntry("refund_channel_0", "ORIGINAL")

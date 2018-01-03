@@ -50,15 +50,15 @@ public class WeChatPayUtils {
      * 微信支付-生成签名.
      *
      * @param request 要签名的数据对象.
-     * @param key key
+     * @param mchKey mchKey
      *
      * @return 返回签名 String
      */
     @NotNull
     public static String generateSign(
-        @NotNull final BasePayRequest request, @NotNull final String key) {
+        @NotNull final BasePayRequest request, @NotNull final String mchKey) {
 
-        return generateSign(signParamsFrom(request), key);
+        return generateSign(signParamsFrom(request), mchKey);
     }
 
     /**
@@ -73,7 +73,7 @@ public class WeChatPayUtils {
     public static String generateSign(
         @NotNull final BasePayResponse response, @NotNull final String mchKey) {
         final Map<String, String> sortedMap = signParamsFrom(response);
-        final Map<String, String> otherMap = response.getOtherElements();
+        final Map<String, String> otherMap = response.getOtherParams();
         if (null != otherMap && !otherMap.isEmpty()) {
             sortedMap.putAll(otherMap);
         }
@@ -83,18 +83,18 @@ public class WeChatPayUtils {
     /**
      * 微信支付-生成签名.
      *
-     * @param sortedMap 要签名的数据对象.
+     * @param params 要签名的数据对象.
      * @param mchKey mchKey
      *
      * @return 返回签名 String
      */
     @NotNull
     public static String generateSign(
-        @NotNull final Map<String, String> sortedMap, @NotNull final String mchKey) {
+        @NotNull final Map<String, String> params, @NotNull final String mchKey) {
 
         final StringBuilder sb = new StringBuilder();
 
-        for (final Map.Entry<String, String> entry : sortedMap.entrySet()) {
+        for (final Map.Entry<String, String> entry : params.entrySet()) {
             sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
         }
         sb.append("mchKey").append('=').append(mchKey);
@@ -157,24 +157,24 @@ public class WeChatPayUtils {
      * mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
      * mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
      * mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-     * WeChatPayUtils.dynamicMapping(this.otherElements, mappingMap, Coupon::new);
+     * WeChatPayUtils.dynamicMapping(this.otherParams, mappingMap, Coupon::new);
      * </pre>
      *
-     * @param extraSignParams 已存放的动态数据
+     * @param params 已存放的动态数据
      * @param mappingMap 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.
-     *     value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherElements 的 value.
+     *     value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherParams 的 value.
      * @param newT 新对象的创建函数
      * @param <T> 要转换的目标对象的类型
      *
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
     public static <T> Map<String, T> dynamicMapping(
-        @NotNull final Map<String, String> extraSignParams,
+        @NotNull final Map<String, String> params,
         @NotNull final Map<String, BiConsumer<String, T>> mappingMap,
         @NotNull final Supplier<T> newT) {
 
         final Map<String, T> rtMap = new TreeMap<>();
-        for (final Map.Entry<String, String> entry : extraSignParams.entrySet()) {
+        for (final Map.Entry<String, String> entry : params.entrySet()) {
 
             final String key = entry.getKey();
             final String value = entry.getValue();
@@ -198,17 +198,17 @@ public class WeChatPayUtils {
     /**
      * 提取转换代金券信息.
      *
-     * @param extraSignParams otherElements
+     * @param params params
      *
      * @return <code>Map&lt;String, Coupon&gt;</code>
      */
-    public static Map<String, Coupon> couponsFrom(final Map<String, String> extraSignParams) {
+    public static Map<String, Coupon> couponsFrom(final Map<String, String> params) {
         final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
         mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
         mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
         mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
-        return WeChatPayUtils.dynamicMapping(extraSignParams, Collections.unmodifiableMap(mappingMap), Coupon::new);
+        return WeChatPayUtils.dynamicMapping(params, Collections.unmodifiableMap(mappingMap), Coupon::new);
     }
 
     private static String asString(final Field field, final Object obj) {

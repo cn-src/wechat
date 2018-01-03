@@ -83,7 +83,7 @@ public abstract class BasePayResponse {
     @XmlAnyElement(AnyElementsDomHandler.class)
     @Setter(AccessLevel.PACKAGE)
     @SignIgnore
-    protected Map<String, String> otherElements;
+    protected Map<String, String> otherParams;
 
     /**
      * 签名之前的处理, 子类可覆盖实现完成各自特定处理.

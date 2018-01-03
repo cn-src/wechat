@@ -96,8 +96,8 @@ public class NotifyResult extends BasePayResponse {
 
     @Override
     public void beforeSign() {
-        if (null == this.coupons && null != this.otherElements) {
-            this.coupons = WeChatPayUtils.couponsFrom(this.otherElements);
+        if (null == this.coupons && null != this.otherParams) {
+            this.coupons = WeChatPayUtils.couponsFrom(this.otherParams);
         }
     }
 }

@@ -93,13 +93,13 @@ public class RefundResponse extends BasePayResponse {
 
     @Override
     public void beforeSign() {
-        if (null == this.refundCoupons && null != this.otherElements) {
+        if (null == this.refundCoupons && null != this.otherParams) {
             final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
             mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
             this.refundCoupons = WeChatPayUtils.dynamicMapping(
-                this.otherElements, Collections.unmodifiableMap(mappingMap), Coupon::new);
+                this.otherParams, Collections.unmodifiableMap(mappingMap), Coupon::new);
         }
     }
 
