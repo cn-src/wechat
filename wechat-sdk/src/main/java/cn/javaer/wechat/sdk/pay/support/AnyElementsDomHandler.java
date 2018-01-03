@@ -25,7 +25,7 @@ import javax.xml.bind.ValidationEventHandler;
 import javax.xml.bind.annotation.DomHandler;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
-import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -34,9 +34,9 @@ import java.util.TreeMap;
  * @author zhangpeng
  * @see javax.xml.bind.annotation.W3CDomHandler
  */
-public class AnyElementsDomHandler implements DomHandler<Map<String, String>, DOMResult> {
+public class AnyElementsDomHandler implements DomHandler<SortedMap<String, String>, DOMResult> {
 
-    private final Map<String, String> otherElements = new TreeMap<>();
+    private final SortedMap<String, String> otherElements = new TreeMap<>();
 
     @Override
     public DOMResult createUnmarshaller(final ValidationEventHandler errorHandler) {
@@ -44,7 +44,7 @@ public class AnyElementsDomHandler implements DomHandler<Map<String, String>, DO
     }
 
     @Override
-    public Map<String, String> getElement(final DOMResult rt) {
+    public SortedMap<String, String> getElement(final DOMResult rt) {
         final Node n = rt.getNode();
         if (n instanceof Document) {
             final Element element = ((Document) n).getDocumentElement();
@@ -63,7 +63,7 @@ public class AnyElementsDomHandler implements DomHandler<Map<String, String>, DO
     }
 
     @Override
-    public Source marshal(final Map<String, String> n, final ValidationEventHandler errorHandler) {
+    public Source marshal(final SortedMap<String, String> n, final ValidationEventHandler errorHandler) {
         throw new UnsupportedOperationException();
     }
 }

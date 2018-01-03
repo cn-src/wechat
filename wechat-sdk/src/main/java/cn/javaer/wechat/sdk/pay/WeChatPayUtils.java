@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
@@ -72,12 +73,12 @@ public class WeChatPayUtils {
     @NotNull
     public static String generateSign(
         @NotNull final BasePayResponse response, @NotNull final String mchKey) {
-        final Map<String, String> sortedMap = signParamsFrom(response);
-        final Map<String, String> otherMap = response.getOtherParams();
-        if (null != otherMap && !otherMap.isEmpty()) {
-            sortedMap.putAll(otherMap);
+        final SortedMap<String, String> params = signParamsFrom(response);
+        final SortedMap<String, String> otherParams = response.getOtherParams();
+        if (null != otherParams && !otherParams.isEmpty()) {
+            params.putAll(otherParams);
         }
-        return generateSign(sortedMap, mchKey);
+        return generateSign(params, mchKey);
     }
 
     /**
@@ -90,7 +91,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-        @NotNull final Map<String, String> params, @NotNull final String mchKey) {
+        @NotNull final SortedMap<String, String> params, @NotNull final String mchKey) {
 
         final StringBuilder sb = new StringBuilder();
 
@@ -169,11 +170,11 @@ public class WeChatPayUtils {
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
     public static <T> Map<String, T> dynamicMapping(
-        @NotNull final Map<String, String> params,
+        @NotNull final SortedMap<String, String> params,
         @NotNull final Map<String, BiConsumer<String, T>> mappingMap,
         @NotNull final Supplier<T> newT) {
 
-        final Map<String, T> rtMap = new TreeMap<>();
+        final SortedMap<String, T> rtMap = new TreeMap<>();
         for (final Map.Entry<String, String> entry : params.entrySet()) {
 
             final String key = entry.getKey();
@@ -202,7 +203,7 @@ public class WeChatPayUtils {
      *
      * @return <code>Map&lt;String, Coupon&gt;</code>
      */
-    public static Map<String, Coupon> couponsFrom(final Map<String, String> params) {
+    public static Map<String, Coupon> couponsFrom(final SortedMap<String, String> params) {
         final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
         mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
         mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
@@ -221,7 +222,7 @@ public class WeChatPayUtils {
         }
     }
 
-    private static Map<String, String> signParamsFrom(final Object obj) {
+    private static SortedMap<String, String> signParamsFrom(final Object obj) {
         final Class<?> clazz = obj.getClass();
         final List<Field> fields = CACHE_FOR_SIGN.computeIfAbsent(
             clazz,
@@ -229,7 +230,7 @@ public class WeChatPayUtils {
 
         Validate.notEmpty(fields);
 
-        final Map<String, String> params = new TreeMap<>();
+        final SortedMap<String, String> params = new TreeMap<>();
         for (final Field field : fields) {
             if (null != field.getAnnotation(SignIgnore.class)) {
                 continue;

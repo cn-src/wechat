@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Map;
+import java.util.SortedMap;
 
 /**
  * 微信支付-基本响应信息.
@@ -83,7 +83,7 @@ public abstract class BasePayResponse {
     @XmlAnyElement(AnyElementsDomHandler.class)
     @Setter(AccessLevel.PACKAGE)
     @SignIgnore
-    protected Map<String, String> otherParams;
+    protected SortedMap<String, String> otherParams;
 
     /**
      * 签名之前的处理, 子类可覆盖实现完成各自特定处理.
