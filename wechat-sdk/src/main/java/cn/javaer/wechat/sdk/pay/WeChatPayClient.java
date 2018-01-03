@@ -16,16 +16,16 @@
 
 package cn.javaer.wechat.sdk.pay;
 
-import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundQueryRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundQueryResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.CloseOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.CloseOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.OrderQueryRequest;
+import cn.javaer.wechat.sdk.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.RefundQueryRequest;
+import cn.javaer.wechat.sdk.pay.model.RefundQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.RefundRequest;
+import cn.javaer.wechat.sdk.pay.model.RefundResponse;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponse;
 
 /**
  * 微信支付客户端接口.
@@ -82,55 +82,55 @@ public interface WeChatPayClient {
     /**
      * 统一下单.
      *
-     * @param request WeChatPayUnifiedOrderRequest
+     * @param request UnifiedOrderRequest
      *
-     * @return WeChatPayUnifiedOrderResponse
+     * @return UnifiedOrderResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
-    WeChatPayUnifiedOrderResponse unifiedOrder(WeChatPayUnifiedOrderRequest request) throws WeChatPayException;
+    UnifiedOrderResponse unifiedOrder(UnifiedOrderRequest request) throws WeChatPayException;
 
     /**
      * 查询订单.
      *
-     * @param request WeChatPayOrderQueryRequest
+     * @param request OrderQueryRequest
      *
-     * @return WeChatPayOrderQueryResponse
+     * @return OrderQueryResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
-    WeChatPayOrderQueryResponse orderQuery(WeChatPayOrderQueryRequest request) throws WeChatPayException;
+    OrderQueryResponse orderQuery(OrderQueryRequest request) throws WeChatPayException;
 
     /**
      * 关闭订单.
      *
-     * @param request WeChatPayCloseOrderRequest
+     * @param request CloseOrderRequest
      *
-     * @return WeChatPayCloseOrderResponse
+     * @return CloseOrderResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
-    WeChatPayCloseOrderResponse closeOrder(WeChatPayCloseOrderRequest request) throws WeChatPayException;
+    CloseOrderResponse closeOrder(CloseOrderRequest request) throws WeChatPayException;
 
     /**
      * 申请退款.
      *
-     * @param request WeChatPayRefundRequest
+     * @param request RefundRequest
      *
-     * @return WeChatPayRefundResponse
+     * @return RefundResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
-    WeChatPayRefundResponse refund(WeChatPayRefundRequest request) throws WeChatPayException;
+    RefundResponse refund(RefundRequest request) throws WeChatPayException;
 
     /**
      * 查询退款.
      *
-     * @param request WeChatPayRefundQueryRequest
+     * @param request RefundQueryRequest
      *
-     * @return WeChatPayRefundQueryResponse
+     * @return RefundQueryResponse
      *
      * @throws WeChatPayException WeChatPayException
      */
-    WeChatPayRefundQueryResponse refundQuery(WeChatPayRefundQueryRequest request) throws WeChatPayException;
+    RefundQueryResponse refundQuery(RefundQueryRequest request) throws WeChatPayException;
 }

@@ -41,7 +41,7 @@ import java.util.function.BiConsumer;
 @ToString(callSuper = true, exclude = {"refundCoupons"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayRefundResponse extends WeChatPayResponse {
+public class RefundResponse extends WeChatPayResponse {
 
     @XmlElement(name = "transaction_id")
     private String transactionId;
@@ -89,17 +89,17 @@ public class WeChatPayRefundResponse extends WeChatPayResponse {
      * 退款代金券.
      */
     @SignIgnore
-    private Map<String, WeChatPayCoupon> refundCoupons;
+    private Map<String, Coupon> refundCoupons;
 
     @Override
     public void beforeSign() {
         if (null == this.refundCoupons && null != this.otherElements) {
-            final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
+            final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
-            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
+            mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
             this.refundCoupons = WeChatPayUtils.dynamicMapping(
-                this.otherElements, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
+                this.otherElements, Collections.unmodifiableMap(mappingMap), Coupon::new);
         }
     }
 

@@ -26,7 +26,7 @@ import java.util.Map;
  * @author zhangpeng
  */
 @Data
-public class WeChatRefund {
+public class Refund {
 
     /**
      * 商户退款单号.
@@ -83,6 +83,6 @@ public class WeChatRefund {
      */
     private String refundSuccessTime;
 
-    private Map<String, WeChatPayCoupon> refundCoupons;
+    private Map<String, Coupon> refundCoupons;
 
 }

@@ -16,9 +16,9 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -26,21 +26,26 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 微信支付-支付通知结果-返回给微信服务的响应.
+ * 微信支付-统一下单-响应.
  *
  * @author zhangpeng
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayNotifyResultResponse {
-    public static final WeChatPayNotifyResultResponse SUCCESS = new WeChatPayNotifyResultResponse("SUCCESS", "OK");
+public class UnifiedOrderResponse extends WeChatPayResponse {
 
-    @XmlElement(name = "return_code")
-    private String returnCode;
+    @XmlElement(name = "device_info")
+    private String deviceInfo;
 
-    @XmlElement(name = "return_msg")
-    private String returnMsg;
+    @XmlElement(name = "trade_type")
+    private String tradeType;
+
+    @XmlElement(name = "prepay_id")
+    private String prepayId;
+
+    @XmlElement(name = "code_url")
+    private String codeUrl;
 }

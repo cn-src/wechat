@@ -16,7 +16,7 @@
 
 package cn.javaer.wechat.sdk.pay;
 
-import cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon;
+import cn.javaer.wechat.sdk.pay.model.Coupon;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayRequest;
 import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
 import cn.javaer.wechat.sdk.pay.support.SignIgnore;
@@ -153,11 +153,11 @@ public class WeChatPayUtils {
      *
      * <h3>样例:</h3>
      * <pre>
-     * final Map&lt;String, BiConsumer&lt;String, WeChatPayCoupon&gt;&gt; mappingMap = new HashMap&lt;&gt;();
+     * final Map&lt;String, BiConsumer&lt;String, Coupon&gt;&gt; mappingMap = new HashMap&lt;&gt;();
      * mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
      * mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
      * mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-     * WeChatPayUtils.dynamicMapping(this.otherElements, mappingMap, WeChatPayCoupon::new);
+     * WeChatPayUtils.dynamicMapping(this.otherElements, mappingMap, Coupon::new);
      * </pre>
      *
      * @param otherElements 已存放的动态数据
@@ -200,15 +200,15 @@ public class WeChatPayUtils {
      *
      * @param otherMap otherElements
      *
-     * @return <code>Map&lt;String, WeChatPayCoupon&gt;</code>
+     * @return <code>Map&lt;String, Coupon&gt;</code>
      */
-    public static Map<String, WeChatPayCoupon> toCouponMap(final Map<String, String> otherMap) {
-        final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap = new HashMap<>(3);
+    public static Map<String, Coupon> toCouponMap(final Map<String, String> otherMap) {
+        final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
         mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
-        mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
+        mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
         mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
-        return WeChatPayUtils.dynamicMapping(otherMap, Collections.unmodifiableMap(mappingMap), WeChatPayCoupon::new);
+        return WeChatPayUtils.dynamicMapping(otherMap, Collections.unmodifiableMap(mappingMap), Coupon::new);
     }
 
     private static String asString(final Field field, final Object obj) {

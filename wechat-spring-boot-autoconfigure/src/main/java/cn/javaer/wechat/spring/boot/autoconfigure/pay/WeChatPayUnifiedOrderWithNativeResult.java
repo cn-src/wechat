@@ -16,7 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponse;
 import lombok.Data;
 
 /**
@@ -29,13 +29,13 @@ public class WeChatPayUnifiedOrderWithNativeResult {
     private String codeUrl;
 
     /**
-     * 创建 WeChatPayUnifiedOrderWithNativeResult 从 WeChatPayUnifiedOrderResponse 中的信息.
+     * 创建 WeChatPayUnifiedOrderWithNativeResult 从 UnifiedOrderResponse 中的信息.
      *
-     * @param response WeChatPayUnifiedOrderResponse
+     * @param response UnifiedOrderResponse
      *
      * @return WeChatPayUnifiedOrderWithNativeResult
      */
-    public static WeChatPayUnifiedOrderWithNativeResult createFrom(final WeChatPayUnifiedOrderResponse response) {
+    public static WeChatPayUnifiedOrderWithNativeResult createFrom(final UnifiedOrderResponse response) {
         final WeChatPayUnifiedOrderWithNativeResult nativeResult = new WeChatPayUnifiedOrderWithNativeResult();
         nativeResult.setCodeUrl(response.getCodeUrl());
         return nativeResult;

@@ -16,28 +16,31 @@
 
 package cn.javaer.wechat.sdk.pay.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Data;
 
 /**
- * 微信支付-关闭订单-响应.
+ * 代金券.
  *
  * @author zhangpeng
  */
-@Setter
-@Getter
-@ToString(callSuper = true)
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "xml")
-public class WeChatPayCloseOrderResponse extends WeChatPayResponse {
+@Data
+public class Coupon {
 
-    @XmlElement(name = "result_msg")
-    private String resultMsg;
+    /**
+     * 代金券类型.
+     */
+    public enum Type {
+        /**
+         * 充值代金券.
+         */
+        CASH,
+        /**
+         * 非充值代金券.
+         */
+        NO_CASH
+    }
 
+    private String id;
+    private Type type;
+    private Integer fee;
 }

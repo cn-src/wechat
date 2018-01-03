@@ -41,7 +41,7 @@ import java.util.function.BiConsumer;
 @ToString(callSuper = true, exclude = {"refundMap"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
+public class RefundQueryResponse extends WeChatPayResponse {
 
     @XmlElement(name = "total_refund_count")
     private Integer totalRefundCount;
@@ -68,12 +68,12 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
     private Integer refundCount;
 
     @SignIgnore
-    private Map<String, WeChatRefund> refundMap;
+    private Map<String, Refund> refundMap;
 
     @Override
     public void beforeSign() {
         if (null == this.refundMap && null != this.otherElements) {
-            final Map<String, BiConsumer<String, WeChatRefund>> mappingMap = new HashMap<>(11);
+            final Map<String, BiConsumer<String, Refund>> mappingMap = new HashMap<>(11);
             mappingMap.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));
             mappingMap.put("refund_id_", (val, coupon) -> coupon.setRefundId(val));
             mappingMap.put("refund_channel_", (val, coupon) -> coupon.setRefundChannel(val));
@@ -88,19 +88,19 @@ public class WeChatPayRefundQueryResponse extends WeChatPayResponse {
             mappingMap.put("refund_success_time_", (val, coupon) -> coupon.setRefundSuccessTime(val));
 
             this.refundMap = WeChatPayUtils.dynamicMapping(
-                this.otherElements, Collections.unmodifiableMap(mappingMap), WeChatRefund::new);
+                this.otherElements, Collections.unmodifiableMap(mappingMap), Refund::new);
 
-            for (final Map.Entry<String, WeChatRefund> entry : this.refundMap.entrySet()) {
+            for (final Map.Entry<String, Refund> entry : this.refundMap.entrySet()) {
                 final String key = entry.getKey();
 
-                final Map<String, BiConsumer<String, WeChatPayCoupon>> mappingMap2 = new HashMap<>(3);
+                final Map<String, BiConsumer<String, Coupon>> mappingMap2 = new HashMap<>(3);
                 mappingMap2.put("coupon_type_" + key + "_",
-                    (val, coupon) -> coupon.setType(WeChatPayCoupon.Type.valueOf(val)));
+                    (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
                 mappingMap2.put("coupon_refund_id_" + key + "_", (val, coupon) -> coupon.setId(val));
                 mappingMap2.put("coupon_refund_fee_" + key + "_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
-                final Map<String, WeChatPayCoupon> couponMap = WeChatPayUtils.dynamicMapping(
-                    this.otherElements, Collections.unmodifiableMap(mappingMap2), WeChatPayCoupon::new);
+                final Map<String, Coupon> couponMap = WeChatPayUtils.dynamicMapping(
+                    this.otherElements, Collections.unmodifiableMap(mappingMap2), Coupon::new);
 
                 entry.getValue().setRefundCoupons(couponMap);
             }

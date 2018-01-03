@@ -16,7 +16,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay.event;
 
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponse;
 
 /**
  * 微信支付-统一下单事件.
@@ -25,11 +25,11 @@ import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
  */
 public class WeChatPayUnifiedOrderEvent {
 
-    private final WeChatPayUnifiedOrderResponse unifiedOrderResponse;
+    private final UnifiedOrderResponse unifiedOrderResponse;
     private final boolean successful;
 
 
-    public WeChatPayUnifiedOrderEvent(final WeChatPayUnifiedOrderResponse unifiedOrderResponse) {
+    public WeChatPayUnifiedOrderEvent(final UnifiedOrderResponse unifiedOrderResponse) {
         this.unifiedOrderResponse = unifiedOrderResponse;
         this.successful = unifiedOrderResponse.isSuccessful();
     }
@@ -37,9 +37,9 @@ public class WeChatPayUnifiedOrderEvent {
     /**
      * 获取统一下单的响应.
      *
-     * @return WeChatPayUnifiedOrderResponse
+     * @return UnifiedOrderResponse
      */
-    public WeChatPayUnifiedOrderResponse getUnifiedOrderResponse() {
+    public UnifiedOrderResponse getUnifiedOrderResponse() {
         return this.unifiedOrderResponse;
     }
 

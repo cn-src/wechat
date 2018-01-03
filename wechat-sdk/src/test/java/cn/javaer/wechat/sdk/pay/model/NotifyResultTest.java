@@ -9,12 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author zhangpeng
  */
-public class WeChatPayNotifyResultTest {
+public class NotifyResultTest {
 
     @Test
     public void testParse() {
         final String xml = WeChatTestUtils.readClassPathFileToUTFString("/WeChatPayNotifyResult.xml", this.getClass());
-        final WeChatPayNotifyResult notifyResult = WeChatTestUtils.jaxbUnmarshal(xml, WeChatPayNotifyResult.class);
+        final NotifyResult notifyResult = WeChatTestUtils.jaxbUnmarshal(xml, NotifyResult.class);
         assertThat(notifyResult)
             .hasAppid("wx2421b1c4370ec43b")
             .hasAttach("支付测试")
@@ -43,23 +43,23 @@ public class WeChatPayNotifyResultTest {
 
         assertThat(notifyResult.getCoupons().get("0"))
             .hasId("coupon_id_0")
-            .hasType(WeChatPayCoupon.Type.CASH)
+            .hasType(Coupon.Type.CASH)
             .hasFee(0);
         assertThat(notifyResult.getCoupons().get("1"))
             .hasId("coupon_id_1")
-            .hasType(WeChatPayCoupon.Type.CASH)
+            .hasType(Coupon.Type.CASH)
             .hasFee(1);
         assertThat(notifyResult.getCoupons().get("2"))
             .hasId("coupon_id_2")
-            .hasType(WeChatPayCoupon.Type.CASH)
+            .hasType(Coupon.Type.CASH)
             .hasFee(2);
         assertThat(notifyResult.getCoupons().get("3"))
             .hasId("coupon_id_3")
-            .hasType(WeChatPayCoupon.Type.NO_CASH)
+            .hasType(Coupon.Type.NO_CASH)
             .hasFee(3);
         assertThat(notifyResult.getCoupons().get("4"))
             .hasId("coupon_id_4")
-            .hasType(WeChatPayCoupon.Type.CASH)
+            .hasType(Coupon.Type.CASH)
             .hasFee(4);
 
     }

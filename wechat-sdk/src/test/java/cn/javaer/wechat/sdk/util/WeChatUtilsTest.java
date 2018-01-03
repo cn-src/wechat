@@ -17,8 +17,8 @@
 package cn.javaer.wechat.sdk.util;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayCoupon;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.Coupon;
+import cn.javaer.wechat.sdk.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.test.WeChatTestUtils;
 import org.junit.Test;
 
@@ -37,16 +37,16 @@ public class WeChatUtilsTest {
     public void elementsToMap() {
         WeChatPayConfigurator.DEFAULT.setMchKey("key");
 
-        final WeChatPayOrderQueryResponse response = WeChatTestUtils.jaxbUnmarshal(
+        final OrderQueryResponse response = WeChatTestUtils.jaxbUnmarshal(
             "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
-            WeChatPayOrderQueryResponse.class);
+            OrderQueryResponse.class);
         response.beforeSign();
 
-        final Map<String, WeChatPayCoupon> coupons = response.getCoupons();
+        final Map<String, Coupon> coupons = response.getCoupons();
         assertThat(coupons)
             .hasSize(1)
             .containsOnlyKeys("0");
-        assertThat(coupons.get("0")).hasType(WeChatPayCoupon.Type.CASH);
+        assertThat(coupons.get("0")).hasType(Coupon.Type.CASH);
     }
 
     @Test

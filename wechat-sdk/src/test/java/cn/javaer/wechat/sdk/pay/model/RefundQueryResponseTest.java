@@ -27,12 +27,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author zhangpeng
  */
-public class WeChatPayRefundQueryResponseTest {
+public class RefundQueryResponseTest {
 
     @Test
     public void beforeSign() {
         final String xmlStr = WeChatTestUtils.readClassPathFileToUTFString("/WeChatPayRefundQueryResponse.xml", this.getClass());
-        final WeChatPayRefundQueryResponse response = WeChatTestUtils.jaxbUnmarshal(xmlStr, WeChatPayRefundQueryResponse.class);
+        final RefundQueryResponse response = WeChatTestUtils.jaxbUnmarshal(xmlStr, RefundQueryResponse.class);
 
         assertThat(response)
                 .hasReturnCode("SUCCESS")

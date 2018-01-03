@@ -37,13 +37,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
+public class UnifiedOrderRequest extends WeChatPayRequest {
 
     public static final String TRADE_TYPE_JSAPI = "JSAPI";
     public static final String TRADE_TYPE_NATIVE = "NATIVE";
     public static final String TRADE_TYPE_APP = "APP";
 
-    private WeChatPayUnifiedOrderRequest() {}
+    private UnifiedOrderRequest() {}
 
     /**
      * 设备号.
@@ -154,16 +154,16 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
      * @param outTradeNo 商户订单号
      * @param totalFee 待支付的金额
      *
-     * @return WeChatPayUnifiedOrderRequest
+     * @return UnifiedOrderRequest
      */
-    public static WeChatPayUnifiedOrderRequest createWithNative(
+    public static UnifiedOrderRequest createWithNative(
         @NotNull final String body,
         @NotNull final String outTradeNo,
         final int totalFee) {
         Validate.inclusiveBetween(1, 10_0000_00, totalFee);
 
         final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
-        final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
+        final UnifiedOrderRequest request = new UnifiedOrderRequest();
 
         request.productId = WeChatUtils.uuid32();
         request.tradeType = TRADE_TYPE_NATIVE;
@@ -187,9 +187,9 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
      * @param outTradeNo 商户订单号
      * @param totalFee 待支付的金额
      *
-     * @return WeChatPayUnifiedOrderRequest
+     * @return UnifiedOrderRequest
      */
-    public static WeChatPayUnifiedOrderRequest createWithJsApi(
+    public static UnifiedOrderRequest createWithJsApi(
         @NotNull final String openid,
         @NotNull final String body,
         @NotNull final String outTradeNo,
@@ -197,7 +197,7 @@ public class WeChatPayUnifiedOrderRequest extends WeChatPayRequest {
         Validate.inclusiveBetween(1, 10_0000_00, totalFee);
 
         final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
-        final WeChatPayUnifiedOrderRequest request = new WeChatPayUnifiedOrderRequest();
+        final UnifiedOrderRequest request = new UnifiedOrderRequest();
 
         request.tradeType = TRADE_TYPE_JSAPI;
 

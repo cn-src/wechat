@@ -36,9 +36,9 @@ import java.time.format.DateTimeFormatter;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayDownloadBillRequest extends WeChatPayRequest {
+public class DownloadBillRequest extends WeChatPayRequest {
 
-    private WeChatPayDownloadBillRequest() {}
+    private DownloadBillRequest() {}
 
     /**
      * 对账单日期.
@@ -65,15 +65,15 @@ public class WeChatPayDownloadBillRequest extends WeChatPayRequest {
 
 
     /**
-     * Create new WeChatPayDownloadBillRequest.
+     * Create new DownloadBillRequest.
      *
      * @param queryDate the query date
      * @param billType the bill type
      *
-     * @return the WeChatPayDownloadBillRequest
+     * @return the DownloadBillRequest
      */
-    public static WeChatPayDownloadBillRequest create(final LocalDate queryDate, final BillType billType) {
-        final WeChatPayDownloadBillRequest request = new WeChatPayDownloadBillRequest();
+    public static DownloadBillRequest create(final LocalDate queryDate, final BillType billType) {
+        final DownloadBillRequest request = new DownloadBillRequest();
         request.billDate = queryDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         request.billType = billType.toString();
         request.configureAndSign();
@@ -81,15 +81,15 @@ public class WeChatPayDownloadBillRequest extends WeChatPayRequest {
     }
 
     /**
-     * Create new WeChatPayDownloadBillRequest.
+     * Create new DownloadBillRequest.
      *
      * @param queryDate the query date
      * @param billType the bill type
      *
-     * @return the WeChatPayDownloadBillRequest
+     * @return the DownloadBillRequest
      */
-    public static WeChatPayDownloadBillRequest createWithGzip(final LocalDate queryDate, final BillType billType) {
-        final WeChatPayDownloadBillRequest request = new WeChatPayDownloadBillRequest();
+    public static DownloadBillRequest createWithGzip(final LocalDate queryDate, final BillType billType) {
+        final DownloadBillRequest request = new DownloadBillRequest();
         request.billDate = queryDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         request.billType = billType.toString();
         request.tarType = "GZIP";

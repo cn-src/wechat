@@ -18,8 +18,8 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayUnifiedOrderEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationEventPublisher;
@@ -54,10 +54,10 @@ public class WeChatPayDefaultService implements WeChatPayService {
         @NotNull final String outTradeNo,
         final int totalFee) throws WeChatPayException {
 
-        final WeChatPayUnifiedOrderRequest request
-            = WeChatPayUnifiedOrderRequest.createWithNative(body, outTradeNo, totalFee);
+        final UnifiedOrderRequest request
+            = UnifiedOrderRequest.createWithNative(body, outTradeNo, totalFee);
 
-        final WeChatPayUnifiedOrderResponse responseBody = requestAndPublishEvent(request);
+        final UnifiedOrderResponse responseBody = requestAndPublishEvent(request);
 
         return WeChatPayUnifiedOrderWithNativeResult.createFrom(responseBody);
     }
@@ -69,15 +69,15 @@ public class WeChatPayDefaultService implements WeChatPayService {
         @NotNull final String outTradeNo,
         final int totalFee) throws WeChatPayException {
 
-        final WeChatPayUnifiedOrderRequest request
-            = WeChatPayUnifiedOrderRequest.createWithJsApi(openid, body, outTradeNo, totalFee);
+        final UnifiedOrderRequest request
+            = UnifiedOrderRequest.createWithJsApi(openid, body, outTradeNo, totalFee);
 
         requestAndPublishEvent(request);
     }
 
-    private WeChatPayUnifiedOrderResponse requestAndPublishEvent(final WeChatPayUnifiedOrderRequest request) {
+    private UnifiedOrderResponse requestAndPublishEvent(final UnifiedOrderRequest request) {
 
-        final WeChatPayUnifiedOrderResponse responseBody
+        final UnifiedOrderResponse responseBody
             = this.weChatPayClient.unifiedOrder(request);
 
         this.publisher.publishEvent(new WeChatPayUnifiedOrderEvent(responseBody));

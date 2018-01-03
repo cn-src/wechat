@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayReportRequest extends WeChatPayRequest {
+public class ReportRequest extends WeChatPayRequest {
 
     /**
      * 设备号.
@@ -104,7 +104,7 @@ public class WeChatPayReportRequest extends WeChatPayRequest {
     private String time;
 
     /**
-     * Create new WeChatPayReportRequest.
+     * Create new ReportRequest.
      *
      * @param interfaceUrl the interface url
      * @param returnCode the return code
@@ -112,10 +112,10 @@ public class WeChatPayReportRequest extends WeChatPayRequest {
      * @param userIp the user ip
      * @param executeTime the execute time
      *
-     * @return the WeChatPayReportRequest
+     * @return the ReportRequest
      */
     @lombok.Builder(builderClassName = "Builder")
-    public static WeChatPayReportRequest create(
+    public static ReportRequest create(
         @NotNull final String interfaceUrl,
         @NotNull final String returnCode,
         @NotNull final String resultCode,
@@ -124,7 +124,7 @@ public class WeChatPayReportRequest extends WeChatPayRequest {
 
         Validate.isTrue(executeTime > 1, "'executeTime' must be more than 1");
 
-        final WeChatPayReportRequest request = new WeChatPayReportRequest();
+        final ReportRequest request = new ReportRequest();
         request.interfaceUrl = interfaceUrl;
         request.returnCode = returnCode;
         request.resultCode = resultCode;

@@ -35,9 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayRefundRequest extends WeChatPayRequest {
+public class RefundRequest extends WeChatPayRequest {
 
-    private WeChatPayRefundRequest() {}
+    private RefundRequest() {}
 
     @XmlElement(name = "transaction_id")
     private String transactionId;
@@ -79,16 +79,16 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
     private String refundAccount;
 
     /**
-     * create WeChatPayRefundRequest.
+     * create RefundRequest.
      *
      * @param outTradeNo 商户订单号
      * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
      * @param totalFee 订单总金额
      * @param refundFee 退款金额
      *
-     * @return WeChatPayRefundRequest
+     * @return RefundRequest
      */
-    public static WeChatPayRefundRequest create(
+    public static RefundRequest create(
         @NotNull final String outTradeNo,
         @NotNull final String outRefundNo,
         final int totalFee,
@@ -96,7 +96,7 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
         Validate.inclusiveBetween(1, 10_0000_00, totalFee);
         Validate.inclusiveBetween(1, totalFee, refundFee);
 
-        final WeChatPayRefundRequest request = new WeChatPayRefundRequest();
+        final RefundRequest request = new RefundRequest();
 
         request.outTradeNo = outTradeNo;
         request.outRefundNo = outRefundNo;
@@ -108,7 +108,7 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
     }
 
     /**
-     * create WeChatPayRefundRequest.
+     * create RefundRequest.
      *
      * @param outTradeNo 商户订单号
      * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
@@ -116,9 +116,9 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
      * @param refundFee 退款金额
      * @param refundDesc 退款原因, 发给用户的退款消息中体现退款原因
      *
-     * @return WeChatPayRefundRequest
+     * @return RefundRequest
      */
-    public static WeChatPayRefundRequest create(
+    public static RefundRequest create(
         @NotNull final String outTradeNo,
         @NotNull final String outRefundNo,
         final int totalFee,
@@ -128,7 +128,7 @@ public class WeChatPayRefundRequest extends WeChatPayRequest {
         Validate.inclusiveBetween(1, 100000, totalFee);
         Validate.inclusiveBetween(1, totalFee, refundFee);
 
-        final WeChatPayRefundRequest request = new WeChatPayRefundRequest();
+        final RefundRequest request = new RefundRequest();
 
         request.outTradeNo = outTradeNo;
         request.outRefundNo = outRefundNo;

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Map;
 
 /**
- * 微信支付-支付结果通知.
+ * 微信支付-查询订单-响应.
  *
  * @author zhangpeng
  */
@@ -38,10 +38,7 @@ import java.util.Map;
 @ToString(callSuper = true, exclude = {"coupons"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayNotifyResult extends WeChatPayResponse {
-
-    @XmlElement(name = "device_info")
-    private String deviceInfo;
+public class OrderQueryResponse extends WeChatPayResponse {
 
     @XmlElement(name = "openid")
     private String openid;
@@ -49,20 +46,32 @@ public class WeChatPayNotifyResult extends WeChatPayResponse {
     @XmlElement(name = "is_subscribe")
     private String isSubscribe;
 
+    @XmlElement(name = "sub_openid")
+    private String subOpenid;
+
+    @XmlElement(name = "sub_is_subscribe")
+    private String subIsSubscribe;
+
     @XmlElement(name = "trade_type")
     private String tradeType;
+
+    @XmlElement(name = "trade_state")
+    private String tradeState;
 
     @XmlElement(name = "bank_type")
     private String bankType;
 
+    @XmlElement(name = "detail")
+    private String detail;
+
     @XmlElement(name = "total_fee")
     private Integer totalFee;
 
-    @XmlElement(name = "settlement_total_fee")
-    private Integer settlementTotalFee;
-
     @XmlElement(name = "fee_type")
     private String feeType;
+
+    @XmlElement(name = "settlement_total_fee")
+    private Integer settlementTotalFee;
 
     @XmlElement(name = "cash_fee")
     private Integer cashFee;
@@ -82,17 +91,23 @@ public class WeChatPayNotifyResult extends WeChatPayResponse {
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
+    @XmlElement(name = "device_info")
+    private String deviceInfo;
+
     @XmlElement(name = "attach")
     private String attach;
 
     @XmlElement(name = "time_end")
     private String timeEnd;
 
+    @XmlElement(name = "trade_state_desc")
+    private String tradeStateDesc;
+
     /**
      * 代金券.
      */
     @SignIgnore
-    private Map<String, WeChatPayCoupon> coupons;
+    private Map<String, Coupon> coupons;
 
     @Override
     public void beforeSign() {

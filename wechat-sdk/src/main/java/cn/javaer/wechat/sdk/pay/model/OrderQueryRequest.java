@@ -18,7 +18,6 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 微信支付-关闭订单-请求.
+ * 微信支付-查询订单-请求.
  *
  * @author zhangpeng
  */
@@ -34,22 +33,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayCloseOrderRequest extends WeChatPayRequest {
+public class OrderQueryRequest extends WeChatPayRequest {
 
-    private WeChatPayCloseOrderRequest() {}
+    private OrderQueryRequest() {}
+
+    @XmlElement(name = "transaction_id")
+    private String transactionId;
 
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
     /**
-     * create WeChatPayCloseOrderRequest.
+     * 根据商户订单号查询订单.
      *
      * @param outTradeNo 商户订单号
      *
-     * @return WeChatPayCloseOrderRequest
+     * @return OrderQueryRequest
      */
-    public static WeChatPayCloseOrderRequest create(@NotNull final String outTradeNo) {
-        final WeChatPayCloseOrderRequest request = new WeChatPayCloseOrderRequest();
+    public static OrderQueryRequest create(final String outTradeNo) {
+        final OrderQueryRequest request = new OrderQueryRequest();
         request.outTradeNo = outTradeNo;
         request.configureAndSign();
         return request;

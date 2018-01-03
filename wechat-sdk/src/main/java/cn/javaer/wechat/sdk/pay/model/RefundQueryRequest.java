@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class WeChatPayRefundQueryRequest extends WeChatPayRequest {
+public class RefundQueryRequest extends WeChatPayRequest {
 
-    private WeChatPayRefundQueryRequest() {}
+    private RefundQueryRequest() {}
 
     @XmlElement(name = "transaction_id")
     private String transactionId;
@@ -57,31 +57,31 @@ public class WeChatPayRefundQueryRequest extends WeChatPayRequest {
     private Integer offset;
 
     /**
-     * create WeChatPayRefundQueryRequest.
+     * create RefundQueryRequest.
      *
      * @param outTradeNo 商户订单号
      *
-     * @return WeChatPayRefundQueryRequest
+     * @return RefundQueryRequest
      */
-    public static WeChatPayRefundQueryRequest createWithOutTradeNo(@NotNull final String outTradeNo) {
-        final WeChatPayRefundQueryRequest request = new WeChatPayRefundQueryRequest();
+    public static RefundQueryRequest createWithOutTradeNo(@NotNull final String outTradeNo) {
+        final RefundQueryRequest request = new RefundQueryRequest();
         request.outTradeNo = outTradeNo;
         request.configureAndSign();
         return request;
     }
 
     /**
-     * create WeChatPayRefundQueryRequest.
+     * create RefundQueryRequest.
      *
      * @param outTradeNo 商户订单号
      * @param offset 分页查询的偏移量,
      *     举例：当商户想查询第25笔时，可传入订单号及offset=24，微信支付平台会返回第25笔到第35笔的退款单信息.
      *
-     * @return WeChatPayRefundQueryRequest
+     * @return RefundQueryRequest
      */
-    public static WeChatPayRefundQueryRequest createWithOutTradeNo(
+    public static RefundQueryRequest createWithOutTradeNo(
         @NotNull final String outTradeNo, @NotNull final Integer offset) {
-        final WeChatPayRefundQueryRequest request = new WeChatPayRefundQueryRequest();
+        final RefundQueryRequest request = new RefundQueryRequest();
         request.outTradeNo = outTradeNo;
         request.offset = offset;
         request.configureAndSign();
@@ -89,14 +89,14 @@ public class WeChatPayRefundQueryRequest extends WeChatPayRequest {
     }
 
     /**
-     * create WeChatPayRefundQueryRequest.
+     * create RefundQueryRequest.
      *
      * @param outRefundNo 商户退款单号
      *
-     * @return WeChatPayRefundQueryRequest
+     * @return RefundQueryRequest
      */
-    public static WeChatPayRefundQueryRequest createWithOutRefundNo(final String outRefundNo) {
-        final WeChatPayRefundQueryRequest request = new WeChatPayRefundQueryRequest();
+    public static RefundQueryRequest createWithOutRefundNo(final String outRefundNo) {
+        final RefundQueryRequest request = new RefundQueryRequest();
         request.outRefundNo = outRefundNo;
         request.configureAndSign();
         return request;

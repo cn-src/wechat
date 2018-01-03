@@ -18,16 +18,16 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayClient;
 import cn.javaer.wechat.sdk.pay.WeChatPayException;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayCloseOrderResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayOrderQueryResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundQueryRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundQueryResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRefundResponse;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.CloseOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.CloseOrderResponse;
+import cn.javaer.wechat.sdk.pay.model.OrderQueryRequest;
+import cn.javaer.wechat.sdk.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.RefundQueryRequest;
+import cn.javaer.wechat.sdk.pay.model.RefundQueryResponse;
+import cn.javaer.wechat.sdk.pay.model.RefundRequest;
+import cn.javaer.wechat.sdk.pay.model.RefundResponse;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderRequest;
+import cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.sdk.util.WeChatUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -64,62 +64,62 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     }
 
     @Override
-    public WeChatPayUnifiedOrderResponse unifiedOrder(
-        final WeChatPayUnifiedOrderRequest request) throws WeChatPayException {
+    public UnifiedOrderResponse unifiedOrder(
+        final UnifiedOrderRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.UNIFIED_ORDER_PATH,
             request,
-            WeChatPayUnifiedOrderResponse.class)
+            UnifiedOrderResponse.class)
             .getBody();
     }
 
     @Override
-    public WeChatPayOrderQueryResponse orderQuery(
-        final WeChatPayOrderQueryRequest request) throws WeChatPayException {
+    public OrderQueryResponse orderQuery(
+        final OrderQueryRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.ORDER_QUERY_PATH,
             request,
-            WeChatPayOrderQueryResponse.class)
+            OrderQueryResponse.class)
             .getBody();
     }
 
     @Override
-    public WeChatPayCloseOrderResponse closeOrder(
-        final WeChatPayCloseOrderRequest request) throws WeChatPayException {
+    public CloseOrderResponse closeOrder(
+        final CloseOrderRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.CLOSE_ORDER_PATH,
             request,
-            WeChatPayCloseOrderResponse.class)
+            CloseOrderResponse.class)
             .getBody();
     }
 
     @Override
-    public WeChatPayRefundResponse refund(
-        final WeChatPayRefundRequest request) throws WeChatPayException {
+    public RefundResponse refund(
+        final RefundRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.REFUND_PATH,
             request,
-            WeChatPayRefundResponse.class)
+            RefundResponse.class)
             .getBody();
     }
 
     @Override
-    public WeChatPayRefundQueryResponse refundQuery(
-        final WeChatPayRefundQueryRequest request) throws WeChatPayException {
+    public RefundQueryResponse refundQuery(
+        final RefundQueryRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
 
         return postForEntity(
             WeChatPayClient.REFUND_QUERY_PATH,
             request,
-            WeChatPayRefundQueryResponse.class)
+            RefundQueryResponse.class)
             .getBody();
     }
 
