@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class UnifiedOrderRequest extends WeChatPayRequest {
+public class UnifiedOrderRequest extends BasePayRequest {
 
     public static final String TRADE_TYPE_JSAPI = "JSAPI";
     public static final String TRADE_TYPE_NATIVE = "NATIVE";

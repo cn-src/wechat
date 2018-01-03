@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class ReportRequest extends WeChatPayRequest {
+public class ReportRequest extends BasePayRequest {
 
     /**
      * 设备号.

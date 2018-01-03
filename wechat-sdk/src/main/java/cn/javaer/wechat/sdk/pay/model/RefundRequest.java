@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class RefundRequest extends WeChatPayRequest {
+public class RefundRequest extends BasePayRequest {
 
     private RefundRequest() {}
 

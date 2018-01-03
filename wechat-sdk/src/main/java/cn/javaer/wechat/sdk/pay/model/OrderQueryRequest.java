@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class OrderQueryRequest extends WeChatPayRequest {
+public class OrderQueryRequest extends BasePayRequest {
 
     private OrderQueryRequest() {}
 

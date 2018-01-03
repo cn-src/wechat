@@ -38,7 +38,7 @@ import java.util.Map;
 @ToString(callSuper = true, exclude = {"coupons"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class NotifyResult extends WeChatPayResponse {
+public class NotifyResult extends BasePayResponse {
 
     @XmlElement(name = "device_info")
     private String deviceInfo;

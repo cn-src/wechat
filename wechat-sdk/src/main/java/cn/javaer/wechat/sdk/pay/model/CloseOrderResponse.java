@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class CloseOrderResponse extends WeChatPayResponse {
+public class CloseOrderResponse extends BasePayResponse {
 
     @XmlElement(name = "result_msg")
     private String resultMsg;

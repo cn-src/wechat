@@ -16,9 +16,9 @@
 
 package cn.javaer.wechat.sdk.pay;
 
+import cn.javaer.wechat.sdk.pay.model.BasePayRequest;
+import cn.javaer.wechat.sdk.pay.model.BasePayResponse;
 import cn.javaer.wechat.sdk.pay.model.Coupon;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayRequest;
-import cn.javaer.wechat.sdk.pay.model.WeChatPayResponse;
 import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.Validate;
@@ -56,7 +56,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-        @NotNull final WeChatPayRequest request, @NotNull final String key) {
+        @NotNull final BasePayRequest request, @NotNull final String key) {
 
         return generateSign(toSortedMap(request), key);
     }
@@ -71,7 +71,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-        @NotNull final WeChatPayResponse response, @NotNull final String key) {
+        @NotNull final BasePayResponse response, @NotNull final String key) {
         final Map<String, String> sortedMap = toSortedMap(response);
         final Map<String, String> otherMap = response.getOtherElements();
         if (null != otherMap && !otherMap.isEmpty()) {
@@ -104,16 +104,16 @@ public class WeChatPayUtils {
     /**
      * 校验响应信息是否为成功.
      *
-     * @param response WeChatPayResponse
+     * @param response BasePayResponse
      *
      * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
      */
-    public static void checkSuccessful(@NotNull final WeChatPayResponse response) {
-        if (!WeChatPayResponse.SUCCESS.equals(response.getReturnCode())) {
+    public static void checkSuccessful(@NotNull final BasePayResponse response) {
+        if (!BasePayResponse.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
                 + "', response:" + response.toString());
         }
-        if (!WeChatPayResponse.SUCCESS.equals(response.getResultCode())) {
+        if (!BasePayResponse.SUCCESS.equals(response.getResultCode())) {
             throw new WeChatPayException("WeChat pay response 'result_code' is '" + response.getResultCode()
                 + "', response:" + response.toString());
         }
@@ -122,11 +122,11 @@ public class WeChatPayUtils {
     /**
      * 校验响应信息的签名.
      *
-     * @param response WeChatPayResponse
+     * @param response BasePayResponse
      *
      * @throws WeChatPayException 签名错误时抛出此异常.
      */
-    public static void checkSign(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
+    public static void checkSign(@NotNull final BasePayResponse response, @NotNull final String mchKey) {
         if (!response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))) {
             throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
         }
@@ -135,15 +135,15 @@ public class WeChatPayUtils {
     /**
      * 判断响应信息是否为成功.
      *
-     * @param response WeChatPayResponse
+     * @param response BasePayResponse
      *
      * @return 有响应信息, 并且完全成功返回 true
      */
-    public static boolean isSuccessful(@NotNull final WeChatPayResponse response, @NotNull final String mchKey) {
+    public static boolean isSuccessful(@NotNull final BasePayResponse response, @NotNull final String mchKey) {
 
         return response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))
-            && (WeChatPayResponse.SUCCESS.equals(response.getReturnCode()))
-            && (WeChatPayResponse.SUCCESS.equals(response.getResultCode()));
+            && (BasePayResponse.SUCCESS.equals(response.getReturnCode()))
+            && (BasePayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
     /**

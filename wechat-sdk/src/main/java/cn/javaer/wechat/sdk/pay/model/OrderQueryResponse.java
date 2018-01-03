@@ -38,7 +38,7 @@ import java.util.Map;
 @ToString(callSuper = true, exclude = {"coupons"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class OrderQueryResponse extends WeChatPayResponse {
+public class OrderQueryResponse extends BasePayResponse {
 
     @XmlElement(name = "openid")
     private String openid;

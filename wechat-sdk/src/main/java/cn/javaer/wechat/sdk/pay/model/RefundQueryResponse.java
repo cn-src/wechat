@@ -41,7 +41,7 @@ import java.util.function.BiConsumer;
 @ToString(callSuper = true, exclude = {"refundMap"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class RefundQueryResponse extends WeChatPayResponse {
+public class RefundQueryResponse extends BasePayResponse {
 
     @XmlElement(name = "total_refund_count")
     private Integer totalRefundCount;

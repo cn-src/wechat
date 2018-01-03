@@ -40,7 +40,7 @@ import java.util.Map;
 @Setter
 @ToString
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class WeChatPayResponse {
+public abstract class BasePayResponse {
     public static final String SUCCESS = "SUCCESS";
 
     @XmlElement(name = "return_code")

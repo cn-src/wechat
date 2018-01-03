@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @Getter
 @ToString
-public abstract class WeChatPayRequest {
+public abstract class BasePayRequest {
     /**
      * 公众账号ID.
      */

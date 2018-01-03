@@ -36,7 +36,7 @@ import java.time.format.DateTimeFormatter;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class DownloadBillRequest extends WeChatPayRequest {
+public class DownloadBillRequest extends BasePayRequest {
 
     private DownloadBillRequest() {}
 
