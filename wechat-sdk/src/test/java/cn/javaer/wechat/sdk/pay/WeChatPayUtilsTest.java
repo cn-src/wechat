@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import static cn.javaer.wechat.test.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
@@ -71,16 +72,16 @@ public class WeChatPayUtilsTest {
             otherMap, Collections.unmodifiableMap(mappingMap), Coupon::new);
 
         assertThat(couponMap)
-                .containsOnlyKeys("0", "1");
+            .containsOnlyKeys("0", "1");
 
         assertThat(couponMap.get("0"))
-                .hasId("BC884153761883FE608EA956BD05A6F5")
+            .hasId("BC884153761883FE608EA956BD05A6F5")
             .hasType(Coupon.Type.CASH)
-                .hasFee(100);
+            .hasFee(100);
 
         assertThat(couponMap.get("1"))
-                .hasId("16BE80B8FD1044069950ADAEDEB812C5")
+            .hasId("16BE80B8FD1044069950ADAEDEB812C5")
             .hasType(Coupon.Type.NO_CASH)
-                .hasFee(1);
+            .hasFee(1);
     }
 }
