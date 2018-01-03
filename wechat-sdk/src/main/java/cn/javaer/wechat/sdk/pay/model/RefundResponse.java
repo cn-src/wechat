@@ -26,8 +26,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -89,7 +89,7 @@ public class RefundResponse extends BasePayResponse {
      * 退款代金券.
      */
     @SignIgnore
-    private Map<String, Coupon> refundCoupons;
+    private List<Coupon> refundCoupons;
 
     @Override
     public void beforeSign() {
@@ -98,8 +98,8 @@ public class RefundResponse extends BasePayResponse {
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
             mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-            this.refundCoupons = WeChatPayUtils.dynamicMapping(
-                this.otherParams, Collections.unmodifiableMap(mappingMap), Coupon::new);
+            this.refundCoupons = WeChatPayUtils.beansFrom(
+                this.otherParams, mappingMap, Coupon::new);
         }
     }
 

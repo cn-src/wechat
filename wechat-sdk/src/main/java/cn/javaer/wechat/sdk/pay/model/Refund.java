@@ -18,7 +18,7 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import lombok.Data;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * 退款信息.
@@ -83,6 +83,6 @@ public class Refund {
      */
     private String refundSuccessTime;
 
-    private Map<String, Coupon> refundCoupons;
+    private List<Coupon> coupons;
 
 }

@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -154,27 +154,27 @@ public class WeChatPayUtils {
      *
      * <h3>样例:</h3>
      * <pre>
-     * final Map&lt;String, BiConsumer&lt;String, Coupon&gt;&gt; mappingMap = new HashMap&lt;&gt;();
-     * mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
-     * mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(val));
-     * mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-     * WeChatPayUtils.dynamicMapping(this.otherParams, mappingMap, Coupon::new);
+     * final Map&lt;String, BiConsumer&lt;String, Coupon&gt;&gt; mapping = new HashMap&lt;&gt;();
+     * mapping.put("coupon_id_", (val, coupon) -> coupon.setId(val));
+     * mapping.put("coupon_type_", (val, coupon) -> coupon.setType(val));
+     * mapping.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+     * WeChatPayUtils.dynamicMapping(this.otherParams, mapping, Coupon::new);
      * </pre>
      *
      * @param params 已存放的动态数据
-     * @param mappingMap 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.
+     * @param mapping 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.
      *     value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherParams 的 value.
      * @param newT 新对象的创建函数
      * @param <T> 要转换的目标对象的类型
      *
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
-    public static <T> Map<String, T> dynamicMapping(
+    public static <T> Map<String, T> beansMapFrom(
         @NotNull final SortedMap<String, String> params,
-        @NotNull final Map<String, BiConsumer<String, T>> mappingMap,
+        @NotNull final Map<String, BiConsumer<String, T>> mapping,
         @NotNull final Supplier<T> newT) {
 
-        final SortedMap<String, T> rtMap = new TreeMap<>();
+        final Map<String, T> rtMap = new HashMap<>();
         for (final Map.Entry<String, String> entry : params.entrySet()) {
 
             final String key = entry.getKey();
@@ -182,7 +182,7 @@ public class WeChatPayUtils {
             if (null == value || value.isEmpty()) {
                 continue;
             }
-            for (final Map.Entry<String, BiConsumer<String, T>> mappingEntry : mappingMap.entrySet()) {
+            for (final Map.Entry<String, BiConsumer<String, T>> mappingEntry : mapping.entrySet()) {
                 final String keyStart = mappingEntry.getKey();
                 if (key.matches(keyStart + "\\d+")) {
                     final String rtKey = key.substring(keyStart.length());
@@ -196,6 +196,14 @@ public class WeChatPayUtils {
         return rtMap;
     }
 
+    public static <T> List<T> beansFrom(
+        @NotNull final SortedMap<String, String> params,
+        @NotNull final Map<String, BiConsumer<String, T>> mapping,
+        @NotNull final Supplier<T> newT) {
+
+        return new ArrayList<>(beansMapFrom(params, mapping, newT).values());
+    }
+
     /**
      * 提取转换代金券信息.
      *
@@ -203,13 +211,13 @@ public class WeChatPayUtils {
      *
      * @return <code>Map&lt;String, Coupon&gt;</code>
      */
-    public static Map<String, Coupon> couponsFrom(final SortedMap<String, String> params) {
+    public static List<Coupon> couponsFrom(final SortedMap<String, String> params) {
         final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
         mappingMap.put("coupon_id_", (val, coupon) -> coupon.setId(val));
         mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
         mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
-        return WeChatPayUtils.dynamicMapping(params, Collections.unmodifiableMap(mappingMap), Coupon::new);
+        return WeChatPayUtils.beansFrom(params, mappingMap, Coupon::new);
     }
 
     private static String asString(final Field field, final Object obj) {
