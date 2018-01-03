@@ -34,7 +34,7 @@ import java.util.TreeMap;
  * @author zhangpeng
  * @see javax.xml.bind.annotation.W3CDomHandler
  */
-public class OtherElementsDomHandler implements DomHandler<Map<String, String>, DOMResult> {
+public class AnyElementsDomHandler implements DomHandler<Map<String, String>, DOMResult> {
 
     private final Map<String, String> otherElements = new TreeMap<>();
 

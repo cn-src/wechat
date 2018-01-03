@@ -18,7 +18,7 @@ package cn.javaer.wechat.sdk.pay.model;
 
 import cn.javaer.wechat.sdk.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.sdk.pay.WeChatPayUtils;
-import cn.javaer.wechat.sdk.pay.support.OtherElementsDomHandler;
+import cn.javaer.wechat.sdk.pay.support.AnyElementsDomHandler;
 import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -80,7 +80,7 @@ public abstract class BasePayResponse {
     @XmlElement(name = "err_code_des")
     private String errCodeDes;
 
-    @XmlAnyElement(OtherElementsDomHandler.class)
+    @XmlAnyElement(AnyElementsDomHandler.class)
     @Setter(AccessLevel.PACKAGE)
     @SignIgnore
     protected Map<String, String> otherElements;
