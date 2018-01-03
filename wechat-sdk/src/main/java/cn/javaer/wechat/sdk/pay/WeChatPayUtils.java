@@ -229,7 +229,7 @@ public class WeChatPayUtils {
 
         Validate.notEmpty(fields);
 
-        final Map<String, String> sortedMap = new TreeMap<>();
+        final Map<String, String> params = new TreeMap<>();
         for (final Field field : fields) {
             if (null != field.getAnnotation(SignIgnore.class)) {
                 continue;
@@ -239,8 +239,8 @@ public class WeChatPayUtils {
                 continue;
             }
             final String name = field.getAnnotation(XmlElement.class).name();
-            sortedMap.put(name, val);
+            params.put(name, val);
         }
-        return sortedMap;
+        return params;
     }
 }
