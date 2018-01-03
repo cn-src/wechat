@@ -24,8 +24,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
@@ -45,8 +43,6 @@ import java.util.function.Supplier;
  * @author zhangpeng
  */
 public class WeChatPayUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(WeChatPayUtils.class);
 
     private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
 
@@ -231,16 +227,10 @@ public class WeChatPayUtils {
 
     private static Map<String, String> toSortedMap(final Object obj) {
         final Class<?> clazz = obj.getClass();
-        final List<Field> cache = CACHE_FOR_SIGN.get(clazz);
+        final List<Field> fields = CACHE_FOR_SIGN.computeIfAbsent(
+            clazz,
+            clazz0 -> FieldUtils.getFieldsListWithAnnotation(clazz0, XmlElement.class));
 
-        final List<Field> fields;
-        if (null == cache) {
-            log.debug("'{}' generate sign from cache", clazz);
-            fields = FieldUtils.getFieldsListWithAnnotation(clazz, XmlElement.class);
-            CACHE_FOR_SIGN.put(clazz, fields);
-        } else {
-            fields = cache;
-        }
         Validate.notEmpty(fields);
 
         final Map<String, String> sortedMap = new TreeMap<>();
