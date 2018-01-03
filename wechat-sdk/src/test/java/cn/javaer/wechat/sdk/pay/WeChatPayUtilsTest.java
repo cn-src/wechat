@@ -4,9 +4,10 @@ import cn.javaer.wechat.sdk.pay.model.Coupon;
 import cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponse;
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.BiConsumer;
 
 import static cn.javaer.wechat.test.Assertions.assertThat;
@@ -54,22 +55,22 @@ public class WeChatPayUtilsTest {
     }
 
     @Test
-    public void dynamicMapping() {
-        final Map<String, String> otherMap = new HashMap<>();
-        otherMap.put("coupon_refund_id_0", "BC884153761883FE608EA956BD05A6F5");
-        otherMap.put("coupon_type_0", "CASH");
-        otherMap.put("coupon_refund_fee_0", "100");
+    public void beansMapFrom() {
+        final SortedMap<String, String> params = new TreeMap<>();
+        params.put("coupon_refund_id_0", "BC884153761883FE608EA956BD05A6F5");
+        params.put("coupon_type_0", "CASH");
+        params.put("coupon_refund_fee_0", "100");
 
-        otherMap.put("coupon_refund_id_1", "16BE80B8FD1044069950ADAEDEB812C5");
-        otherMap.put("coupon_type_1", "NO_CASH");
-        otherMap.put("coupon_refund_fee_1", "1");
+        params.put("coupon_refund_id_1", "16BE80B8FD1044069950ADAEDEB812C5");
+        params.put("coupon_type_1", "NO_CASH");
+        params.put("coupon_refund_fee_1", "1");
 
-        final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
-        mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
-        mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
-        mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-        final Map<String, Coupon> couponMap = WeChatPayUtils.dynamicMapping(
-            otherMap, Collections.unmodifiableMap(mappingMap), Coupon::new);
+        final Map<String, BiConsumer<String, Coupon>> mapping = new HashMap<>(3);
+        mapping.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
+        mapping.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
+        mapping.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+        final Map<String, Coupon> couponMap = WeChatPayUtils.beansMapFrom(
+            params, mapping, Coupon::new);
 
         assertThat(couponMap)
             .containsOnlyKeys("0", "1");

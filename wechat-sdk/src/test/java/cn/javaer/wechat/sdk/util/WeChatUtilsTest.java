@@ -22,7 +22,7 @@ import cn.javaer.wechat.sdk.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.test.WeChatTestUtils;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.List;
 
 import static cn.javaer.wechat.test.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,11 +42,10 @@ public class WeChatUtilsTest {
             OrderQueryResponse.class);
         response.beforeSign();
 
-        final Map<String, Coupon> coupons = response.getCoupons();
+        final List<Coupon> coupons = response.getCoupons();
         assertThat(coupons)
-            .hasSize(1)
-            .containsOnlyKeys("0");
-        assertThat(coupons.get("0")).hasType(Coupon.Type.CASH);
+            .hasSize(1);
+        assertThat(coupons.get(0)).hasType(Coupon.Type.CASH);
     }
 
     @Test
