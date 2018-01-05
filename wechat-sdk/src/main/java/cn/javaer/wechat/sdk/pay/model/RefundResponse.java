@@ -98,8 +98,7 @@ public class RefundResponse extends BasePayResponse {
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
             mappingMap.put("coupon_type_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
             mappingMap.put("coupon_refund_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-            this.refundCoupons = WeChatPayUtils.beansFrom(
-                this.otherParams, mappingMap, Coupon::new);
+            this.refundCoupons = WeChatPayUtils.beansFrom(this.otherParams, mappingMap, Coupon::new);
         }
     }
 
