@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Map;
+import java.util.List;
 
 /**
  * 微信支付-支付结果通知.
@@ -92,7 +92,7 @@ public class NotifyResult extends BasePayResponse {
      * 代金券.
      */
     @SignIgnore
-    private Map<String, Coupon> coupons;
+    private List<Coupon> coupons;
 
     @Override
     public void beforeSign() {
