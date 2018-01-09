@@ -21,6 +21,7 @@ import cn.javaer.wechat.sdk.pay.model.BasePayResponse;
 import cn.javaer.wechat.sdk.pay.model.Coupon;
 import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -242,7 +243,7 @@ public class WeChatPayUtils {
         return fields.stream()
                 .filter(field -> null != field.getAnnotation(SignIgnore.class))
                 .map(field -> Pair.of(field.getAnnotation(XmlElement.class).name(), asString(field, obj)))
-                .filter(pair -> null == pair.getKey() || null == pair.getValue())
+                .filter(pair -> StringUtils.isAnyEmpty(pair.getKey(), pair.getValue()))
                 .collect(Collectors.toMap(Pair::getKey, Pair::getValue, throwingMerger(), TreeMap::new));
     }
 
