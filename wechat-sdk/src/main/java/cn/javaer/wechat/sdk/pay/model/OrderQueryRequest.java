@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
 
 /**
  * 微信支付-查询订单-请求.
@@ -51,6 +52,8 @@ public class OrderQueryRequest extends BasePayRequest {
      * @return OrderQueryRequest
      */
     public static OrderQueryRequest create(final String outTradeNo) {
+        Objects.requireNonNull(outTradeNo);
+
         final OrderQueryRequest request = new OrderQueryRequest();
         request.outTradeNo = outTradeNo;
         request.configureAndSign();
