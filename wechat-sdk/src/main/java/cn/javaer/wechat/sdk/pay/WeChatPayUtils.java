@@ -23,6 +23,7 @@ import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -36,7 +37,9 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * 微信支付工具类.
@@ -57,7 +60,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-        @NotNull final BasePayRequest request, @NotNull final String mchKey) {
+            @NotNull final BasePayRequest request, @NotNull final String mchKey) {
 
         return generateSign(signParamsFrom(request), mchKey);
     }
@@ -72,7 +75,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-        @NotNull final BasePayResponse response, @NotNull final String mchKey) {
+            @NotNull final BasePayResponse response, @NotNull final String mchKey) {
         final SortedMap<String, String> params = signParamsFrom(response);
         final SortedMap<String, String> otherParams = response.getOtherParams();
         if (null != otherParams && !otherParams.isEmpty()) {
@@ -91,7 +94,7 @@ public class WeChatPayUtils {
      */
     @NotNull
     public static String generateSign(
-        @NotNull final SortedMap<String, String> params, @NotNull final String mchKey) {
+            @NotNull final SortedMap<String, String> params, @NotNull final String mchKey) {
 
         final StringBuilder sb = new StringBuilder();
 
@@ -112,11 +115,11 @@ public class WeChatPayUtils {
     public static void checkSuccessful(@NotNull final BasePayResponse response) {
         if (!BasePayResponse.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
-                + "', response:" + response.toString());
+                    + "', response:" + response.toString());
         }
         if (!BasePayResponse.SUCCESS.equals(response.getResultCode())) {
             throw new WeChatPayException("WeChat pay response 'result_code' is '" + response.getResultCode()
-                + "', response:" + response.toString());
+                    + "', response:" + response.toString());
         }
     }
 
@@ -143,8 +146,8 @@ public class WeChatPayUtils {
     public static boolean isSuccessful(@NotNull final BasePayResponse response, @NotNull final String mchKey) {
 
         return response.getSign().equals(WeChatPayUtils.generateSign(response, mchKey))
-            && (BasePayResponse.SUCCESS.equals(response.getReturnCode()))
-            && (BasePayResponse.SUCCESS.equals(response.getResultCode()));
+                && (BasePayResponse.SUCCESS.equals(response.getReturnCode()))
+                && (BasePayResponse.SUCCESS.equals(response.getResultCode()));
     }
 
     /**
@@ -163,16 +166,16 @@ public class WeChatPayUtils {
      *
      * @param params 已存放的动态数据
      * @param mapping 转换函数的Map, 每一个 entry 的 key 为不带数字部分的前缀, 如 'coupon_id_'.
-     *     value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherParams 的 value.
+     *         value 为转换函数 BiConsumer&lt;V, T&gt; V 为 otherParams 的 value.
      * @param newT 新对象的创建函数
      * @param <T> 要转换的目标对象的类型
      *
      * @return 转换后的 Map, key 为 末尾数字, value 为转换后的对象.
      */
     public static <T> Map<String, T> beansMapFrom(
-        @NotNull final SortedMap<String, String> params,
-        @NotNull final Map<String, BiConsumer<String, T>> mapping,
-        @NotNull final Supplier<T> newT) {
+            @NotNull final SortedMap<String, String> params,
+            @NotNull final Map<String, BiConsumer<String, T>> mapping,
+            @NotNull final Supplier<T> newT) {
 
         final Map<String, T> rtMap = new HashMap<>();
         for (final Map.Entry<String, String> entry : params.entrySet()) {
@@ -197,9 +200,9 @@ public class WeChatPayUtils {
     }
 
     public static <T> List<T> beansFrom(
-        @NotNull final SortedMap<String, String> params,
-        @NotNull final Map<String, BiConsumer<String, T>> mapping,
-        @NotNull final Supplier<T> newT) {
+            @NotNull final SortedMap<String, String> params,
+            @NotNull final Map<String, BiConsumer<String, T>> mapping,
+            @NotNull final Supplier<T> newT) {
 
         return new ArrayList<>(beansMapFrom(params, mapping, newT).values());
     }
@@ -232,24 +235,20 @@ public class WeChatPayUtils {
 
     private static SortedMap<String, String> signParamsFrom(final Object obj) {
         final Class<?> clazz = obj.getClass();
-        final List<Field> fields = CACHE_FOR_SIGN.computeIfAbsent(
-            clazz,
-            clazz0 -> FieldUtils.getFieldsListWithAnnotation(clazz0, XmlElement.class));
-
+        final List<Field> fields = CACHE_FOR_SIGN.computeIfAbsent(clazz, clazz0 ->
+                FieldUtils.getFieldsListWithAnnotation(clazz0, XmlElement.class));
         Validate.notEmpty(fields);
 
-        final SortedMap<String, String> params = new TreeMap<>();
-        for (final Field field : fields) {
-            if (null != field.getAnnotation(SignIgnore.class)) {
-                continue;
-            }
-            final String val = asString(field, obj);
-            if (null == val || val.isEmpty()) {
-                continue;
-            }
-            final String name = field.getAnnotation(XmlElement.class).name();
-            params.put(name, val);
-        }
-        return params;
+        return fields.stream()
+                .filter(field -> null != field.getAnnotation(SignIgnore.class))
+                .map(field -> Pair.of(field.getAnnotation(XmlElement.class).name(), asString(field, obj)))
+                .filter(pair -> null == pair.getKey() || null == pair.getValue())
+                .collect(Collectors.toMap(Pair::getKey, Pair::getValue, throwingMerger(), TreeMap::new));
+    }
+
+    private static <T> BinaryOperator<T> throwingMerger() {
+        return (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", u));
+        };
     }
 }
