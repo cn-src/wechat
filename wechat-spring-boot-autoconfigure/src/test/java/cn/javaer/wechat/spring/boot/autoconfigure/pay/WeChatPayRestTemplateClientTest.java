@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
-import static cn.javaer.wechat.sdk.pay.model.WeChatPayUnifiedOrderResponseAssert.assertThat;
+import static cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponseAssert.assertThat;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
