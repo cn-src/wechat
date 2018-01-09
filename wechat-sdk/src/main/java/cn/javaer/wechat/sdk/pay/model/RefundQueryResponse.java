@@ -21,6 +21,7 @@ import cn.javaer.wechat.sdk.pay.support.SignIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -39,7 +40,7 @@ import java.util.function.BiConsumer;
  */
 @Getter
 @Setter
-@ToString(callSuper = true, exclude = {"refundMap"})
+@ToString(callSuper = true, exclude = {"refunds"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class RefundQueryResponse extends BasePayResponse {
@@ -69,45 +70,53 @@ public class RefundQueryResponse extends BasePayResponse {
     private Integer refundCount;
 
     @SignIgnore
-    private List<Refund> refundMap;
+    private List<Refund> refunds;
 
     @Override
     public void beforeSign() {
-        if (null == this.refundMap && null != this.otherParams) {
-            final Map<String, BiConsumer<String, Refund>> refundMapping = new HashMap<>(11);
-            refundMapping.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));
-            refundMapping.put("refund_id_", (val, coupon) -> coupon.setRefundId(val));
-            refundMapping.put("refund_channel_", (val, coupon) -> coupon.setRefundChannel(val));
-            refundMapping.put("refund_fee_", (val, coupon) -> coupon.setRefundFee(Integer.valueOf(val)));
-            refundMapping.put("settlement_refund_fee_",
-                (val, coupon) -> coupon.setSettlementRefundFee(Integer.valueOf(val)));
-            refundMapping.put("coupon_refund_fee_", (val, coupon) -> coupon.setCouponRefundFee(Integer.valueOf(val)));
-            refundMapping.put("coupon_refund_count_", (val, coupon) -> coupon.setCouponRefundCount(Integer.valueOf(val)));
-            refundMapping.put("refund_status_", (val, coupon) -> coupon.setRefundStatus(val));
-            refundMapping.put("refund_account_", (val, coupon) -> coupon.setRefundAccount(val));
-            refundMapping.put("refund_recv_accout_", (val, coupon) -> coupon.setRefundRecvAccout(val));
-            refundMapping.put("refund_success_time_", (val, coupon) -> coupon.setRefundSuccessTime(val));
-
-            final Map<String, Refund> refundMap = WeChatPayUtils.beansMapFrom(
-                this.otherParams, refundMapping, Refund::new);
-
-            for (final Map.Entry<String, Refund> entry : refundMap.entrySet()) {
-                final String key = entry.getKey();
-
-                final Map<String, BiConsumer<String, Coupon>> couponMapping = new HashMap<>(3);
-                couponMapping.put("coupon_type_" + key + "_",
-                    (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
-                couponMapping.put("coupon_refund_id_" + key + "_", (val, coupon) -> coupon.setId(val));
-                couponMapping.put("coupon_refund_fee_" + key + "_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-
-                final List<Coupon> couponMap = WeChatPayUtils.beansFrom(
-                    this.otherParams, couponMapping, Coupon::new);
-
-                entry.getValue().setCoupons(couponMap);
-            }
-            this.refundMap = new ArrayList<>(refundMap.values());
+        if (null == this.refunds && null != this.otherParams) {
+            final Map<String, Refund> refundsMap =
+                WeChatPayUtils.beansMapFrom(this.otherParams, createRefundMapping(), Refund::new);
+            initCoupons(refundsMap);
+            this.refunds = new ArrayList<>(refundsMap.values());
         }
+    }
 
+    private void initCoupons(final Map<String, Refund> refundMap) {
+        for (final Map.Entry<String, Refund> entry : refundMap.entrySet()) {
+            final String key = entry.getKey();
+            final List<Coupon> coupons =
+                WeChatPayUtils.beansFrom(this.otherParams, createCouponMapping(key), Coupon::new);
+            entry.getValue().setCoupons(coupons);
+        }
+    }
+
+    @NotNull
+    private Map<String, BiConsumer<String, Coupon>> createCouponMapping(final String key) {
+        final Map<String, BiConsumer<String, Coupon>> couponMapping = new HashMap<>(3);
+        couponMapping.put("coupon_type_" + key + "_",
+            (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
+        couponMapping.put("coupon_refund_id_" + key + "_", (val, coupon) -> coupon.setId(val));
+        couponMapping.put("coupon_refund_fee_" + key + "_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+        return couponMapping;
+    }
+
+    @NotNull
+    private Map<String, BiConsumer<String, Refund>> createRefundMapping() {
+        final Map<String, BiConsumer<String, Refund>> refundMapping = new HashMap<>(11);
+        refundMapping.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));
+        refundMapping.put("refund_id_", (val, coupon) -> coupon.setRefundId(val));
+        refundMapping.put("refund_channel_", (val, coupon) -> coupon.setRefundChannel(val));
+        refundMapping.put("refund_fee_", (val, coupon) -> coupon.setRefundFee(Integer.valueOf(val)));
+        refundMapping.put("settlement_refund_fee_",
+            (val, coupon) -> coupon.setSettlementRefundFee(Integer.valueOf(val)));
+        refundMapping.put("coupon_refund_fee_", (val, coupon) -> coupon.setCouponRefundFee(Integer.valueOf(val)));
+        refundMapping.put("coupon_refund_count_", (val, coupon) -> coupon.setCouponRefundCount(Integer.valueOf(val)));
+        refundMapping.put("refund_status_", (val, coupon) -> coupon.setRefundStatus(val));
+        refundMapping.put("refund_account_", (val, coupon) -> coupon.setRefundAccount(val));
+        refundMapping.put("refund_recv_accout_", (val, coupon) -> coupon.setRefundRecvAccout(val));
+        refundMapping.put("refund_success_time_", (val, coupon) -> coupon.setRefundSuccessTime(val));
+        return refundMapping;
     }
 
 }
