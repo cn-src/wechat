@@ -240,7 +240,7 @@ public class WeChatPayUtils {
                 FieldUtils.getFieldsListWithAnnotation(clazz0, XmlElement.class));
         Validate.notEmpty(fields);
 
-        final BinaryOperator<String> binaryOperator = (u, v) -> {
+        final BinaryOperator<String> mergeFunction = (u, v) -> {
             throw new IllegalStateException(String.format("Duplicate key %s", u));
         };
 
@@ -248,6 +248,6 @@ public class WeChatPayUtils {
                 .filter(field -> null != field.getAnnotation(SignIgnore.class))
                 .map(field -> Pair.of(field.getAnnotation(XmlElement.class).name(), asString(field, obj)))
                 .filter(pair -> StringUtils.isAnyEmpty(pair.getKey(), pair.getValue()))
-                .collect(Collectors.toMap(Pair::getKey, Pair::getValue, binaryOperator, TreeMap::new));
+                .collect(Collectors.toMap(Pair::getKey, Pair::getValue, mergeFunction, TreeMap::new));
     }
 }
