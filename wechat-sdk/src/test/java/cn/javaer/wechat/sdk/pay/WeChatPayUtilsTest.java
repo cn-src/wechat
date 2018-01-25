@@ -4,7 +4,9 @@ import cn.javaer.wechat.sdk.pay.model.Coupon;
 import cn.javaer.wechat.sdk.pay.model.UnifiedOrderResponse;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -37,7 +39,7 @@ public class WeChatPayUtilsTest {
     }
 
     @Test
-    public void sign4Cache() {
+    public void sign4Cache() throws Exception {
         final UnifiedOrderResponse response = new UnifiedOrderResponse();
         response.setReturnCode("SUCCESS");
         response.setReturnMsg("OK");
@@ -52,6 +54,11 @@ public class WeChatPayUtilsTest {
         WeChatPayUtils.generateSign(response, "key");
 
         assertEquals("BC884153761883FE608EA956BD05A6F5", WeChatPayUtils.generateSign(response, "key"));
+        final Field field = WeChatPayUtils.class.getDeclaredField("CACHE_FOR_SIGN");
+        field.setAccessible(true);
+        //noinspection unchecked
+        final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);
+        assertThat(cache).hasSize(1);
     }
 
     @Test
