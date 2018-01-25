@@ -102,7 +102,7 @@ public class WeChatPayUtils {
         for (final Map.Entry<String, String> entry : params.entrySet()) {
             sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
         }
-        sb.append("mchKey").append('=').append(mchKey);
+        sb.append("key").append('=').append(mchKey);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase(Locale.ENGLISH);
     }
 
@@ -245,9 +245,9 @@ public class WeChatPayUtils {
         };
 
         return fields.stream()
-                .filter(field -> null != field.getAnnotation(SignIgnore.class))
+                .filter(field -> null == field.getAnnotation(SignIgnore.class))
                 .map(field -> Pair.of(field.getAnnotation(XmlElement.class).name(), asString(field, obj)))
-                .filter(pair -> StringUtils.isAnyEmpty(pair.getKey(), pair.getValue()))
+                .filter(pair -> StringUtils.isNoneEmpty(pair.getKey(), pair.getValue()))
                 .collect(Collectors.toMap(Pair::getKey, Pair::getValue, mergeFunction, TreeMap::new));
     }
 }
