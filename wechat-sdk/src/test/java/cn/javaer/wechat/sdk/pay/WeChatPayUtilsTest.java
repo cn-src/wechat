@@ -56,8 +56,7 @@ public class WeChatPayUtilsTest {
         assertEquals("BC884153761883FE608EA956BD05A6F5", WeChatPayUtils.generateSign(response, "key"));
         final Field field = WeChatPayUtils.class.getDeclaredField("CACHE_FOR_SIGN");
         field.setAccessible(true);
-        //noinspection unchecked
-        final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);
+        @SuppressWarnings("unchecked") final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);
         assertThat(cache).hasSize(1);
     }
 
