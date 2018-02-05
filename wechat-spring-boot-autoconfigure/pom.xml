@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wechat</artifactId>
-        <groupId>cn.javaer.wechat</groupId>
+        <groupId>cn.javaer</groupId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
@@ -35,7 +35,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>cn.javaer.wechat</groupId>
+            <groupId>cn.javaer</groupId>
             <artifactId>wechat-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -47,7 +47,7 @@
         <!-- end test -->
 
         <dependency>
-            <groupId>cn.javaer.wechat</groupId>
+            <groupId>cn.javaer</groupId>
             <artifactId>wechat-sdk</artifactId>
         </dependency>
 
